@@ -5,49 +5,10 @@ import styles from './App.style';
 import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { theme } from './theme';
+import { Map, Populer, Playlist, Search, Setting } from './screen';
 
 export default function App() {
   const Tab = createBottomTabNavigator();
-
-  const PopulerScreen = () => {
-    return (
-      <View style={{ backgroundColor: theme.background, flex: 1 }}>
-        <Text>인기차트</Text>
-      </View>
-    );
-  };
-
-  const MapScreen = () => {
-    return (
-      <View style={{ backgroundColor: theme.background, flex: 1 }}>
-        <Text>지도</Text>
-      </View>
-    );
-  };
-
-  const SearchScreen = () => {
-    return (
-      <View style={{ backgroundColor: theme.background, flex: 1 }}>
-        <Text>검색</Text>
-      </View>
-    );
-  };
-
-  const PlaylistScreen = () => {
-    return (
-      <View style={{ backgroundColor: theme.background, flex: 1 }}>
-        <Text>플레이리스트</Text>
-      </View>
-    );
-  };
-
-  const SettingScreen = () => {
-    return (
-      <View style={{ backgroundColor: theme.background, flex: 1 }}>
-        <Text>설정</Text>
-      </View>
-    );
-  };
 
   return (
     <NavigationContainer>
@@ -79,7 +40,7 @@ export default function App() {
       >
         <Tab.Screen
           name="Populer"
-          component={PopulerScreen}
+          component={Populer}
           options={{
             title: '인기',
             tabBarIcon: ({ color }) => (
@@ -89,7 +50,7 @@ export default function App() {
         />
         <Tab.Screen
           name="Map"
-          component={MapScreen}
+          component={Map}
           options={{
             title: '주변',
             tabBarIcon: ({ color }) => (
@@ -99,7 +60,7 @@ export default function App() {
         />
         <Tab.Screen
           name="Search"
-          component={SearchScreen}
+          component={Search}
           options={{
             title: '검색',
             tabBarIcon: ({ color }) => (
@@ -109,7 +70,7 @@ export default function App() {
         />
         <Tab.Screen
           name="Playlist"
-          component={PlaylistScreen}
+          component={Playlist}
           options={{
             title: '리스트',
             tabBarIcon: ({ color }) => (
@@ -119,7 +80,7 @@ export default function App() {
         />
         <Tab.Screen
           name="Setting"
-          component={SettingScreen}
+          component={Setting}
           options={{
             title: '설정',
             tabBarIcon: ({ color }) => (
