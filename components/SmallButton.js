@@ -3,6 +3,7 @@ import { theme } from '../theme';
 import styles from './SmallButton.style';
 import { useState } from 'react';
 
+//TODO: 실제로 사용할 때는 인기차트 세 개의 버튼 중 하나만 클릭되어야 하므로 로직 변경 필요
 const SmallButton = ({ text }) => {
   const [isClicked, setIsClicked] = useState(false);
 
