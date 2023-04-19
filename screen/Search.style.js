@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   resultList: {
     flex: 1,
     marginTop: 24,
+    rowGap: 8,
   },
 });
 

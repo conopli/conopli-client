@@ -37,7 +37,10 @@ const Search = () => {
         <SearchButton />
         <TextInput style={styles.input} />
       </View>
-      <ScrollView style={styles.resultList}>
+      <ScrollView
+        style={styles.resultList}
+        contentContainerStyle={{ rowGap: 8 }}
+      >
         <MusicItem />
         <MusicItem />
         <MusicItem />

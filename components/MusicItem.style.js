@@ -10,14 +10,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    rowGap: 12,
+    columnGap: 12,
     borderRadius: 4,
-    marginBottom: 8,
   },
   songInfo: {
     justifyContent: 'center',
     alignItems: 'flex-start',
-    columnGap: 4,
+    rowGap: 4,
   },
   title: {
     fontSize: 16,
