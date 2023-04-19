@@ -69,6 +69,13 @@ const chart_dummy = [
     singer: '윤종신',
     cono_number: '49818',
   },
+  {
+    id: 11,
+    rate: 11,
+    title: '오르트구름',
+    singer: '윤하',
+    cono_number: '49810',
+  },
 ];
 
 export default chart_dummy;
