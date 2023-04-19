@@ -1,11 +1,12 @@
 import { Text, View, Platform } from 'react-native';
 import { theme } from '../theme';
+import { WebView } from 'react-native-webview';
 
 const Map = () => {
   return (
-    <View style={{ backgroundColor: theme.background, flex: 1 }}>
-      <Text>지도</Text>
-    </View>
+    <WebView
+      source={{ uri: 'https://map.kakao.com/?urlX=523954.0&urlY=1084098.0' }}
+    />
   );
 };
 
