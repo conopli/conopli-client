@@ -3,14 +3,13 @@ import { theme } from '../../theme';
 
 const styles = StyleSheet.create({
   container: {
-    width: 358,
+    flex: 1,
     height: 60,
     flexDirection: 'row',
     backgroundColor: theme.lightBlue,
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 4,
-    marginBottom: 8,
     paddingVertical: 9,
     paddingLeft: 16,
     paddingRight: 31,
@@ -24,12 +23,14 @@ const styles = StyleSheet.create({
     marginRight: 39,
   },
   musicbox: {
-    fontSize: 16,
+    rowGap: 4,
   },
   title: {
+    fontSize: 16,
     fontWeight: 700,
   },
   singer: {
+    fontSize: 16,
     fontWeight: 500,
   },
   number: {

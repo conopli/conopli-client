@@ -5,23 +5,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.background,
-    alignItems: 'center',
     justifyContent: 'center',
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   buttonBox: {
-    flex: 1,
-    width: '95%',
-    padding: 16,
+    marginVertical: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  listContainer: {
+    flex: 1,
+  },
   abroad: {
     flexDirection: 'row',
-    width: 156,
-  },
-  pop: {
-    marginRight: 8,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    columnGap: 8,
   },
 });
 
