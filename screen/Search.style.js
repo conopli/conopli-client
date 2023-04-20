@@ -5,12 +5,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.background,
-    paddingVertical: 24,
+    paddingTop: 24,
     paddingHorizontal: 16,
   },
   dropdown: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    alignSelf: 'flex-end',
     zIndex: 1,
   },
   picker: {
@@ -18,8 +17,21 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     paddingVertical: 8,
     minHeight: 'auto',
-    width: 'auto',
+    // width: 'auto',
     justifyContent: 'center',
+    borderWidth: 0,
+  },
+  dropdownContainer: {
+    borderWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
   },
   search: {
     flexDirection: 'row',

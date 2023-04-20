@@ -43,7 +43,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0,
   },
-  logout: {},
+  logout: {
+    height: 60,
+  },
 });
 
 export default styles;

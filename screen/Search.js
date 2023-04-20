@@ -20,7 +20,8 @@ const Search = () => {
       <View style={styles.dropdown}>
         <DropDownPicker
           style={styles.picker}
-          containerStyle={{ width: 'auto' }}
+          dropDownContainerStyle={styles.dropdownContainer}
+          containerStyle={{ width: 80 }}
           textStyle={{ fontSize: 16, fontWeight: 'bold' }}
           arrowIconContainerStyle={{ marginLeft: 4 }}
           tickIconContainerStyle={{ marginLeft: 4 }}
