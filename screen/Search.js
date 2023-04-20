@@ -21,7 +21,7 @@ const Search = () => {
         <DropDownPicker
           style={styles.picker}
           dropDownContainerStyle={styles.dropdownContainer}
-          containerStyle={{ width: 80 }}
+          containerStyle={{ width: 80 }} // ! 드롭다운 가로 크기 고정값 필요 시, 100%일 경우 지워도 됨
           textStyle={{ fontSize: 16, fontWeight: 'bold' }}
           arrowIconContainerStyle={{ marginLeft: 4 }}
           tickIconContainerStyle={{ marginLeft: 4 }}
