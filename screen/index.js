@@ -1,7 +1,19 @@
 import Map from './Map';
 import Populer from './Populer';
-import Playlist from './Playlist';
+import ListHome from './ListHome';
 import Search from './Search';
 import Setting from './Setting';
+import Playlist from './ListHome/Playlist';
+import PlaylistDetail from './ListHome/PlaylistDetail';
+import PlaylistModify from './ListHome/PlaylistModify';
 
-export { Map, Populer, Playlist, Search, Setting };
+export {
+  Map,
+  Populer,
+  ListHome,
+  Search,
+  Setting,
+  Playlist,
+  PlaylistDetail,
+  PlaylistModify,
+};
