@@ -1,4 +1,4 @@
-import { Text, View, Platform, TextInput } from 'react-native';
+import { Text, View } from 'react-native';
 import styles from './MusicItem.style';
 
 const MusicItem = () => {

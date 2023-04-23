@@ -1,8 +1,6 @@
-import { Text, View, Platform } from 'react-native';
 import { theme } from '../theme';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Playlist, PlaylistDetail, PlaylistModify } from './index';
+import { Playlist, PlaylistModify, PlaylistDetail } from './Playlist';
 
 const ListHome = () => {
   const Stack = createNativeStackNavigator();
