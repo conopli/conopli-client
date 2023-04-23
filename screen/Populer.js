@@ -1,22 +1,25 @@
-import { Text, View } from 'react-native';
 import SmallButton from '../components/SmallButton';
 import chart_dummy from '../assets/chart_dummy';
 import ListItem from '../components/popular/ListItem';
 import styles from './Populer.style.js';
-import { ScrollView } from 'react-native';
+import { Text, View, ScrollView, FlatList } from 'react-native';
 import { useState } from 'react';
 
 const Populer = () => {
-  //임시로 만든 상태라 조잡함. 이후 수정할 수 있으면 수정 필요.
+  //TODO::
+  //TouchableOpacity onPress의 이벤트 객체는 변화되는 값들만 가진다
+  //ex: {"changedTouches": [[Circular]], "identifier": 1, "locationX": 14.5, "locationY": 3, "pageX": 350.5, "pageY": 111, "target": 23, "timestamp": 2108568203.7747502, "touches": []}
+  //새로운 이벤트 객체 속성을 지정해줄 수도 없음 (name과 같은)
+  //세 버튼 중 한 버튼만 눌린 상태로 보여지도록 해야하는데 아래와 같은 로직으로 불가능
   const [clicked, setClicked] = useState([false, false, false]);
 
   const clickHandelr = (e) => {
     console.log(e.nativeEvent.target);
-    if (e.nativeEvent.target === 1409) {
+    if (e.nativeEvent.target === 5) {
       setClicked([true, false, false]);
-    } else if (e.nativeEvent.target === 1417) {
+    } else if (e.nativeEvent.target === 13) {
       setClicked([false, true, false]);
-    } else if (e.nativeEvent.target === 1425) {
+    } else if (e.nativeEvent.target === 19) {
       setClicked([false, false, true]);
     }
   };
