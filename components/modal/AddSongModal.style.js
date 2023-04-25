@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     paddingHorizontal: 14,
   },
-  modal_container: {
+  modalContainer: {
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     marginBottom: 39,
   },
-  song_box: {
+  songBox: {
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
@@ -38,29 +38,29 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingHorizontal: 12.5,
   },
-  button_box: {
+  buttonBox: {
     flexDirection: 'row',
   },
-  song_title: {
+  songTitle: {
     fontSize: 16,
     fontWeight: 700,
   },
-  song_artist: {
+  songArtist: {
     fontSize: 16,
     fontWeight: 500,
   },
-  song_number: {
+  songNumber: {
     fontSize: 20,
     fontWeight: 800,
   },
-  selected_container: {
+  selectedContainer: {
     height: 60,
     marginBottom: 40,
     justifyContent: 'center',
     alignItems: 'center',
     rowGap: 8,
   },
-  selected_title: {
+  selectedTitle: {
     fontSize: 16,
     fontWeight: 700,
   },
@@ -76,15 +76,9 @@ const styles = StyleSheet.create({
   dropdownContainer: {
     backgroundColor: theme.lightGray,
     borderWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-
-    elevation: 3,
+  },
+  pickerContainer: {
+    zIndex: 1,
   },
 });
 
