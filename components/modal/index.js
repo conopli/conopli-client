@@ -1,3 +1,4 @@
-import AddSongModal from './AddSongModal';
+import AddSongModal from './AddSongModal.js';
+import ConfirmModal from './ConfirmModal.js';
 
-export { AddSongModal };
+export { AddSongModal, ConfirmModal };
