@@ -8,6 +8,13 @@ import DropDownPicker from 'react-native-dropdown-picker';
 //song_container에 box-shadow 주기
 //dropDownPicker의 dropDown 부분 버튼 뒤로 씹히는 문제 해결 (모달을 새로 만들거나, 드롭다운을 새로 만들거나...)
 
+//props인 selectedSong 형식
+// const selectedSong = {
+//   title: '오르트 구름',
+//   artist: '윤하',
+//   number: '10040',
+// };
+
 const AddSongModal = ({ isVisible, selectedSong, handler }) => {
   const { title, artist, number } = selectedSong;
   const [open, setOpen] = useState(false);
