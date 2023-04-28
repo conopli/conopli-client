@@ -1,9 +1,9 @@
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './MusicItem.style';
 
 const MusicItem = () => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <View style={styles.songInfo}>
         <Text style={styles.title}>title</Text>
         <Text style={styles.artist}>artist</Text>
@@ -11,7 +11,7 @@ const MusicItem = () => {
       <View style={styles.num}>
         <Text style={styles.numText}>00000</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
