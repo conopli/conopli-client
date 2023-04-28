@@ -50,15 +50,15 @@ export const playlistDummy = {
   data: [
     {
       playListId: 1,
-      title: '플레이 리스트 이름',
-      color: '컬러 코드',
-      emoji: '이모지 코드',
+      title: '퇴사 말릴 때',
+      color: 1,
+      emoji: '✨',
     },
     {
-      playListId: 1,
-      title: '플레이 리스트 이름',
-      color: '컬러 코드',
-      emoji: '이모지 코드',
+      playListId: 2,
+      title: '눈물이 주룩주룩',
+      color: 6,
+      emoji: '😥',
     },
   ],
 };

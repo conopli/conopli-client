@@ -1,14 +1,19 @@
-import { Text, View, Platform } from 'react-native';
-import { theme } from '../../theme';
+import { Text, View, FlatList } from 'react-native';
 import styles from './Playlist.style';
 import { PlaylistItem } from '../../components';
-import { useEffect } from 'react';
+import { playlistDummy } from '../../util';
 
 const Playlist = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>플레이리스트 홈</Text>
-      <PlaylistItem navigation={navigation} />
+      <FlatList
+        data={playlistDummy.data}
+        renderItem={(props) => (
+          <PlaylistItem {...props} navigation={navigation} />
+        )}
+        contentContainerStyle={{ rowGap: 8 }}
+      />
     </View>
   );
 };

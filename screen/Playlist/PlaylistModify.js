@@ -1,14 +1,16 @@
-import { useEffect } from 'react';
-import { Text, View, ScrollView } from 'react-native';
-import { theme } from '../../theme';
+import { useEffect, useState } from 'react';
+import { View, ScrollView, FlatList } from 'react-native';
 import styles from './PlaylistModify.style';
 import {
   BackButton,
   ConfirmModifyButton,
   ModifyMusicItem,
 } from '../../components/Playlist';
+import { detailDummy } from '../../util';
 
 const PlaylistModify = ({ navigation }) => {
+  const [select, setSelect] = useState([]);
+
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -31,9 +33,14 @@ const PlaylistModify = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.playlist} contentContainerStyle={{ rowGap: 8 }}>
-        <ModifyMusicItem />
-      </ScrollView>
+      <FlatList
+        style={styles.playlist}
+        contentContainerStyle={{ rowGap: 8 }}
+        data={detailDummy.data}
+        renderItem={(props) => (
+          <ModifyMusicItem {...props} select={select} setSelect={setSelect} />
+        )}
+      />
     </View>
   );
 };

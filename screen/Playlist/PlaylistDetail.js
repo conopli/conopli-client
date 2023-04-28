@@ -1,9 +1,16 @@
 import { useEffect } from 'react';
-import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import { MusicItem } from '../../components';
 import { theme } from '../../theme';
 import styles from './PlaylistDetail.style';
 import { BackButton, ModifyButton } from '../../components/Playlist';
+import { detailDummy } from '../../util';
 
 const PlaylistDetail = ({ navigation }) => {
   useEffect(() => {
@@ -27,19 +34,12 @@ const PlaylistDetail = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.playlist} contentContainerStyle={{ rowGap: 8 }}>
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-      </ScrollView>
+      <FlatList
+        style={styles.playlist}
+        contentContainerStyle={{ rowGap: 8 }}
+        data={detailDummy.data}
+        renderItem={MusicItem}
+      />
     </View>
   );
 };

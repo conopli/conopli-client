@@ -2,19 +2,21 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { playlistColor } from '../../theme';
 import styles from './PlaylistItem.style';
 
-const PlaylistItem = ({ navigation }) => {
+const PlaylistItem = ({ navigation, item }) => {
+  const { color, emoji, title } = item;
+
   return (
     <TouchableOpacity
-      style={[styles.container, { backgroundColor: playlistColor[1] }]}
+      style={[styles.container, { backgroundColor: playlistColor[color] }]}
       onPress={() => {
         navigation.push('Detail');
       }}
     >
       <View style={styles.iconContainer}>
-        <Text style={styles.icon}>✨</Text>
+        <Text style={styles.icon}>{emoji}</Text>
       </View>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>퇴사 말릴때</Text>
+        <Text style={styles.title}>{title}</Text>
       </View>
     </TouchableOpacity>
   );
