@@ -4,9 +4,14 @@ import { theme } from '../../theme';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: theme.background,
+    paddingTop: 16,
+    paddingHorizontal: 16,
+  },
+  playlist: {
+    flex: 1,
+    paddingBottom: 16,
+    rowGap: 8,
   },
 });
 

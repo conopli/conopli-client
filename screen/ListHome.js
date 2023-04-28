@@ -4,6 +4,7 @@ import { Playlist, PlaylistModify, PlaylistDetail } from './Playlist';
 
 const ListHome = () => {
   const Stack = createNativeStackNavigator();
+
   return (
     <Stack.Navigator
       initialRouteName="Playlist"
@@ -14,9 +15,10 @@ const ListHome = () => {
         headerTitleStyle: {
           fontSize: 24,
           fontWeight: '700',
-          color: theme.white,
         },
         headerTitleAlign: 'center',
+        headerTintColor: theme.white,
+        animation: 'slide_from_right',
       }}
     >
       <Stack.Screen
