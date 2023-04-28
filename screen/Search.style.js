@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     paddingVertical: 8,
     minHeight: 'auto',
-    // width: 'auto',
     justifyContent: 'center',
     borderWidth: 0,
   },
@@ -35,12 +34,28 @@ const styles = StyleSheet.create({
   },
   search: {
     flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+  inputContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    marginLeft: 8,
+    position: 'relative',
   },
   input: {
-    backgroundColor: theme.gray,
+    backgroundColor: theme.lightGray,
     flex: 1,
     borderRadius: 4,
-    marginLeft: 8,
+    paddingHorizontal: 12,
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingRight: 44,
+  },
+  searchIcon: {
+    position: 'absolute',
+    right: 0,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
   },
   resultList: {
     flex: 1,

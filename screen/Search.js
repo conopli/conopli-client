@@ -1,9 +1,11 @@
 import { View, TextInput, ScrollView } from 'react-native';
 import styles from './Search.style';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import SearchButton from '../components/SearchButton';
 import MusicItem from '../components/MusicItem';
+import { MaterialIcons } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native';
 
 const Search = () => {
   const [open, setOpen] = useState(false);
@@ -13,6 +15,13 @@ const Search = () => {
     { label: '영어', value: 'pop' },
     { label: '일본', value: 'jpop' },
   ]);
+
+  const [textValue, setTextValue] = useState('');
+  const inputRef = useRef(null);
+  const searchInputHander = () => {
+    console.log('검색: ', textValue);
+    inputRef.current.blur();
+  };
 
   //! 후에 더미데이터로 작업 시 FlatList 사용할 것
   return (
@@ -36,7 +45,24 @@ const Search = () => {
       </View>
       <View style={styles.search}>
         <SearchButton />
-        <TextInput style={styles.input} />
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="제목으로 검색하세요"
+            value={textValue}
+            onChangeText={setTextValue}
+            onSubmitEditing={searchInputHander}
+            ref={inputRef}
+          />
+          <TouchableOpacity style={styles.searchIcon}>
+            <MaterialIcons
+              name="search"
+              size={28}
+              color="black"
+              onPress={searchInputHander}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <ScrollView
         style={styles.resultList}
