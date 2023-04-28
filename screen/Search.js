@@ -1,4 +1,4 @@
-import { View, TextInput, ScrollView } from 'react-native';
+import { View, TextInput, ScrollView, FlatList } from 'react-native';
 import styles from './Search.style';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState, useRef } from 'react';
@@ -6,6 +6,7 @@ import SearchButton from '../components/SearchButton';
 import MusicItem from '../components/MusicItem';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
+import { searchDummy } from '../util';
 
 const Search = () => {
   const [open, setOpen] = useState(false);
@@ -64,22 +65,13 @@ const Search = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <ScrollView
+
+      <FlatList
         style={styles.resultList}
+        data={searchDummy.data}
+        renderItem={MusicItem}
         contentContainerStyle={{ rowGap: 8 }}
-      >
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-        <MusicItem />
-      </ScrollView>
+      />
     </View>
   );
 };
