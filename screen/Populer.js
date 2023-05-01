@@ -1,6 +1,6 @@
 import SmallButton from '../components/SmallButton';
 import chart_dummy from '../assets/chart_dummy';
-import ListItem from '../components/popular/ListItem';
+import ListItem from '../components/Popular/ListItem';
 import styles from './Populer.style.js';
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { useState } from 'react';
