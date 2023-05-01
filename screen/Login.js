@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Platform } from 'react-native';
 import styles from './Login.style.js';
-import AuthButton from '../components/login/AuthButton.js';
+import AuthButton from '../components/Login/AuthButton.js';
 
 const Login = () => {
   return (
