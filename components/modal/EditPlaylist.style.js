@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: theme.white,
     borderRadius: 16,
-    height: 224,
+    height: 269,
     padding: 40,
   },
   title: {
