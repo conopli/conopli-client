@@ -25,21 +25,11 @@ const styles = StyleSheet.create({
   },
   songBox: {
     flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: 60,
-    flexDirection: 'row',
-    borderRadius: 4,
     marginBottom: 40,
-    borderColor: theme.black,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    paddingVertical: 9,
-    paddingHorizontal: 12.5,
   },
   buttonBox: {
     flexDirection: 'row',
+    zIndex: -1,
   },
   songTitle: {
     fontSize: 16,
@@ -77,9 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.lightGray,
     borderWidth: 0,
   },
-  pickerContainer: {
-    zIndex: 1,
-  },
+  pickerContainer: { zIndex: 1 },
 });
 
 export default styles;
