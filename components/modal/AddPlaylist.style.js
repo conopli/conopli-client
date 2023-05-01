@@ -58,15 +58,16 @@ const styles = StyleSheet.create({
   colorContainer: {
     marginVertical: 40,
     width: '100%',
-    rowGap: 8,
+    rowGap: 16,
+    alignItems: 'center',
   },
   colorText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   colorSelectBox: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     rowGap: 12,
     columnGap: 12,
     flexWrap: 'wrap',
