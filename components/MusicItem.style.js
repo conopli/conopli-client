@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   songInfo: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
     rowGap: 4,
@@ -30,9 +31,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
+    paddingRight: 12,
   },
   artist: {
     fontSize: 16,
+    paddingRight: 12,
   },
   num: {
     justifyContent: 'center',
