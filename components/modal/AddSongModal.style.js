@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   },
   buttonBox: {
     flexDirection: 'row',
+    zIndex: -1,
   },
   songTitle: {
     fontSize: 16,

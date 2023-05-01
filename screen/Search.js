@@ -7,6 +7,7 @@ import MusicItem from '../components/MusicItem';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import { searchDummy } from '../util';
+import { theme } from '../theme.js';
 
 const Search = () => {
   const [open, setOpen] = useState(false);
@@ -50,6 +51,7 @@ const Search = () => {
           <TextInput
             style={styles.input}
             placeholder="제목으로 검색하세요"
+            placeholderTextColor={theme.gray}
             value={textValue}
             onChangeText={setTextValue}
             onSubmitEditing={searchInputHander}
