@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Text, View } from 'react-native';
 import styles from './ConfirmModal.style.js';
-import RowButton from '../RowButton.js';
+import { RowButton } from '../index.js';
 
 //곡 추가 확인 시와 보관함 수정 후 확인 시 사용 가능
 

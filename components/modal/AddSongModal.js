@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Text, View } from 'react-native';
 import styles from './AddSongModal.style.js';
-import RowButton from '../RowButton.js';
+import { RowButton } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 //TODO::
