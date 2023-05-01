@@ -5,7 +5,7 @@ import styles from './App.style';
 import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { theme } from './theme';
-import { Map, Populer, Playlist, Search, Setting } from './screen';
+import { Map, Populer, ListHome, Search, Setting } from './screen';
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -69,13 +69,14 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Playlist"
-          component={Playlist}
+          name="ListHome"
+          component={ListHome}
           options={{
             title: '리스트',
             tabBarIcon: ({ color }) => (
               <FontAwesome5 name="music" size={20} color={color} />
             ),
+            headerShown: false,
           }}
         />
         <Tab.Screen

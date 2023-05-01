@@ -11,3 +11,24 @@ export const theme = {
   violet: '#EEE5FF',
   red: '#BF2A2A',
 };
+
+export const playlistColor = {
+  1: '#FFCDD2',
+  2: '#F8BBD0',
+  3: '#FFCCBC',
+  4: '#E1BEE7',
+  5: '#D1C4E9',
+  6: '#C5CAE9',
+  7: '#C8E6C9',
+  8: '#DCEDC8',
+  9: '#F0F4C3',
+  10: '#FFF9C4',
+  11: '#FFECB3',
+  12: '#FFE0B2',
+  13: '#B3E5FC',
+  14: '#B2EBF2',
+  15: '#BBDEFB',
+  16: '#B2DFDB',
+  17: '#D7CCC8',
+  18: '#F5F5F5',
+};
