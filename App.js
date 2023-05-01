@@ -42,7 +42,7 @@ export default function App() {
           name="Populer"
           component={Populer}
           options={{
-            title: '인기',
+            title: '노래방 인기 차트',
             tabBarIcon: ({ color }) => (
               <FontAwesome5 name="hotjar" size={20} color={color} />
             ),
