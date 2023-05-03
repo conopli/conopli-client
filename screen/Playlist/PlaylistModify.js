@@ -4,12 +4,15 @@ import styles from './PlaylistModify.style';
 import {
   BackButton,
   ConfirmModifyButton,
+  ModifyListButton,
   ModifyMusicItem,
 } from '../../components/Playlist';
 import { detailDummy } from '../../util';
 
 const PlaylistModify = ({ navigation }) => {
+  const [items, setItems] = useState(detailDummy.data);
   const [select, setSelect] = useState([]);
+  const [deleteItems, setDeleteItems] = useState([]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -31,12 +34,31 @@ const PlaylistModify = ({ navigation }) => {
     });
   });
 
+  const selectAllHandler = () => {
+    setSelect(items.map((el) => el.userMusicId));
+  };
+
+  const deleteItemHandler = () => {
+    setDeleteItems((prev) => {
+      const newList = [...prev, ...select];
+      setItems((prev) =>
+        prev.filter((el) => !newList.includes(el.userMusicId)),
+      );
+      setSelect([]);
+      return newList;
+    });
+  };
+
   return (
     <View style={styles.container}>
+      <View style={styles.btnContainer}>
+        <ModifyListButton type="select" onPress={selectAllHandler} />
+        <ModifyListButton type="delete" onPress={deleteItemHandler} />
+      </View>
       <FlatList
         style={styles.playlist}
         contentContainerStyle={{ rowGap: 8 }}
-        data={detailDummy.data}
+        data={items}
         renderItem={(props) => (
           <ModifyMusicItem {...props} select={select} setSelect={setSelect} />
         )}

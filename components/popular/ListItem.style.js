@@ -8,30 +8,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: theme.lightBlue,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     borderRadius: 4,
-    paddingVertical: 9,
-    paddingLeft: 16,
-    paddingRight: 31,
   },
   leftbox: {
+    flex: 1,
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   rate: {
     fontSize: 32,
     fontWeight: '800',
-    marginRight: 39,
+    fontStyle: 'italic',
   },
   musicbox: {
+    flex: 3,
     rowGap: 4,
   },
   title: {
     fontSize: 16,
     fontWeight: 700,
+    paddingRight: 12,
   },
   singer: {
     fontSize: 16,
     fontWeight: 500,
+    paddingRight: 12,
+  },
+  numbox: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingRight: 16,
   },
   number: {
     fontSize: 20,

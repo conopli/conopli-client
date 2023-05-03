@@ -12,8 +12,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     columnGap: 12,
     borderRadius: 4,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+
+    elevation: 1,
   },
   songInfo: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
     rowGap: 4,
@@ -21,9 +31,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
+    paddingRight: 12,
   },
   artist: {
     fontSize: 16,
+    paddingRight: 12,
   },
   num: {
     justifyContent: 'center',

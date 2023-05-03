@@ -3,6 +3,7 @@ import { Modal, Text, View } from 'react-native';
 import styles from './AddSongModal.style.js';
 import { RowButton } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
+import MusicItem from '../MusicItem.js';
 
 //TODO::
 //song_container에 box-shadow 주기
@@ -10,12 +11,12 @@ import DropDownPicker from 'react-native-dropdown-picker';
 //props인 selectedSong 형식
 // const selectedSong = {
 //   title: '오르트 구름',
-//   artist: '윤하',
-//   number: '10040',
+//   singer: '윤하',
+//   num: '10040',
 // };
 
 const AddSongModal = ({ isVisible, setIsVisible, selectedSong, handler }) => {
-  const { title, artist, number } = selectedSong;
+  const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('기본 플레이리스트');
   const [items, setItems] = useState([
@@ -30,11 +31,7 @@ const AddSongModal = ({ isVisible, setIsVisible, selectedSong, handler }) => {
         <View style={styles.modalContainer}>
           <Text style={styles.title}>노래 추가</Text>
           <View style={styles.songBox}>
-            <View style={styles.songInfo}>
-              <Text style={styles.songTitle}>{title}</Text>
-              <Text style={styles.songArtist}>{artist}</Text>
-            </View>
-            <Text style={styles.songNumber}>{number}</Text>
+            <MusicItem item={selectedSong} />
           </View>
           <View style={styles.selectedContainer}>
             <Text style={styles.selectedTitle}>플레이리스트 선택</Text>
