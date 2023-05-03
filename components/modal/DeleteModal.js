@@ -1,27 +1,33 @@
 import React from 'react';
 import { Modal, Text, View } from 'react-native';
-import styles from './ConfirmModal.style.js';
+import styles from './DeleteModal.style.js';
 import { RowButton } from '../index.js';
 
-//곡 추가 확인 시와 보관함 수정 후 확인 시 사용 가능
+//보관함 삭제 시 사용
 
-const ConfirmModal = ({ title, subTitle, buttonText, isVisible, handler }) => {
+const DeleteModal = ({ isVisible, setIsVisible, handler }) => {
   return (
     <Modal animationType="fade" transparent={true} visible={isVisible}>
       <View style={styles.backdrop}>
         <View style={styles.modalContainer}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subTitle}>{subTitle}</Text>
+          <Text style={styles.title}>삭제하시겠습니까?</Text>
+          <Text style={styles.subTitle}>삭제 후에는 되돌릴 수 없습니다.</Text>
           <View style={styles.buttonBox}>
             <View style={{ flex: 1, marginRight: 8, height: 40 }}>
-              <RowButton text={buttonText} color="lime" />
+              <RowButton
+                text="삭제하기"
+                color="red"
+                buttonHandler={() => {
+                  handler();
+                }}
+              />
             </View>
             <View style={{ flex: 1, height: 40 }}>
               <RowButton
                 text="취소"
                 color="gray"
                 buttonHandler={() => {
-                  handler();
+                  setIsVisible((prev) => !prev);
                 }}
               />
             </View>
@@ -32,4 +38,4 @@ const ConfirmModal = ({ title, subTitle, buttonText, isVisible, handler }) => {
   );
 };
 
-export default ConfirmModal;
+export default DeleteModal;

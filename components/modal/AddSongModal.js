@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Modal, Text, View } from 'react-native';
 import styles from './AddSongModal.style.js';
-import RowButton from '../RowButton.js';
+import { RowButton } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MusicItem from '../MusicItem.js';
 
 //TODO::
 //song_container에 box-shadow 주기
-//dropDownPicker의 dropDown 부분 버튼 뒤로 씹히는 문제 해결 (모달을 새로 만들거나, 드롭다운을 새로 만들거나...)
 
 //props인 selectedSong 형식
 // const selectedSong = {
