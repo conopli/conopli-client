@@ -5,9 +5,17 @@ import { MaterialIcons } from '@expo/vector-icons';
 const ModifyMusicItem = ({ item, select, setSelect }) => {
   const { title, singer, userMusicId } = item;
 
-  //! select 기능 구현 필요
+  const selectHandler = () => {
+    if (!select.includes(userMusicId))
+      setSelect((prev) => [...prev, userMusicId]);
+    else setSelect((prev) => prev.filter((el) => el !== userMusicId));
+  };
+
   return (
-    <TouchableOpacity style={[styles.container]}>
+    <TouchableOpacity
+      style={[styles.container, select.includes(userMusicId) && styles.select]}
+      onPress={selectHandler}
+    >
       <View style={styles.songInfo}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.artist}>{singer}</Text>

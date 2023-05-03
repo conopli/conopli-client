@@ -8,6 +8,11 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingHorizontal: 16,
   },
+  btnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
   playlist: {
     flex: 1,
     paddingBottom: 16,
