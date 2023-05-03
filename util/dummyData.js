@@ -747,9 +747,9 @@ export const detailDummy = {
       orderNum: 1,
     },
     {
-      userMusicId: '1',
-      playListId: '1',
-      musicId: '1',
+      userMusicId: '2',
+      playListId: '2',
+      musicId: '2',
       num: '44444',
       title: '노래 제목',
       singer: '가수',
