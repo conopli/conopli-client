@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: theme.white,
     borderRadius: 16,
-    height: 224,
+    height: 269,
     padding: 40,
   },
   title: {
@@ -16,13 +16,16 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     marginBottom: 16,
   },
-  subTitle: {
-    fontSize: 16,
-    fontWeight: 500,
-    marginBottom: 40,
-  },
+
   buttonBox: {
-    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    rowGap: 8,
+  },
+  buttonItem: {
+    height: 40,
+    width: '100%',
   },
 });
 
