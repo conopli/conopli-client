@@ -1,48 +1,54 @@
 import React from 'react';
-import { Modal, Text, View } from 'react-native';
-import styles from './EditPlaylist.style.js';
+import { Text, View } from 'react-native';
+import styles from './EditPlaylistModal.style.js';
 import { RowButton } from '../index.js';
+import { useResetRecoilState } from 'recoil';
+import ModalState from '../../recoil/modal.js';
 
 //플레이리스트 longPress시 뜨는 모달창
 
-const EditPlaylistModal = ({ isVisible, setIsVisible, handler }) => {
+const EditPlaylistModal = ({ editHandler, deleteHandler }) => {
+  const reset = useResetRecoilState(ModalState);
+
   return (
-    <Modal visible={isVisible} animationType="fade" transparent={true}>
-      <View style={styles.backdrop}>
-        <View style={styles.modalContainer}>
-          <Text style={styles.title}>플레이리스트 편집</Text>
-          <View style={styles.buttonBox}>
-            <View style={styles.buttonItem}>
-              <RowButton
-                text="수정"
-                color="lime"
-                buttonHandler={() => {
-                  handler();
-                }}
-              />
-            </View>
-            <View style={styles.buttonItem}>
-              <RowButton
-                text="삭제"
-                color="red"
-                buttonHandler={() => {
-                  setIsVisible((prev) => !prev);
-                }}
-              />
-            </View>
-            <View style={styles.buttonItem}>
-              <RowButton
-                text="취소"
-                color="gray"
-                buttonHandler={() => {
-                  handler();
-                }}
-              />
-            </View>
-          </View>
+    <View
+      style={styles.modalContainer}
+      onStartShouldSetResponder={(event) => true}
+      onTouchEnd={(e) => {
+        e.stopPropagation();
+      }}
+    >
+      <Text style={styles.title}>플레이리스트 편집</Text>
+      <View style={styles.buttonBox}>
+        <View style={styles.buttonItem}>
+          <RowButton
+            text="수정"
+            color="lime"
+            buttonHandler={() => {
+              editHandler();
+            }}
+          />
+        </View>
+        <View style={styles.buttonItem}>
+          <RowButton
+            text="삭제"
+            color="red"
+            buttonHandler={() => {
+              deleteHandler();
+            }}
+          />
+        </View>
+        <View style={styles.buttonItem}>
+          <RowButton
+            text="취소"
+            color="gray"
+            buttonHandler={() => {
+              reset();
+            }}
+          />
         </View>
       </View>
-    </Modal>
+    </View>
   );
 };
 

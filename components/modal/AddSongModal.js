@@ -3,6 +3,8 @@ import { Modal, Text, View } from 'react-native';
 import styles from './AddSongModal.style.js';
 import { RowButton } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useResetRecoilState } from 'recoil';
+import ModalState from '../../recoil/modal.js';
 import MusicItem from '../MusicItem.js';
 
 //TODO::
@@ -15,7 +17,8 @@ import MusicItem from '../MusicItem.js';
 //   num: '10040',
 // };
 
-const AddSongModal = ({ isVisible, setIsVisible, selectedSong, handler }) => {
+const AddSongModal = ({ selectedSong, handler }) => {
+  const reset = useResetRecoilState(ModalState);
   const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('기본 플레이리스트');
@@ -26,8 +29,6 @@ const AddSongModal = ({ isVisible, setIsVisible, selectedSong, handler }) => {
   ]);
 
   return (
-    <Modal animationType="fade" transparent={true} visible={isVisible}>
-      <View style={styles.backdrop}>
         <View style={styles.modalContainer}>
           <Text style={styles.title}>노래 추가</Text>
           <View style={styles.songBox}>
@@ -67,14 +68,12 @@ const AddSongModal = ({ isVisible, setIsVisible, selectedSong, handler }) => {
                 text="취소"
                 color="gray"
                 buttonHandler={() => {
-                  setIsVisible((prev) => !prev);
+                  reset();
                 }}
               />
             </View>
           </View>
         </View>
-      </View>
-    </Modal>
   );
 };
 
