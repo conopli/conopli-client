@@ -38,7 +38,7 @@ const PlaylistDetail = ({ navigation }) => {
         style={styles.playlist}
         contentContainerStyle={{ rowGap: 8 }}
         data={detailDummy.data}
-        renderItem={MusicItem}
+        renderItem={({ item }) => <MusicItem item={item} />}
       />
     </View>
   );

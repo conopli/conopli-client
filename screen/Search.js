@@ -8,6 +8,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import { searchDummy } from '../util';
 import { theme } from '../theme.js';
+import ModalState from '../recoil/modal';
+import { useSetRecoilState } from 'recoil';
 
 const Search = () => {
   const [open, setOpen] = useState(false);
@@ -71,7 +73,7 @@ const Search = () => {
       <FlatList
         style={styles.resultList}
         data={searchDummy.data}
-        renderItem={MusicItem}
+        renderItem={({ item }) => <MusicItem item={item} />}
         contentContainerStyle={{ rowGap: 8 }}
       />
     </View>
