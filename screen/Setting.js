@@ -1,12 +1,22 @@
-import { Text, View } from 'react-native';
+import { Alert, Text, ToastAndroid, View } from 'react-native';
 import { useState } from 'react';
 import styles from './Setting.style';
 import RowButton from '../components/RowButton';
 import CheckBox from 'expo-checkbox';
 import { theme } from '../theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import userInfo from '../recoil/userInfo';
+import { useResetRecoilState } from 'recoil';
 
 const Setting = () => {
   const [geo, setGeo] = useState(false);
+  const resetUserInfo = useResetRecoilState(userInfo);
+
+  const logoutHandler = async () => {
+    await AsyncStorage.clear();
+    resetUserInfo();
+    console.log('logout');
+  };
 
   return (
     <View style={styles.container}>
@@ -37,11 +47,7 @@ const Setting = () => {
         </View>
       </View>
       <View style={styles.logout}>
-        <RowButton
-          text="로그아웃"
-          color="red"
-          buttonHandler={() => console.log('logout')}
-        />
+        <RowButton text="로그아웃" color="red" buttonHandler={logoutHandler} />
       </View>
     </View>
   );

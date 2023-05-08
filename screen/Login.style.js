@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     rowGap: 60,
   },
   login_text: {
-    flex: 0.03,
+    flex: 0.05,
     justifyContent: 'center',
     alignItems: 'center',
     color: theme.white,
