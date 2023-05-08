@@ -7,6 +7,7 @@ import {
   DeleteModal,
   EditPlaylistModal,
   AddPlaylistModal,
+  AlertModal,
 } from './index.js';
 import styles from './GlobalModal.style';
 
@@ -20,6 +21,7 @@ const GlobalModal = () => {
     addSong: <AddSongModal {...props} />,
     confirm: <ConfirmModal {...props} />,
     delete: <DeleteModal {...props} />,
+    alert: <AlertModal {...props} />,
     editPlaylist: <EditPlaylistModal {...props} />,
     addPlaylist: <AddPlaylistModal {...props} />,
   };
