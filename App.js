@@ -1,4 +1,4 @@
-import { Home } from './screen';
+import Home from './screen/Home';
 import { RecoilRoot } from 'recoil';
 
 export default function App() {
