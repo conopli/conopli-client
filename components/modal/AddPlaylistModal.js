@@ -10,6 +10,8 @@ import ModalState from '../../recoil/modal.js';
 //플레이리스트 생성 및 수정 시 사용
 
 const AddPlaylistModal = ({
+  title,
+  buttonText,
   oldName = '',
   oldIcon = '',
   oldColor = '',
@@ -18,6 +20,7 @@ const AddPlaylistModal = ({
   const reset = useResetRecoilState(ModalState);
   const [playlistName, setPlaylistName] = useState(oldName);
   const [selected, setSelected] = useState(oldColor);
+  //TODO:: 이모지 적용
 
   return (
     <View
@@ -27,7 +30,7 @@ const AddPlaylistModal = ({
         e.stopPropagation();
       }}
     >
-      <Text style={styles.title}>플레이리스트 추가</Text>
+      <Text style={styles.title}>{title}</Text>
       <View style={styles.inputContainer}>
         <TextInput style={styles.iconInput} readOnly={true} value="🖤" />
         <TextInput
@@ -44,6 +47,7 @@ const AddPlaylistModal = ({
           {Object.keys(playlistColor).map((color) => {
             return (
               <TouchableOpacity
+                key={color}
                 style={
                   selected === color
                     ? {
@@ -73,7 +77,7 @@ const AddPlaylistModal = ({
       <View style={styles.buttonBox}>
         <View style={styles.buttonItem}>
           <RowButton
-            text="추가하기"
+            text={buttonText}
             color="lime"
             buttonHandler={() => {
               handler();
