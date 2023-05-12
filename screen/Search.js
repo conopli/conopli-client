@@ -8,26 +8,37 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import { searchDummy } from '../util';
 import { theme } from '../theme.js';
-import ModalState from '../recoil/modal';
-import { useSetRecoilState } from 'recoil';
+import axios from 'axios';
+import server from '../util/axios';
 
 const Search = () => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('kpop');
+  const [value, setValue] = useState('KOR');
   const [items, setItems] = useState([
-    { label: '한국', value: 'kpop' },
-    { label: '영어', value: 'pop' },
-    { label: '일본', value: 'jpop' },
+    { label: '한국', value: 'KOR' },
+    { label: '영어', value: 'ENG' },
+    { label: '일본', value: 'JPN' },
   ]);
-
+  const [searchResult, setSearchResult] = useState(searchDummy.data);
   const [textValue, setTextValue] = useState('');
+  const [filter, setFilter] = useState('제목');
+
   const inputRef = useRef(null);
-  const searchInputHander = () => {
+  const searchInputHander = async () => {
     console.log('검색: ', textValue);
+    const type = filter === '가수' ? 1 : 2;
+    try {
+      const { data } = await server.get(
+        `/api/search?searchType=${type}&searchKeyWord=${textValue}&searchNation=${value}&page=0`,
+      );
+      setSearchResult(data.data);
+      console.log(data.data);
+    } catch (error) {
+      console.log(error);
+    }
     inputRef.current.blur();
   };
 
-  //! 후에 더미데이터로 작업 시 FlatList 사용할 것
   return (
     <View style={styles.container}>
       <View style={styles.dropdown}>
@@ -48,7 +59,7 @@ const Search = () => {
         />
       </View>
       <View style={styles.search}>
-        <SearchButton />
+        <SearchButton buttonHandler={setFilter} />
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -72,7 +83,7 @@ const Search = () => {
 
       <FlatList
         style={styles.resultList}
-        data={searchDummy.data}
+        data={searchResult}
         renderItem={({ item }) => <MusicItem item={item} />}
         contentContainerStyle={{ rowGap: 8 }}
       />
