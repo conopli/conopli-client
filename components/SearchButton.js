@@ -2,14 +2,11 @@ import { Text, TouchableOpacity } from 'react-native';
 import styles from './SearchButton.style';
 import { useState } from 'react';
 
-const SearchButton = ({ buttonHandler }) => {
-  const [isClicked, setIstClicked] = useState(false);
-
+const SearchButton = ({ isClicked, setIsClicked }) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        setIstClicked((prev) => !prev);
-        buttonHandler(isClicked ? '가수' : '제목');
+        setIsClicked((prev) => !prev);
       }}
       style={styles.button}
     >

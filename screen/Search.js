@@ -21,18 +21,18 @@ const Search = () => {
   ]);
   const [searchResult, setSearchResult] = useState(searchDummy.data);
   const [textValue, setTextValue] = useState('');
-  const [filter, setFilter] = useState('제목');
+  //제목 vs 가수 필터 버튼 값
+  const [isClicked, setIsClicked] = useState(false);
 
   const inputRef = useRef(null);
   const searchInputHander = async () => {
-    console.log('검색: ', textValue);
-    const type = filter === '가수' ? 1 : 2;
+    const filter = isClicked ? 2 : 1;
     try {
       const { data } = await server.get(
-        `/api/search?searchType=${type}&searchKeyWord=${textValue}&searchNation=${value}&page=0`,
+        `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${value}&page=0`,
       );
       setSearchResult(data.data);
-      console.log(data.data);
+      setTextValue('');
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +59,7 @@ const Search = () => {
         />
       </View>
       <View style={styles.search}>
-        <SearchButton buttonHandler={setFilter} />
+        <SearchButton isClicked={isClicked} setIsClicked={setIsClicked} />
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
