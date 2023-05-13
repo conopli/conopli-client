@@ -1,14 +1,27 @@
 import { Text, View, FlatList } from 'react-native';
 import styles from './Playlist.style';
 import { PlaylistItem } from '../../components';
-import { playlistDummy } from '../../util';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { PlusButton } from '../../components/index';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
+import userInfo from '../../recoil/userInfo.js';
+import server from '../../util/axios.js';
 
 const Playlist = ({ navigation }) => {
   const setModal = useSetRecoilState(ModalState);
+  const { userId } = useRecoilValue(userInfo);
+  const [playList, setPlaylist] = useState([]);
+
+  const getPlaylist = async () => {
+    try {
+      const { data } = await server.get(`/api/user-music/playlist/${userId}`);
+      setPlaylist(data.data);
+      console.log(playList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const addPlaylist = {
     isOpen: true,
@@ -21,6 +34,10 @@ const Playlist = ({ navigation }) => {
       },
     },
   };
+
+  useEffect(() => {
+    getPlaylist();
+  }, []);
 
   useEffect(() => {
     navigation.setOptions({
@@ -36,7 +53,7 @@ const Playlist = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={playlistDummy.data}
+        data={playList}
         renderItem={(props) => (
           <PlaylistItem {...props} navigation={navigation} />
         )}

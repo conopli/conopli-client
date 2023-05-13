@@ -8,7 +8,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import { searchDummy } from '../util';
 import { theme } from '../theme.js';
-import axios from 'axios';
 import server from '../util/axios';
 
 const Search = () => {
