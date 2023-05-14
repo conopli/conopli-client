@@ -35,9 +35,11 @@ const styles = StyleSheet.create({
     color: theme.gray,
     flex: 1,
     borderRadius: 4,
-    padding: 12,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
     fontSize: 16,
     fontWeight: 'bold',
+    height: 40,
   },
   buttonBox: {
     flexDirection: 'row',
