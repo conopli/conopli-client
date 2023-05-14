@@ -60,7 +60,7 @@ const PlaylistItem = ({ navigation, item, setPlaylist }) => {
       }}
     >
       <View style={styles.iconContainer}>
-        <Text style={styles.icon}>{emoji}</Text>
+        <Text style={styles.icon}>{String.fromCodePoint(emoji)}</Text>
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
