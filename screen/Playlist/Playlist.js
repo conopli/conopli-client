@@ -1,4 +1,4 @@
-import { Text, View, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import styles from './Playlist.style';
 import { PlaylistItem } from '../../components';
 import { useEffect, useState } from 'react';
@@ -28,10 +28,9 @@ const Playlist = ({ navigation }) => {
     modalType: 'addPlaylist',
     props: {
       title: '플레이리스트 추가',
+      isEdit: false,
       buttonText: '추가하기',
-      buttonHandler: () => {
-        console.log('add playlist!');
-      },
+      setPlaylist: setPlaylist,
     },
   };
 
@@ -55,7 +54,11 @@ const Playlist = ({ navigation }) => {
       <FlatList
         data={playList}
         renderItem={(props) => (
-          <PlaylistItem {...props} navigation={navigation} />
+          <PlaylistItem
+            {...props}
+            setPlaylist={setPlaylist}
+            navigation={navigation}
+          />
         )}
         contentContainerStyle={{ rowGap: 8 }}
       />

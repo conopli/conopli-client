@@ -1,26 +1,107 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import styles from './AddPlaylistModal.style.js';
 import { RowButton } from '../index.js';
 import { playlistColor } from '../../theme.js';
 import { theme } from '../../theme.js';
-import { useResetRecoilState } from 'recoil';
+import { useResetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
+import userInfo from '../../recoil/userInfo.js';
+import server from '../../util/axios.js';
 
 //플레이리스트 생성 및 수정 시 사용
 
 const AddPlaylistModal = ({
+  playListId,
   title,
   buttonText,
+  isEdit,
+  setPlaylist,
   oldName = '',
   oldIcon = '',
   oldColor = '',
-  handler,
 }) => {
   const reset = useResetRecoilState(ModalState);
+  const { userId, Authorization } = useRecoilValue(userInfo);
   const [playlistName, setPlaylistName] = useState(oldName);
   const [selected, setSelected] = useState(oldColor);
-  //TODO:: 이모지 적용
+  const [emoji, setEmoji] = useState(oldIcon);
+
+  const submitHandler = async () => {
+    if (isEdit) {
+      //플레이리스트 수정
+      try {
+        const editData = getEditData();
+        const data = await server.patch(
+          `/api/user-music/playlist/${playListId}`,
+          editData,
+          {
+            headers: {
+              Authorization,
+            },
+          },
+        );
+        console.log(data.data);
+        setPlaylist((prev) =>
+          prev.map((item) =>
+            item.playListId === playListId ? { ...item, ...editData } : item,
+          ),
+        );
+        reset();
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      //플레이리스트 생성
+      try {
+        const data = await server.post(
+          `/api/user-music/playlist`,
+          {
+            userId: userId,
+            title: playlistName,
+            color: selected,
+            emoji: emoji,
+          },
+          {
+            headers: {
+              Authorization,
+            },
+          },
+        );
+        console.log(data.data);
+        setPlaylist((prev) => [
+          ...prev,
+          {
+            userId: userId,
+            title: playlistName,
+            color: selected,
+            emoji: emoji,
+          },
+        ]);
+        reset();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const getEditData = () => {
+    const editData = {
+      userId: userId,
+    };
+
+    if (playlistName !== oldName) {
+      editData.title = playlistName;
+    }
+    if (selected !== oldColor) {
+      editData.color = selected;
+    }
+    if (emoji !== oldIcon) {
+      editData.emoji = emoji;
+    }
+
+    return editData;
+  };
 
   return (
     <View
@@ -32,7 +113,10 @@ const AddPlaylistModal = ({
     >
       <Text style={styles.title}>{title}</Text>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.iconInput} readOnly={true} value="🖤" />
+        <EmojiSelector
+          style={styles.iconInput}
+          onEmojiSelected={(emoji) => setEmoji(emoji)}
+        />
         <TextInput
           style={styles.nameInput}
           value={playlistName}
@@ -79,9 +163,7 @@ const AddPlaylistModal = ({
           <RowButton
             text={buttonText}
             color="lime"
-            buttonHandler={() => {
-              handler();
-            }}
+            buttonHandler={submitHandler}
           />
         </View>
         <View style={styles.buttonItem}>
