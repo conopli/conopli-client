@@ -1,7 +1,7 @@
-import { Text, View, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { playlistColor } from '../../theme';
 import styles from './PlaylistItem.style';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 
 const PlaylistItem = ({ navigation, item, setPlaylist }) => {
@@ -53,7 +53,7 @@ const PlaylistItem = ({ navigation, item, setPlaylist }) => {
     <TouchableOpacity
       style={[styles.container, { backgroundColor: playlistColor[color] }]}
       onPress={() => {
-        navigation.push('Detail');
+        navigation.push('Detail', { playListId: playListId });
       }}
       onLongPress={() => {
         setModal(editModal);

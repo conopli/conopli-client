@@ -17,7 +17,6 @@ const Playlist = ({ navigation }) => {
     try {
       const { data } = await server.get(`/api/user-music/playlist/${userId}`);
       setPlaylist(data.data);
-      console.log(playList);
     } catch (error) {
       console.log(error);
     }
@@ -36,6 +35,7 @@ const Playlist = ({ navigation }) => {
 
   useEffect(() => {
     getPlaylist();
+    console.log(playList);
   }, []);
 
   useEffect(() => {
