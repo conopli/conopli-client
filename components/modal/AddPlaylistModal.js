@@ -113,9 +113,9 @@ const AddPlaylistModal = ({
     >
       <Text style={styles.title}>{title}</Text>
       <View style={styles.inputContainer}>
-        <EmojiSelector
+        <TextInput
           style={styles.iconInput}
-          onEmojiSelected={(emoji) => setEmoji(emoji)}
+          onChangeText={(emoji) => setEmoji(emoji)}
         />
         <TextInput
           style={styles.nameInput}
