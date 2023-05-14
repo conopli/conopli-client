@@ -42,11 +42,7 @@ const AddPlaylistModal = ({
           },
         );
         console.log(data.data);
-        setPlaylist((prev) =>
-          prev.map((item) =>
-            item.playListId === playListId ? { ...item, ...editData } : item,
-          ),
-        );
+        getPlaylist();
         reset();
       } catch (error) {
         console.log(error);
@@ -69,15 +65,7 @@ const AddPlaylistModal = ({
           },
         );
         console.log(data.data);
-        setPlaylist((prev) => [
-          ...prev,
-          {
-            userId: userId,
-            title: playlistName,
-            color: selected,
-            emoji: emoji,
-          },
-        ]);
+        getPlaylist();
         reset();
       } catch (error) {
         console.log(error);
@@ -101,6 +89,15 @@ const AddPlaylistModal = ({
     }
 
     return editData;
+  };
+
+  const getPlaylist = async () => {
+    try {
+      const { data } = await server.get(`/api/user-music/playlist/${userId}`);
+      setPlaylist(data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

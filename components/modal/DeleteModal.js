@@ -20,10 +20,17 @@ const DeleteModal = ({ playListId, setPlaylist }) => {
           Authorization,
         },
       });
-      setPlaylist((prev) => {
-        return prev.filter((item) => item.playListId !== playListId);
-      });
+      getPlaylist();
       reset();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPlaylist = async () => {
+    try {
+      const { data } = await server.get(`/api/user-music/playlist/${userId}`);
+      setPlaylist(data.data);
     } catch (error) {
       console.log(error);
     }
