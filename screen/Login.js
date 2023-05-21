@@ -11,11 +11,13 @@ import server from '../util/axios';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
+import userPlayList from '../recoil/userPlayList.js';
 
 WebBrowser.maybeCompleteAuthSession();
 
 const Login = ({ navigation }) => {
   const setUser = useSetRecoilState(userInfo);
+  const setPlayList = useSetRecoilState(userPlayList);
   const setModal = useSetRecoilState(ModalState);
 
   const expoAuthUri = AuthSession.makeRedirectUri({
@@ -53,6 +55,24 @@ const Login = ({ navigation }) => {
   const setUserInfo = async (Authorization, userId) => {
     setUser({ userId, Authorization });
     navigation.navigate('Populer');
+  };
+
+  const getPlayList = async (userId, Authorization) => {
+    try {
+      const { data } = await server.get(`/api/user-music/playlist/${userId}`, {
+        headers: {
+          Authorization,
+        },
+      });
+      console.log(data.data);
+      return data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setList = async (playlist) => {
+    setPlayList({ playList: playlist });
   };
 
   // * 기존 asyncStorage 방식
@@ -133,6 +153,8 @@ const Login = ({ navigation }) => {
       resultOfAccessToken,
     );
 
+    const playList = await getPlayList(userId, Authorization);
+    await setList(playList);
     await setUserInfo(Authorization, userId);
   };
 
