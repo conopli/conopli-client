@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import styles from './DeleteModal.style.js';
 import { RowButton } from '../index.js';
 import { useResetRecoilState, useRecoilValue } from 'recoil';
@@ -11,7 +11,7 @@ import userInfo from '../../recoil/userInfo.js';
 
 const DeleteModal = ({ playListId, setPlaylist }) => {
   const reset = useResetRecoilState(ModalState);
-  const { Authorization } = useRecoilValue(userInfo);
+  const { userId, Authorization } = useRecoilValue(userInfo);
 
   const deleteHandler = async () => {
     try {

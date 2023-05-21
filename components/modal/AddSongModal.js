@@ -3,19 +3,17 @@ import { Text, View } from 'react-native';
 import styles from './AddSongModal.style.js';
 import { RowButton } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useResetRecoilState } from 'recoil';
+import { useResetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
+import userPlayList from '../../recoil/userPlayList.js';
 
 const AddSongModal = ({ selectedSong, handler }) => {
   const reset = useResetRecoilState(ModalState);
+  const playList = useRecoilValue(userPlayList);
   const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('기본 플레이리스트');
-  const [items, setItems] = useState([
-    { label: '기본 플레이리스트', value: 'default' },
-    { label: '오늘은야 퇴사각', value: 'new1' },
-    { label: '눈물 뽑고픈 날', value: 'new2' },
-  ]);
+  const [value, setValue] = useState('플레이리스트 선택');
+  const [items, setItems] = useState(playList);
 
   return (
     <View
