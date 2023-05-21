@@ -1,4 +1,4 @@
-import React, { useId, useState } from 'react';
+import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import styles from './AddPlaylistModal.style.js';
 import { RowButton } from '../index.js';
@@ -8,6 +8,7 @@ import { useResetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userInfo from '../../recoil/userInfo.js';
 import server from '../../util/axios.js';
+import EmojiPicker from 'rn-emoji-keyboard';
 
 //플레이리스트 생성 및 수정 시 사용
 
@@ -26,6 +27,7 @@ const AddPlaylistModal = ({
   const [playlistName, setPlaylistName] = useState(oldName);
   const [selected, setSelected] = useState(oldColor);
   const [emoji, setEmoji] = useState(oldIcon);
+  const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
   const submitHandler = async () => {
     if (isEdit) {
@@ -110,10 +112,19 @@ const AddPlaylistModal = ({
     >
       <Text style={styles.title}>{title}</Text>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.iconInput}
-          onChangeText={(emoji) => setEmoji(emoji.codePointAt(0))}
-        />
+        <TouchableOpacity
+          style={styles.iconBox}
+          onPress={() => {
+            setIsEmojiOpen(true);
+          }}
+        >
+          <Text style={styles.icon}>{String.fromCodePoint(emoji)}</Text>
+          <EmojiPicker
+            open={isEmojiOpen}
+            onClose={() => setIsEmojiOpen(false)}
+            onEmojiSelected={({ emoji }) => setEmoji(emoji.codePointAt(0))}
+          />
+        </TouchableOpacity>
         <TextInput
           style={styles.nameInput}
           value={playlistName}

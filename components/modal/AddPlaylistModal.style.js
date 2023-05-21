@@ -21,11 +21,13 @@ const styles = StyleSheet.create({
     width: '100%',
     columnGap: 12,
   },
-  iconInput: {
+  iconBox: {
     width: 40,
     height: 40,
-    backgroundColor: theme.lightGray,
     borderRadius: 4,
+    backgroundColor: theme.lightGray,
+  },
+  icon: {
     padding: 6,
     fontSize: 28,
   },
