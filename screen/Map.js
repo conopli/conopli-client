@@ -20,13 +20,15 @@ const Map = () => {
   const setModal = useSetRecoilState(ModalState);
 
   useEffect(() => {
-    getPermission();
     getLocation();
   }, []);
 
   const { BASE_URL } = getEnv();
 
-  const getPermission = async () => {
+  const mapUri = `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`;
+  // const mapUri = 'https://conopli.github.io/map-test/';
+
+  const getLocation = async () => {
     const { granted } = await requestForegroundPermissionsAsync();
 
     console.log(granted);
@@ -45,9 +47,7 @@ const Map = () => {
 
       setModal(props);
     }
-  };
 
-  const getLocation = async () => {
     const {
       coords: { latitude, longitude },
     } = await getCurrentPositionAsync({ accuracy: 5 });
@@ -59,8 +59,9 @@ const Map = () => {
     <View style={styles.container}>
       <WebView
         source={{
-          uri: `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
+          uri: mapUri,
         }}
+        userAgent="Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3714.0 Mobile Safari/537.36"
       />
       <MapButton handler={getLocation} />
     </View>
