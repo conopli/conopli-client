@@ -4,11 +4,9 @@ import styles from './Login.style.js';
 import { AuthButton } from '../components/Login';
 import * as WebBrowser from 'expo-web-browser';
 import * as AuthSession from 'expo-auth-session';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import getEnv from '../env.js';
 import server from '../util/axios';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
 import userPlayList from '../recoil/userPlayList.js';
@@ -64,7 +62,6 @@ const Login = ({ navigation }) => {
           Authorization,
         },
       });
-      console.log(data.data);
       return data.data;
     } catch (error) {
       console.log(error);
@@ -72,7 +69,7 @@ const Login = ({ navigation }) => {
   };
 
   const setList = async (playlist) => {
-    setPlayList({ playList: playlist });
+    setPlayList({ playlist });
   };
 
   // * 기존 asyncStorage 방식
@@ -148,6 +145,7 @@ const Login = ({ navigation }) => {
     // * 실제 코드 실행
     await getAuthCode();
     if (type !== 'GOOGLE') await getAccessToken();
+
     const { Authorization, userId } = await getUserInfo(
       type,
       resultOfAccessToken,

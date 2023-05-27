@@ -4,8 +4,9 @@ import styles from './Populer.style.js';
 import { View, FlatList } from 'react-native';
 import { useState } from 'react';
 import { populerDummy } from '../util/dummyData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Populer = () => {
+const Populer = ({ navigation }) => {
   const [nation, setNation] = useState(1);
 
   return (
@@ -39,7 +40,9 @@ const Populer = () => {
         style={styles.listContainer}
         contentContainerStyle={{ rowGap: 8 }}
         data={populerDummy.data}
-        renderItem={({ item }) => <ListItem item={item} />}
+        renderItem={({ item }) => (
+          <ListItem navigation={navigation} item={item} />
+        )}
       />
     </View>
   );

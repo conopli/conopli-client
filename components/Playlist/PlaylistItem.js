@@ -4,7 +4,7 @@ import styles from './PlaylistItem.style';
 import { useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 
-const PlaylistItem = ({ navigation, item, setPlaylist }) => {
+const PlaylistItem = ({ setPlayLists, navigation, item }) => {
   const { color, emoji, title, playListId } = item;
   const setModal = useSetRecoilState(ModalState);
 
@@ -13,7 +13,6 @@ const PlaylistItem = ({ navigation, item, setPlaylist }) => {
     isOpen: true,
     modalType: 'editPlaylist',
     props: {
-      setPlaylist: setPlaylist,
       editHandler: () => {
         setModal(editPlaylist);
       },
@@ -35,7 +34,6 @@ const PlaylistItem = ({ navigation, item, setPlaylist }) => {
       oldIcon: emoji,
       oldColor: color.toString(),
       playListId: playListId,
-      setPlaylist: setPlaylist,
     },
   };
 
@@ -45,7 +43,7 @@ const PlaylistItem = ({ navigation, item, setPlaylist }) => {
     modalType: 'delete',
     props: {
       playListId: playListId,
-      setPlaylist: setPlaylist,
+      setPlayLists: setPlayLists,
     },
   };
 

@@ -2,16 +2,22 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './DeleteModal.style.js';
 import { RowButton } from '../index.js';
-import { useResetRecoilState, useRecoilValue } from 'recoil';
+import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import { server } from '../../util';
 import userInfo from '../../recoil/userInfo.js';
+import userPlayList from '../../recoil/userPlayList.js';
 
 //보관함 삭제 시 사용
 
-const DeleteModal = ({ playListId, setPlaylist }) => {
+const DeleteModal = ({ playListId, setPlayLists }) => {
   const reset = useResetRecoilState(ModalState);
+  const setNewPlayList = useSetRecoilState(userPlayList);
   const { userId, Authorization } = useRecoilValue(userInfo);
+
+  const setList = async (playlist) => {
+    setNewPlayList({ playlist: playlist });
+  };
 
   const deleteHandler = async () => {
     try {
@@ -30,7 +36,9 @@ const DeleteModal = ({ playListId, setPlaylist }) => {
   const getPlaylist = async () => {
     try {
       const { data } = await server.get(`/api/user-music/playlist/${userId}`);
-      setPlaylist(data.data);
+      setPlayLists(data.data);
+      setList(data.data);
+      console.log('after delete', data.data);
     } catch (error) {
       console.log(error);
     }

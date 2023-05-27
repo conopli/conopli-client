@@ -5,22 +5,13 @@ import { useEffect, useState } from 'react';
 import { PlusButton } from '../../components/index';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
-import userInfo from '../../recoil/userInfo.js';
-import server from '../../util/axios.js';
+import userPlayList from '../../recoil/userPlayList';
 
 const Playlist = ({ navigation }) => {
   const setModal = useSetRecoilState(ModalState);
-  const { userId } = useRecoilValue(userInfo);
-  const [playList, setPlaylist] = useState([]);
-
-  const getPlaylist = async () => {
-    try {
-      const { data } = await server.get(`/api/user-music/playlist/${userId}`);
-      setPlaylist(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { playlist } = useRecoilValue(userPlayList);
+  const [playLists, setPlayLists] = useState(playlist);
+  console.log(playLists);
 
   const addPlaylist = {
     isOpen: true,
@@ -29,14 +20,9 @@ const Playlist = ({ navigation }) => {
       title: '플레이리스트 추가',
       isEdit: false,
       buttonText: '추가하기',
-      setPlaylist: setPlaylist,
+      setPlayLists: setPlayLists,
     },
   };
-
-  useEffect(() => {
-    getPlaylist();
-    console.log(playList);
-  }, []);
 
   useEffect(() => {
     navigation.setOptions({
@@ -52,11 +38,11 @@ const Playlist = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={playList}
+        data={playLists}
         renderItem={(props) => (
           <PlaylistItem
             {...props}
-            setPlaylist={setPlaylist}
+            setPlayLists={setPlayLists}
             navigation={navigation}
           />
         )}

@@ -4,7 +4,9 @@ import styles from './ListItem.style.js';
 import ModalState from '../../recoil/modal';
 import { useSetRecoilState } from 'recoil';
 
-const ListItem = ({ item }) => {
+//TODO:: 플레이리스트 내부일 때와 내부가 아닐 때를 구분해서 사용할 수 있어야 함
+//플레이리스트 내부에서 사용될 때는 클릭이 되지 않도록 해야 함...
+const ListItem = ({ navigation, item }) => {
   const { ranking, title, singer, num } = item;
   const setModal = useSetRecoilState(ModalState);
 
@@ -17,24 +19,7 @@ const ListItem = ({ item }) => {
         singer,
         num,
       },
-      handler: () => {
-        //TODO:: 플레이리스트에 곡 추가하는 로직
-        setModal(confirmMove);
-      },
-    },
-  };
-
-  const confirmMove = {
-    isOpen: true,
-    modalType: 'confirm',
-    props: {
-      title: '추가가 완료되었습니다.',
-      subTitle: '플레이리스트로 이동할까요?',
-      buttonText: '이동',
-      handler: () => {
-        //TODO:: 추가한 플레이리스트로 이동하는 로직
-        console.log('go to playlist!');
-      },
+      navigation: navigation,
     },
   };
 
