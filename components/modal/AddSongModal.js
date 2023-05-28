@@ -8,17 +8,17 @@ import ModalState from '../../recoil/modal.js';
 import userInfo from '../../recoil/userInfo.js';
 import server from '../../util/axios.js';
 import userPlayList from '../../recoil/userPlayList.js';
+import { useNavigation } from '@react-navigation/native';
 
 //TODO:: default playlist 관련 로직 추가 필요
 
-const AddSongModal = ({ navigation, selectedSong }) => {
+const AddSongModal = ({ selectedSong }) => {
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
   const { userId, Authorization } = useRecoilValue(userInfo);
+  const navigation = useNavigation();
 
-  //플레이리스트를 dropDownPicker에서 요구하는 형태로 포맷팅
-  //TODO:: 뭔가...playList가 일정하게 가져와지지 않는다
   const pickerLists = playList.map((item) => {
     return { label: item.title, value: item.playListId };
   });
@@ -60,9 +60,7 @@ const AddSongModal = ({ navigation, selectedSong }) => {
       subTitle: '플레이리스트로 이동할까요?',
       buttonText: '이동',
       handler: () => {
-        //TODO:: 추가한 플레이리스트로 이동하는 로직
-        // navigation.navigate.push('Detail', { playListId: value });
-        console.log('go to playlist!');
+        navigation.navigate('Detail', { playListId: value });
         reset();
       },
     },
