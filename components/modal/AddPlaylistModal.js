@@ -30,6 +30,13 @@ const AddPlaylistModal = ({
   const [emoji, setEmoji] = useState(oldIcon);
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
+  const isValid = () => {
+    if (!playlistName.length) return false;
+    if (!selected.length) return false;
+    if (!emoji.length) return false;
+    return true;
+  };
+
   const getEditData = () => {
     const editData = {
       userId: userId,
@@ -85,22 +92,26 @@ const AddPlaylistModal = ({
     } else {
       //플레이리스트 생성
       try {
-        const { data } = await server.post(
-          `/api/user-music/playlist`,
-          {
-            userId: userId,
-            title: playlistName,
-            color: selected,
-            emoji: emoji,
-          },
-          {
-            headers: {
-              Authorization,
+        if (isValid()) {
+          const { data } = await server.post(
+            `/api/user-music/playlist`,
+            {
+              userId: userId,
+              title: playlistName,
+              color: selected,
+              emoji: emoji,
             },
-          },
-        );
-        await getPlaylist();
-        reset();
+            {
+              headers: {
+                Authorization,
+              },
+            },
+          );
+          await getPlaylist();
+          reset();
+        } else {
+          console.log('toast message: you need to fill all the blank');
+        }
       } catch (error) {
         console.log(error);
       }

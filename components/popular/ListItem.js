@@ -19,7 +19,6 @@ const ListItem = ({ navigation, item }) => {
         singer,
         num,
       },
-      navigation: navigation,
     },
   };
 

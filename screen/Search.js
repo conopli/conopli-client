@@ -83,7 +83,7 @@ const Search = () => {
       <FlatList
         style={styles.resultList}
         data={searchResult}
-        renderItem={({ item }) => <MusicItem item={item} />}
+        renderItem={({ item }) => <MusicItem isAdd={true} item={item} />}
         contentContainerStyle={{ rowGap: 8 }}
       />
     </View>

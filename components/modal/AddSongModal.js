@@ -60,7 +60,10 @@ const AddSongModal = ({ selectedSong }) => {
       subTitle: '플레이리스트로 이동할까요?',
       buttonText: '이동',
       handler: () => {
-        navigation.navigate('Detail', { playListId: value });
+        navigation.navigate('ListHome', {
+          screen: 'Detail',
+          params: { playListId: value },
+        });
         reset();
       },
     },
