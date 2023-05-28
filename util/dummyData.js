@@ -734,7 +734,7 @@ export const playlistDummy = {
 export const detailDummy = {
   data: [
     {
-      userMusicId: '1',
+      userMusicId: '1', //유저 기준의 노래 아이디들 (한 유저를 기준으로 중복되지 않는 아이디를 가진다)
       playListId: '1',
       musicId: '1',
       num: '44444',

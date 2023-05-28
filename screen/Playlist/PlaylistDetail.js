@@ -41,7 +41,7 @@ const PlaylistDetail = ({ navigation, route }) => {
       headerRight: () => (
         <ModifyButton
           onPress={() => {
-            navigation.push('Modify');
+            navigation.push('Modify', { playListId: playListId });
           }}
         />
       ),

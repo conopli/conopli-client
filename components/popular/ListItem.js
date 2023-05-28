@@ -4,9 +4,7 @@ import styles from './ListItem.style.js';
 import ModalState from '../../recoil/modal';
 import { useSetRecoilState } from 'recoil';
 
-//TODO:: 플레이리스트 내부일 때와 내부가 아닐 때를 구분해서 사용할 수 있어야 함
-//플레이리스트 내부에서 사용될 때는 클릭이 되지 않도록 해야 함...
-const ListItem = ({ navigation, item }) => {
+const ListItem = ({ item }) => {
   const { ranking, title, singer, num } = item;
   const setModal = useSetRecoilState(ModalState);
 
