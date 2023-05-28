@@ -18,13 +18,12 @@ const AddPlaylistModal = ({
   title,
   buttonText,
   isEdit,
-  setPlayLists,
   oldName = '',
   oldIcon = '',
   oldColor = '',
 }) => {
   const reset = useResetRecoilState(ModalState);
-  const setNewPlayList = useSetRecoilState(userPlayList);
+  const setPlayList = useSetRecoilState(userPlayList);
   const { userId, Authorization } = useRecoilValue(userInfo);
   const [playlistName, setPlaylistName] = useState(oldName);
   const [selected, setSelected] = useState(oldColor);
@@ -49,10 +48,6 @@ const AddPlaylistModal = ({
     return editData;
   };
 
-  const setList = async (playlist) => {
-    setNewPlayList({ playlist: playlist });
-  };
-
   const getPlaylist = async () => {
     try {
       const { data } = await server.get(`/api/user-music/playlist/${userId}`, {
@@ -60,11 +55,10 @@ const AddPlaylistModal = ({
           Authorization: Authorization,
         },
       });
-      setPlayLists(data.data);
-      setList(data.data);
-      console.log('new', data.data);
+      console.log(data.data);
+      setPlayList(data.data);
     } catch (error) {
-      console.log(error);
+      console.log('너니?', error);
     }
   };
 
@@ -83,7 +77,7 @@ const AddPlaylistModal = ({
           },
         );
 
-        getPlaylist();
+        await getPlaylist();
         reset();
       } catch (error) {
         console.log(error);
@@ -105,7 +99,7 @@ const AddPlaylistModal = ({
             },
           },
         );
-        getPlaylist();
+        await getPlaylist();
         reset();
       } catch (error) {
         console.log(error);

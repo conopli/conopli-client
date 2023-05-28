@@ -7,14 +7,17 @@ import { theme } from '../theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import userInfo from '../recoil/userInfo';
 import { useResetRecoilState } from 'recoil';
+import userPlayList from '../recoil/userPlayList';
 
 const Setting = () => {
   const [geo, setGeo] = useState(false);
   const resetUserInfo = useResetRecoilState(userInfo);
+  const resetPlayList = useResetRecoilState(userPlayList);
 
   const logoutHandler = async () => {
     await AsyncStorage.clear();
     resetUserInfo();
+    resetPlayList();
     console.log('logout');
   };
 

@@ -14,14 +14,12 @@ import userPlayList from '../../recoil/userPlayList.js';
 const AddSongModal = ({ navigation, selectedSong }) => {
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
-  const { playlist } = useRecoilValue(userPlayList);
+  const playList = useRecoilValue(userPlayList);
   const { userId, Authorization } = useRecoilValue(userInfo);
-
-  console.log(playlist);
 
   //플레이리스트를 dropDownPicker에서 요구하는 형태로 포맷팅
   //TODO:: 뭔가...playList가 일정하게 가져와지지 않는다
-  const pickerLists = playlist.map((item) => {
+  const pickerLists = playList.map((item) => {
     return { label: item.title, value: item.playListId };
   });
 

@@ -25,9 +25,7 @@ const asyncStorageEffect =
 
 const userPlayList = atom({
   key: 'userPlayList',
-  default: {
-    playlist: [],
-  },
+  default: [],
   effects: [asyncStorageEffect('user_playList')],
 });
 

@@ -3,8 +3,9 @@ import { playlistColor } from '../../theme';
 import styles from './PlaylistItem.style';
 import { useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
+import userPlayList from '../../recoil/userPlayList';
 
-const PlaylistItem = ({ setPlayLists, navigation, item }) => {
+const PlaylistItem = ({ navigation, item }) => {
   const { color, emoji, title, playListId } = item;
   const setModal = useSetRecoilState(ModalState);
 
@@ -43,7 +44,6 @@ const PlaylistItem = ({ setPlayLists, navigation, item }) => {
     modalType: 'delete',
     props: {
       playListId: playListId,
-      setPlayLists: setPlayLists,
     },
   };
 

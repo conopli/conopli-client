@@ -50,11 +50,6 @@ const Login = ({ navigation }) => {
     }
   };
 
-  const setUserInfo = async (Authorization, userId) => {
-    setUser({ userId, Authorization });
-    navigation.navigate('Populer');
-  };
-
   const getPlayList = async (userId, Authorization) => {
     try {
       const { data } = await server.get(`/api/user-music/playlist/${userId}`, {
@@ -66,10 +61,6 @@ const Login = ({ navigation }) => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const setList = async (playlist) => {
-    setPlayList({ playlist });
   };
 
   // * 기존 asyncStorage 방식
@@ -150,10 +141,10 @@ const Login = ({ navigation }) => {
       type,
       resultOfAccessToken,
     );
-
+    setUser({ userId, Authorization });
     const playList = await getPlayList(userId, Authorization);
-    await setList(playList);
-    await setUserInfo(Authorization, userId);
+    setPlayList(playList);
+    navigation.navigate('Populer');
   };
 
   return (

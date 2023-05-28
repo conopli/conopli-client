@@ -1,7 +1,7 @@
 import { View, FlatList } from 'react-native';
 import styles from './Playlist.style';
 import { PlaylistItem } from '../../components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { PlusButton } from '../../components/index';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
@@ -9,9 +9,7 @@ import userPlayList from '../../recoil/userPlayList';
 
 const Playlist = ({ navigation }) => {
   const setModal = useSetRecoilState(ModalState);
-  const { playlist } = useRecoilValue(userPlayList);
-  const [playLists, setPlayLists] = useState(playlist);
-  console.log(playLists);
+  const playList = useRecoilValue(userPlayList);
 
   const addPlaylist = {
     isOpen: true,
@@ -20,7 +18,6 @@ const Playlist = ({ navigation }) => {
       title: '플레이리스트 추가',
       isEdit: false,
       buttonText: '추가하기',
-      setPlayLists: setPlayLists,
     },
   };
 
@@ -34,17 +31,14 @@ const Playlist = ({ navigation }) => {
         />
       ),
     });
+    console.log(playList);
   });
   return (
     <View style={styles.container}>
       <FlatList
-        data={playLists}
+        data={playList}
         renderItem={(props) => (
-          <PlaylistItem
-            {...props}
-            setPlayLists={setPlayLists}
-            navigation={navigation}
-          />
+          <PlaylistItem {...props} navigation={navigation} />
         )}
         contentContainerStyle={{ rowGap: 8 }}
       />

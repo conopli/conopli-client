@@ -10,14 +10,10 @@ import userPlayList from '../../recoil/userPlayList.js';
 
 //보관함 삭제 시 사용
 
-const DeleteModal = ({ playListId, setPlayLists }) => {
+const DeleteModal = ({ playListId }) => {
   const reset = useResetRecoilState(ModalState);
-  const setNewPlayList = useSetRecoilState(userPlayList);
+  const setPlayList = useSetRecoilState(userPlayList);
   const { userId, Authorization } = useRecoilValue(userInfo);
-
-  const setList = async (playlist) => {
-    setNewPlayList({ playlist: playlist });
-  };
 
   const deleteHandler = async () => {
     try {
@@ -36,8 +32,7 @@ const DeleteModal = ({ playListId, setPlayLists }) => {
   const getPlaylist = async () => {
     try {
       const { data } = await server.get(`/api/user-music/playlist/${userId}`);
-      setPlayLists(data.data);
-      setList(data.data);
+      setPlayList(data.data);
       console.log('after delete', data.data);
     } catch (error) {
       console.log(error);
