@@ -26,7 +26,6 @@ const Map = () => {
   const { BASE_URL } = getEnv();
 
   const mapUri = `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`;
-  // const mapUri = 'https://conopli.github.io/map-test/';
 
   const getLocation = async () => {
     const { granted } = await requestForegroundPermissionsAsync();
