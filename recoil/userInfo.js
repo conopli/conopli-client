@@ -28,6 +28,8 @@ const userInfo = atom({
   default: {
     userId: 0,
     Authorization: '',
+    email: '',
+    loginType: '',
   },
   effects: [asyncStorageEffect('current_user')],
 });

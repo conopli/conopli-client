@@ -1,14 +1,11 @@
-import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './Login.style.js';
 import { AuthButton } from '../components/Login';
 import * as WebBrowser from 'expo-web-browser';
 import * as AuthSession from 'expo-auth-session';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import getEnv from '../env.js';
 import server from '../util/axios';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
 
@@ -16,6 +13,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 const Login = ({ navigation }) => {
   const setUser = useSetRecoilState(userInfo);
+  const setPlayList = useSetRecoilState(userPlayList);
   const setModal = useSetRecoilState(ModalState);
 
   const expoAuthUri = AuthSession.makeRedirectUri({
@@ -34,7 +32,15 @@ const Login = ({ navigation }) => {
 
       const { authorization: Authorization, userid: userId } = res.headers;
 
-      return { Authorization, userId };
+      const {
+        data: { data },
+      } = await server.get(`/api/users/${userId}`, {
+        headers: { Authorization },
+      });
+
+      const { email, loginType } = data;
+
+      return { Authorization, userId, email, loginType };
     } catch (e) {
       const { status, message } = e.response.data;
       if (status === 400 && message === 'Already Exist User Email') {
@@ -50,9 +56,17 @@ const Login = ({ navigation }) => {
     }
   };
 
-  const setUserInfo = async (Authorization, userId) => {
-    setUser({ userId, Authorization });
-    navigation.navigate('Populer');
+  const getPlayList = async (userId, Authorization) => {
+    try {
+      const { data } = await server.get(`/api/user-music/playlist/${userId}`, {
+        headers: {
+          Authorization,
+        },
+      });
+      return data.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // * 기존 asyncStorage 방식
@@ -128,12 +142,15 @@ const Login = ({ navigation }) => {
     // * 실제 코드 실행
     await getAuthCode();
     if (type !== 'GOOGLE') await getAccessToken();
-    const { Authorization, userId } = await getUserInfo(
+
+    const { Authorization, userId, loginType, email } = await getUserInfo(
       type,
       resultOfAccessToken,
     );
-
-    await setUserInfo(Authorization, userId);
+    setUser({ userId, Authorization, loginType, email });
+    const playList = await getPlayList(userId, Authorization);
+    setPlayList(playList);
+    navigation.navigate('Populer');
   };
 
   return (

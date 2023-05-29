@@ -1,12 +1,50 @@
 import SmallButton from '../components/SmallButton';
 import ListItem from '../components/Popular/ListItem';
 import styles from './Populer.style.js';
-import { View, FlatList } from 'react-native';
-import { useState } from 'react';
-import { populerDummy } from '../util/dummyData';
+import { View, FlatList, ActivityIndicator } from 'react-native';
+import { useState, useEffect } from 'react';
+import server from '../util/axios';
+import { theme } from '../theme';
 
 const Populer = () => {
   const [nation, setNation] = useState(1);
+  const [visibleList, setVisibleList] = useState([]);
+  const [stockList, setStockList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getPopulerList = async () => {
+    const year = new Date().getFullYear();
+    const m = new Date().getMonth() + 1;
+    const month = m <= 9 ? '0' + m : m;
+
+    try {
+      setIsLoading(true);
+
+      const {
+        data: { data },
+      } = await server.get(
+        `/api/search/popular?searchType=${nation}&syy=${year}&smm=${month}&eyy=${year}&emm=${month}`,
+      );
+
+      setVisibleList(data.slice(0, 20));
+      setStockList(data.slice(20));
+
+      setIsLoading(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const addPopulerList = () => {
+    if (stockList.length !== 0) {
+      setVisibleList((prev) => [...prev, ...stockList.slice(0, 20)]);
+      setStockList((prev) => prev.slice(20));
+    }
+  };
+
+  useEffect(() => {
+    getPopulerList();
+  }, [nation]);
 
   return (
     <View style={styles.container}>
@@ -35,12 +73,22 @@ const Populer = () => {
           />
         </View>
       </View>
-      <FlatList
-        style={styles.listContainer}
-        contentContainerStyle={{ rowGap: 8 }}
-        data={populerDummy.data}
-        renderItem={({ item }) => <ListItem item={item} />}
-      />
+      {isLoading ? (
+        <ActivityIndicator
+          style={{ flex: 1 }}
+          size="large"
+          color={theme.lime}
+        />
+      ) : (
+        <FlatList
+          style={styles.listContainer}
+          contentContainerStyle={{ rowGap: 8, paddingBottom: 16 }}
+          data={visibleList}
+          renderItem={({ item }) => <ListItem item={item} />}
+          onEndReached={addPopulerList}
+          onEndReachedThreshold={0.3}
+        />
+      )}
     </View>
   );
 };
