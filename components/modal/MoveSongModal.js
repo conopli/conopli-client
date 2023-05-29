@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import styles from './AddSongModal.style.js';
+import styles from './MoveSongModal.style';
 import { RowButton } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
-import userInfo from '../../recoil/userInfo.js';
-import server from '../../util/axios.js';
 import userPlayList from '../../recoil/userPlayList.js';
-import { useNavigation } from '@react-navigation/native';
 
-//TODO:: default playlist 관련 로직 추가 필요
-
-const MoveSongModal = ({ selectedLists }) => {
+const MoveSongModal = ({ selectedSongs, setMoveStack, moveStack }) => {
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
-  const { userId, Authorization } = useRecoilValue(userInfo);
-  const navigation = useNavigation();
 
   const pickerLists = playList.map((item) => {
     return { label: item.title, value: item.playListId };
@@ -27,46 +20,45 @@ const MoveSongModal = ({ selectedLists }) => {
   const [value, setValue] = useState('플레이리스트 선택');
   const [items, setItems] = useState(pickerLists);
 
-  const postNewSong = async () => {
-    if (value === '플레이리스트 선택') {
-      console.log('no playlist');
-      reset();
+  //곡 이동이기는 하지만, 현재 플레이리스트에서 선택한 플리에 해당 곡들을 추가하는 로직임
+  //근데 여기서 바로 api 요청 보내는 건 아니고, confirm 버튼 눌렀을 때 반영되므로
+  //아래 api 요청은 이 모달에서 이뤄지지 않는다.
+  const saveStack = () => {
+    //TODO::중복 제거 필요
+    if (moveStack[value]) {
+      console.log('넘어옴!');
+      //   moveStack.map((item) => {
+      //     item[value].push(...selectedSongs);
+      //     console.log(item[value]);
+      //     return item[value];
+      //   });
     } else {
-      try {
-        const body = {
-          userId: userId,
-          playListId: value,
-          musicNum: num,
-        };
-        const data = await server.post('/api/user-music', body, {
-          headers: {
-            Authorization,
-          },
-        });
-        reset();
-        setModal(confirmMove);
-      } catch (error) {
-        console.log(error);
-      }
+      setMoveStack((prev) => [
+        ...prev,
+        {
+          [value]: selectedSongs,
+        },
+      ]);
     }
+    //TODO:: toast message - '노래가 이동 되었습니다.'
   };
 
-  const confirmMove = {
-    isOpen: true,
-    modalType: 'confirm',
-    props: {
-      title: '추가가 완료되었습니다.',
-      subTitle: '플레이리스트로 이동할까요?',
-      buttonText: '이동',
-      handler: () => {
-        navigation.navigate('ListHome', {
-          screen: 'Detail',
-          params: { playListId: value },
-        });
-        reset();
-      },
-    },
-  };
+  //   const confirmMove = {
+  //     isOpen: true,
+  //     modalType: 'confirm',
+  //     props: {
+  //       title: '노래 이동이 완료되었습니다.',
+  //       subTitle: '해당 플레이리스트로 이동할까요?',
+  //       buttonText: '이동',
+  //       handler: () => {
+  //         navigation.navigate('ListHome', {
+  //           screen: 'Detail',
+  //           params: { playListId: value },
+  //         });
+  //         reset();
+  //       },
+  //     },
+  //   };
 
   return (
     <View
@@ -77,11 +69,7 @@ const MoveSongModal = ({ selectedLists }) => {
       }}
     >
       <Text style={styles.title}>플레이리스트 이동</Text>
-      <View style={styles.subTitle}>
-        <Text style={styles.subTitleText}>
-          선택된 노래들을 아래 플레이리스트로 이동하시겠습니까?
-        </Text>
-      </View>
+      <Text style={styles.subTitle}>아래 플레이리스트로 이동하시겠습니까?</Text>
       <View style={styles.selectedContainer}>
         <Text style={styles.selectedTitle}>플레이리스트 선택</Text>
         <View style={styles.pickerContainer}>
@@ -107,7 +95,7 @@ const MoveSongModal = ({ selectedLists }) => {
             text="추가하기"
             color="lime"
             buttonHandler={() => {
-              postNewSong();
+              saveStack();
             }}
           />
         </View>
