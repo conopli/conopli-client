@@ -1,4 +1,3 @@
-import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './Login.style.js';
 import { AuthButton } from '../components/Login';
@@ -6,7 +5,7 @@ import * as WebBrowser from 'expo-web-browser';
 import * as AuthSession from 'expo-auth-session';
 import getEnv from '../env.js';
 import server from '../util/axios';
-import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
 import userPlayList from '../recoil/userPlayList.js';
@@ -34,7 +33,15 @@ const Login = ({ navigation }) => {
 
       const { authorization: Authorization, userid: userId } = res.headers;
 
-      return { Authorization, userId };
+      const {
+        data: { data },
+      } = await server.get(`/api/users/${userId}`, {
+        headers: { Authorization },
+      });
+
+      const { email, loginType } = data;
+
+      return { Authorization, userId, email, loginType };
     } catch (e) {
       const { status, message } = e.response.data;
       if (status === 400 && message === 'Already Exist User Email') {
@@ -137,11 +144,12 @@ const Login = ({ navigation }) => {
     await getAuthCode();
     if (type !== 'GOOGLE') await getAccessToken();
 
-    const { Authorization, userId } = await getUserInfo(
+    const { Authorization, userId, loginType, email } = await getUserInfo(
       type,
       resultOfAccessToken,
     );
-    setUser({ userId, Authorization });
+    setUser({ userId, Authorization, loginType, email });
+
     const playList = await getPlayList(userId, Authorization);
     setPlayList(playList);
     navigation.navigate('Populer');

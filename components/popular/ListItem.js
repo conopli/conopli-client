@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import styles from './ListItem.style.js';
 import ModalState from '../../recoil/modal';
@@ -43,4 +43,4 @@ const ListItem = ({ item }) => {
   );
 };
 
-export default ListItem;
+export default memo(ListItem);

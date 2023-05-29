@@ -82,7 +82,7 @@ const Home = () => {
         />
         <Tab.Screen
           name="Setting"
-          component={Setting}
+          component={userId ? Setting : Login}
           options={{
             title: '설정',
             tabBarIcon: ({ color }) => (
