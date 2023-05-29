@@ -5,5 +5,13 @@ import {
   populerDummy,
   playlistDummy,
 } from './dummyData';
+import modalProps from './modalProps';
 
-export { server, searchDummy, detailDummy, populerDummy, playlistDummy };
+export {
+  server,
+  searchDummy,
+  detailDummy,
+  populerDummy,
+  playlistDummy,
+  modalProps,
+};
