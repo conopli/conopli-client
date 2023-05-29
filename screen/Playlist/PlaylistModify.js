@@ -19,6 +19,7 @@ const PlaylistModify = ({ navigation, route }) => {
   //플리 내부에 있는 노래 리스트
   const [items, setItems] = useState([]);
   //삭제를 위한 기능 : 선택한 노래들을 배열에 추가 (userMusicId string이 담김);
+  //수정에도 사용할 것임...
   const [select, setSelect] = useState([]);
   //요 상태 기준으로 반복문 돌려서 delete 요청 보내야 함,,,
   const [deleteItems, setDeleteItems] = useState([]);
@@ -69,6 +70,8 @@ const PlaylistModify = ({ navigation, route }) => {
     setSelect(items.map((el) => el.userMusicId));
   };
 
+  const moveItemHandler = () => {};
+
   const deleteItemHandler = () => {
     setDeleteItems((prev) => {
       const newList = [...prev, ...select];
@@ -84,7 +87,10 @@ const PlaylistModify = ({ navigation, route }) => {
     <View style={styles.container}>
       <View style={styles.btnContainer}>
         <ModifyListButton type="select" onPress={selectAllHandler} />
-        <ModifyListButton type="delete" onPress={deleteItemHandler} />
+        <View style={styles.btnRight}>
+          <ModifyListButton type="move" onPress={moveItemHandler} />
+          <ModifyListButton type="delete" onPress={deleteItemHandler} />
+        </View>
       </View>
       <FlatList
         style={styles.playlist}

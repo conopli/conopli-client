@@ -31,7 +31,6 @@ const Playlist = ({ navigation }) => {
         />
       ),
     });
-    console.log(playList);
   });
   return (
     <View style={styles.container}>

@@ -28,9 +28,14 @@ const styles = StyleSheet.create({
   artist: {
     fontSize: 16,
   },
-  icons: {
-    flexDirection: 'row',
-    columnGap: 8,
+  numberBox: {
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  number: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
   },
 });
 
