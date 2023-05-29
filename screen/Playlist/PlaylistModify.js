@@ -58,7 +58,10 @@ const PlaylistModify = ({ navigation, route }) => {
       headerRight: () => (
         <ConfirmModifyButton
           onPress={() => {
+            //TODO:: moveSongModal로 연결, 전달한 핸들러에
             console.log('수정완료');
+            //TODO::확인 버튼을 눌러야 API 요청을 함 (플리 옮기는 액션 or 곡 삭제 액션)
+            //현재 플레이리스트에서 삭제 + 옮기고자 하는 플레이리스트에서 곡 추가
             navigation.push('Detail');
           }}
         />
