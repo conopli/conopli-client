@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   desc: {
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: 28,
   },
   descText: {
     fontSize: 16,
@@ -28,8 +28,25 @@ const styles = StyleSheet.create({
     rowGap: 8,
   },
   email: {
+    flexDirection: 'row',
+    padding: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+  },
+  KAKAO: {
+    backgroundColor: theme.kakao,
+  },
+  GOOGLE: {
+    backgroundColor: theme.white,
+  },
+  NAVER: {
+    backgroundColor: theme.naver,
+  },
+  emailText: {
     fontSize: 12,
-    color: theme.white,
+    color: theme.black,
+    marginRight: 8,
   },
   geo: {
     flexDirection: 'row',
