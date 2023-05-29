@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 
 //TODO:: default playlist 관련 로직 추가 필요
 
-const AddSongModal = ({ selectedSong }) => {
+const MoveSongModal = ({ selectedLists }) => {
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
@@ -23,7 +23,6 @@ const AddSongModal = ({ selectedSong }) => {
     return { label: item.title, value: item.playListId };
   });
 
-  const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('플레이리스트 선택');
   const [items, setItems] = useState(pickerLists);
@@ -77,19 +76,11 @@ const AddSongModal = ({ selectedSong }) => {
         e.stopPropagation();
       }}
     >
-      <Text style={styles.title}>노래 추가</Text>
-      <View style={styles.songBox}>
-        <View style={styles.songInfo}>
-          <Text style={styles.songTitle} numberOfLines={1}>
-            {title}
-          </Text>
-          <Text style={styles.artist} numberOfLines={1}>
-            {singer}
-          </Text>
-        </View>
-        <View style={styles.num}>
-          <Text style={styles.numText}>{num}</Text>
-        </View>
+      <Text style={styles.title}>플레이리스트 이동</Text>
+      <View style={styles.subTitle}>
+        <Text style={styles.subTitleText}>
+          선택된 노래들을 아래 플레이리스트로 이동하시겠습니까?
+        </Text>
       </View>
       <View style={styles.selectedContainer}>
         <Text style={styles.selectedTitle}>플레이리스트 선택</Text>
@@ -134,4 +125,4 @@ const AddSongModal = ({ selectedSong }) => {
   );
 };
 
-export default AddSongModal;
+export default MoveSongModal;

@@ -8,6 +8,7 @@ import server from '../util/axios';
 import { useSetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
+import userPlayList from '../recoil/userPlayList.js';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -148,6 +149,7 @@ const Login = ({ navigation }) => {
       resultOfAccessToken,
     );
     setUser({ userId, Authorization, loginType, email });
+
     const playList = await getPlayList(userId, Authorization);
     setPlayList(playList);
     navigation.navigate('Populer');

@@ -1,14 +1,43 @@
 import React from 'react';
-import { Modal, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import styles from './DeleteModal.style.js';
 import { RowButton } from '../index.js';
-import { useResetRecoilState } from 'recoil';
+import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
+import { server } from '../../util';
+import userInfo from '../../recoil/userInfo.js';
+import userPlayList from '../../recoil/userPlayList.js';
 
 //보관함 삭제 시 사용
 
-const DeleteModal = ({ handler }) => {
+const DeleteModal = ({ playListId }) => {
   const reset = useResetRecoilState(ModalState);
+  const setPlayList = useSetRecoilState(userPlayList);
+  const { userId, Authorization } = useRecoilValue(userInfo);
+
+  const deleteHandler = async () => {
+    try {
+      await server.delete(`/api/user-music/playlist/${playListId}`, {
+        headers: {
+          Authorization,
+        },
+      });
+      getPlaylist();
+      reset();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPlaylist = async () => {
+    try {
+      const { data } = await server.get(`/api/user-music/playlist/${userId}`);
+      setPlayList(data.data);
+      console.log('after delete', data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View
@@ -25,9 +54,7 @@ const DeleteModal = ({ handler }) => {
           <RowButton
             text="삭제하기"
             color="red"
-            buttonHandler={() => {
-              handler();
-            }}
+            buttonHandler={deleteHandler}
           />
         </View>
         <View style={{ flex: 1, height: 40 }}>

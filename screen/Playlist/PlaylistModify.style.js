@@ -13,6 +13,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20,
   },
+  btnRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    columnGap: 8,
+  },
   playlist: {
     flex: 1,
     paddingBottom: 16,

@@ -6,6 +6,7 @@ import CheckBox from 'expo-checkbox';
 import { theme } from '../theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import userInfo from '../recoil/userInfo';
+import userPlayList from '../recoil/userPlayList';
 import ModalState from '../recoil/modal';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { WithLocalSvg } from 'react-native-svg';
@@ -14,6 +15,7 @@ import { kakao, google, naver } from '../assets';
 const Setting = ({ navigation }) => {
   const [geo, setGeo] = useState(false);
   const resetUserInfo = useResetRecoilState(userInfo);
+  const resetPlayList = useResetRecoilState(userPlayList);
   const setModal = useSetRecoilState(ModalState);
   const { email, loginType } = useRecoilValue(userInfo);
 
@@ -31,6 +33,7 @@ const Setting = ({ navigation }) => {
   const logoutHandler = async () => {
     await AsyncStorage.clear();
     resetUserInfo();
+    resetPlayList();
     console.log('logout');
     navigation.navigate('Populer');
   };

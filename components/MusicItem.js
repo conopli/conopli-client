@@ -3,7 +3,7 @@ import styles from './MusicItem.style';
 import { useSetRecoilState } from 'recoil';
 import ModalState from '../recoil/modal.js';
 
-const MusicItem = ({ item }) => {
+const MusicItem = ({ item, isAdd = false }) => {
   const { num, singer, title } = item;
   const setModal = useSetRecoilState(ModalState);
 
@@ -16,24 +16,6 @@ const MusicItem = ({ item }) => {
         singer,
         num,
       },
-      handler: () => {
-        //TODO:: 플레이리스트에 곡 추가하는 로직
-        setModal(confirmMove);
-      },
-    },
-  };
-
-  const confirmMove = {
-    isOpen: true,
-    modalType: 'confirm',
-    props: {
-      title: '추가가 완료되었습니다.',
-      subTitle: '플레이리스트로 이동할까요?',
-      buttonText: '이동',
-      handler: () => {
-        //TODO:: 추가한 플레이리스트로 이동하는 로직
-        console.log('go to playlist!');
-      },
     },
   };
 
@@ -43,6 +25,7 @@ const MusicItem = ({ item }) => {
       onPress={() => {
         setModal(songModal);
       }}
+      disabled={!isAdd}
     >
       <View style={styles.songInfo}>
         <Text style={styles.title} numberOfLines={1}>

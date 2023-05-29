@@ -1,18 +1,34 @@
-import { useEffect } from 'react';
-import {
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, FlatList } from 'react-native';
 import { MusicItem } from '../../components';
-import { theme } from '../../theme';
 import styles from './PlaylistDetail.style';
 import { BackButton, ModifyButton } from '../../components/Playlist';
-import { detailDummy } from '../../util';
+import { server } from '../../util';
+import { useRecoilValue } from 'recoil';
+import userInfo from '../../recoil/userInfo.js';
 
-const PlaylistDetail = ({ navigation }) => {
+const PlaylistDetail = ({ navigation, route }) => {
+  const playListId = route.params.playListId;
+  const { Authorization } = useRecoilValue(userInfo);
+  const [songList, setSongList] = useState([]);
+
+  const getSongLists = async () => {
+    try {
+      const { data } = await server.get(`/api/user-music/${playListId}`, {
+        headers: {
+          Authorization,
+        },
+      });
+      setSongList(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getSongLists();
+  }, []);
+
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -25,7 +41,7 @@ const PlaylistDetail = ({ navigation }) => {
       headerRight: () => (
         <ModifyButton
           onPress={() => {
-            navigation.push('Modify');
+            navigation.push('Modify', { playListId: playListId });
           }}
         />
       ),
@@ -37,7 +53,7 @@ const PlaylistDetail = ({ navigation }) => {
       <FlatList
         style={styles.playlist}
         contentContainerStyle={{ rowGap: 8 }}
-        data={detailDummy.data}
+        data={songList}
         renderItem={({ item }) => <MusicItem item={item} />}
       />
     </View>

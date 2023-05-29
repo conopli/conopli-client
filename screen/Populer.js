@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import server from '../util/axios';
 import { theme } from '../theme';
 
-const Populer = () => {
+const Populer = ({ navigation }) => {
   const [nation, setNation] = useState(1);
   const [visibleList, setVisibleList] = useState([]);
   const [stockList, setStockList] = useState([]);

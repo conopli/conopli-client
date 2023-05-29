@@ -35,18 +35,34 @@ export const ModifyListButton = ({ onPress, type }) => {
       borderRadius: 4,
       paddingHorizontal: 16,
       paddingVertical: 4,
-      backgroundColor: type === 'select' ? theme.lightBlue : theme.red,
+      backgroundColor:
+        type === 'select'
+          ? theme.lightBlue
+          : type === 'move'
+          ? theme.white
+          : theme.red,
     },
     text: {
       fontSize: 16,
       fontWeight: 'bold',
-      color: type === 'select' ? theme.black : theme.white,
+      color:
+        type === 'select'
+          ? theme.black
+          : type === 'move'
+          ? theme.black
+          : theme.white,
     },
   });
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.btn}>
-      <Text>{type === 'select' ? '전체선택' : '선택삭제'}</Text>
+      <Text>
+        {type === 'select'
+          ? '전체선택'
+          : type === 'move'
+          ? '선택이동'
+          : '선택삭제'}
+      </Text>
     </TouchableOpacity>
   );
 };
