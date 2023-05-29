@@ -19,8 +19,8 @@ const AddPlaylistModal = ({
   buttonText,
   isEdit,
   oldName = '',
-  oldIcon = '',
-  oldColor = '',
+  oldIcon = 127925,
+  oldColor = '18',
 }) => {
   const reset = useResetRecoilState(ModalState);
   const setPlayList = useSetRecoilState(userPlayList);
@@ -32,8 +32,6 @@ const AddPlaylistModal = ({
 
   const isValid = () => {
     if (!playlistName.length) return false;
-    if (!selected.length) return false;
-    if (!emoji.length) return false;
     return true;
   };
 
