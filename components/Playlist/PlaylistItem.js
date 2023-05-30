@@ -3,49 +3,37 @@ import { playlistColor } from '../../theme';
 import styles from './PlaylistItem.style';
 import { useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
-import userPlayList from '../../recoil/userPlayList';
+import {
+  addPlaylistProps,
+  deletePlaylistProps,
+  editPlaylistProps,
+} from '../../util';
 
 const PlaylistItem = ({ navigation, item }) => {
   const { color, emoji, title, playListId } = item;
   const setModal = useSetRecoilState(ModalState);
 
   //Longpress 시 뜨는 모달
-  const editModal = {
-    isOpen: true,
-    modalType: 'editPlaylist',
-    props: {
-      editHandler: () => {
-        setModal(editPlaylist);
-      },
-      deleteHandler: () => {
-        setModal(deletePlaylist);
-      },
+  const editModal = editPlaylistProps(
+    () => {
+      setModal(editPlaylist);
     },
-  };
+    () => {
+      setModal(deletePlaylist);
+    },
+  );
 
   //플레이리스트 수정 모달
-  const editPlaylist = {
-    isOpen: true,
-    modalType: 'addPlaylist',
-    props: {
-      title: '플레이리스트 수정',
-      buttonText: '수정완료',
-      isEdit: true,
-      oldName: title,
-      oldIcon: emoji,
-      oldColor: color.toString(),
-      playListId: playListId,
-    },
-  };
+  const editPlaylist = addPlaylistProps(
+    true,
+    playListId,
+    title,
+    emoji,
+    color.toString(),
+  );
 
   //플레이리스트 삭제 모달
-  const deletePlaylist = {
-    isOpen: true,
-    modalType: 'delete',
-    props: {
-      playListId: playListId,
-    },
-  };
+  const deletePlaylist = deletePlaylistProps(playListId);
 
   return (
     <TouchableOpacity

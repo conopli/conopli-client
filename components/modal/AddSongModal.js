@@ -52,22 +52,18 @@ const AddSongModal = ({ selectedSong }) => {
     }
   };
 
-  const confirmMove = {
-    isOpen: true,
-    modalType: 'confirm',
-    props: {
-      title: '추가가 완료되었습니다.',
-      subTitle: '플레이리스트로 이동할까요?',
-      buttonText: '이동',
-      handler: () => {
-        navigation.navigate('ListHome', {
-          screen: 'Detail',
-          params: { playListId: value },
-        });
-        reset();
-      },
+  const confirmMove = confirmProps(
+    '추가가 완료되었습니다.',
+    '플레이리스트로 이동할까요?',
+    '이동',
+    () => {
+      navigation.navigate('ListHome', {
+        screen: 'Detail',
+        params: { playListId: value },
+      });
+      reset();
     },
-  };
+  );
 
   return (
     <View

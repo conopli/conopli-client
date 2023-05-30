@@ -15,8 +15,6 @@ import userPlayList from '../../recoil/userPlayList';
 
 const AddPlaylistModal = ({
   playListId,
-  title,
-  buttonText,
   isEdit,
   oldName = '',
   oldIcon = 127925,
@@ -60,10 +58,9 @@ const AddPlaylistModal = ({
           Authorization: Authorization,
         },
       });
-      console.log(data.data);
       setPlayList(data.data);
     } catch (error) {
-      console.log('너니?', error);
+      console.log(error);
     }
   };
 
@@ -124,7 +121,9 @@ const AddPlaylistModal = ({
         e.stopPropagation();
       }}
     >
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{`플레이리스트 ${
+        isEdit ? '수정' : '추가'
+      }`}</Text>
       <View style={styles.inputContainer}>
         <TouchableOpacity
           style={styles.iconBox}
@@ -183,7 +182,7 @@ const AddPlaylistModal = ({
       <View style={styles.buttonBox}>
         <View style={styles.buttonItem}>
           <RowButton
-            text={buttonText}
+            text={isEdit ? '수정완료' : '추가하기'}
             color="lime"
             buttonHandler={submitHandler}
           />

@@ -9,6 +9,7 @@ import { useSetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
 import userPlayList from '../recoil/userPlayList.js';
+import { alertProps } from '../util/modalProps.js';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -16,6 +17,11 @@ const Login = ({ navigation }) => {
   const setUser = useSetRecoilState(userInfo);
   const setPlayList = useSetRecoilState(userPlayList);
   const setModal = useSetRecoilState(ModalState);
+
+  const loginFail = alertProps(
+    '오류',
+    `이미 가입한 이메일입니다.\n최초 가입한 소셜 서비스를 선택하세요.`,
+  );
 
   const expoAuthUri = AuthSession.makeRedirectUri({
     path: 'redirect',
@@ -45,14 +51,7 @@ const Login = ({ navigation }) => {
     } catch (e) {
       const { status, message } = e.response.data;
       if (status === 400 && message === 'Already Exist User Email') {
-        setModal({
-          isOpen: true,
-          modalType: 'alert',
-          props: {
-            title: '오류',
-            subTitle: `이미 가입한 이메일입니다.\n최초 가입한 소셜 서비스를 선택하세요.`,
-          },
-        });
+        setModal(loginFail);
       }
     }
   };

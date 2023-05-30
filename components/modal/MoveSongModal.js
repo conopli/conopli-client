@@ -6,6 +6,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userPlayList from '../../recoil/userPlayList.js';
+import { useNavigation } from '@react-navigation/native';
+import { confirmProps } from '../../util/modalProps.js';
 
 const MoveSongModal = ({ selectedSongs, setMoveStack, moveStack }) => {
   const setModal = useSetRecoilState(ModalState);
@@ -43,22 +45,18 @@ const MoveSongModal = ({ selectedSongs, setMoveStack, moveStack }) => {
     //TODO:: toast message - '노래가 이동 되었습니다.'
   };
 
-  //   const confirmMove = {
-  //     isOpen: true,
-  //     modalType: 'confirm',
-  //     props: {
-  //       title: '노래 이동이 완료되었습니다.',
-  //       subTitle: '해당 플레이리스트로 이동할까요?',
-  //       buttonText: '이동',
-  //       handler: () => {
-  //         navigation.navigate('ListHome', {
-  //           screen: 'Detail',
-  //           params: { playListId: value },
-  //         });
-  //         reset();
-  //       },
-  //     },
-  //   };
+  const confirmMove = confirmProps(
+    '노래 이동이 완료되었습니다.',
+    '플레이리스트로 이동할까요?',
+    '이동',
+    () => {
+      navigation.navigate('ListHome', {
+        screen: 'Detail',
+        params: { playListId: value },
+      });
+      reset();
+    },
+  );
 
   return (
     <View

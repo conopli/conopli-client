@@ -10,6 +10,7 @@ import { useEffect, useState, useRef } from 'react';
 import getEnv from '../env';
 import { useSetRecoilState } from 'recoil';
 import ModalState from '../recoil/modal';
+import { alertProps } from '../util';
 
 const Map = () => {
   const [hasPermission, setHasPermission] = useState(true);
@@ -18,6 +19,11 @@ const Map = () => {
     longitude: 126.9779451,
   });
   const setModal = useSetRecoilState(ModalState);
+
+  const permissionAlert = alertProps(
+    '위치 권한 오류',
+    `현재 사용자의 위치를 확인할 수 없습니다.\n위치 권한을 사용할 수 있도록 승인해주세요.`,
+  );
 
   useEffect(() => {
     getLocation();
@@ -35,16 +41,7 @@ const Map = () => {
     if (!granted) {
       setHasPermission(false);
 
-      const props = {
-        isOpen: true,
-        modalType: 'alert',
-        props: {
-          title: '위치 권한 오류',
-          subTitle: `현재 사용자의 위치를 확인할 수 없습니다.\n위치 권한을 사용할 수 있도록 승인해주세요.`,
-        },
-      };
-
-      setModal(props);
+      setModal(permissionAlert);
     }
 
     const {

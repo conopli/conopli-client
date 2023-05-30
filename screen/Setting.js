@@ -10,7 +10,8 @@ import userPlayList from '../recoil/userPlayList';
 import ModalState from '../recoil/modal';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { WithLocalSvg } from 'react-native-svg';
-import { kakao, google, naver } from '../assets';
+import { kakao, google, naver, symbolLogo, typoLogo } from '../assets';
+import { confirmProps } from '../util';
 
 const Setting = ({ navigation }) => {
   const [geo, setGeo] = useState(false);
@@ -19,16 +20,12 @@ const Setting = ({ navigation }) => {
   const setModal = useSetRecoilState(ModalState);
   const { email, loginType } = useRecoilValue(userInfo);
 
-  const confirmProps = {
-    modalType: 'confirm',
-    isOpen: true,
-    props: {
-      title: '로그아웃',
-      subTitle: '로그아웃 하시겠습니까?',
-      buttonText: '확인',
-      handler: logoutHandler,
-    },
-  };
+  const confirm = confirmProps(
+    '로그아웃',
+    '로그아웃 하시겠습니까?',
+    '확인',
+    logoutHandler,
+  );
 
   const logoutHandler = async () => {
     await AsyncStorage.clear();
@@ -42,7 +39,8 @@ const Setting = ({ navigation }) => {
     <View style={styles.container}>
       <View>
         <View style={styles.logo}>
-          <Text style={{ fontSize: 28, color: 'white' }}>(대충 로고)</Text>
+          <WithLocalSvg width={96} height={97.6} asset={symbolLogo} />
+          <WithLocalSvg width={160} height={26.94} asset={typoLogo} />
         </View>
         <View style={styles.desc}>
           <Text style={styles.descText}>
@@ -80,7 +78,7 @@ const Setting = ({ navigation }) => {
           text="로그아웃"
           color="red"
           buttonHandler={() => {
-            setModal(confirmProps);
+            setModal(confirm);
           }}
         />
       </View>

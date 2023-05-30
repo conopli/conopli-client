@@ -12,10 +12,12 @@ const styles = StyleSheet.create({
   logo: {
     alignItems: 'center',
     marginVertical: 128,
+    rowGap: 16,
+    marginBottom: 48,
   },
   desc: {
     alignItems: 'center',
-    marginBottom: 28,
+    marginBottom: 48,
   },
   descText: {
     fontSize: 16,

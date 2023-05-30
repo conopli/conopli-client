@@ -6,20 +6,13 @@ import { PlusButton } from '../../components/index';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userPlayList from '../../recoil/userPlayList';
+import { addPlaylistProps } from '../../util';
 
 const Playlist = ({ navigation }) => {
   const setModal = useSetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
 
-  const addPlaylist = {
-    isOpen: true,
-    modalType: 'addPlaylist',
-    props: {
-      title: '플레이리스트 추가',
-      isEdit: false,
-      buttonText: '추가하기',
-    },
-  };
+  const addPlaylist = addPlaylistProps(false);
 
   useEffect(() => {
     navigation.setOptions({
