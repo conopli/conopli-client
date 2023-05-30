@@ -9,6 +9,7 @@ import userInfo from '../../recoil/userInfo.js';
 import server from '../../util/axios.js';
 import userPlayList from '../../recoil/userPlayList.js';
 import { useNavigation } from '@react-navigation/native';
+import { confirmProps } from '../../util/modalProps.js';
 
 //TODO:: default playlist 관련 로직 추가 필요
 
@@ -51,22 +52,18 @@ const MoveSongModal = ({ selectedLists }) => {
     }
   };
 
-  const confirmMove = {
-    isOpen: true,
-    modalType: 'confirm',
-    props: {
-      title: '추가가 완료되었습니다.',
-      subTitle: '플레이리스트로 이동할까요?',
-      buttonText: '이동',
-      handler: () => {
-        navigation.navigate('ListHome', {
-          screen: 'Detail',
-          params: { playListId: value },
-        });
-        reset();
-      },
+  const confirmMove = confirmProps(
+    '추가가 완료되었습니다.',
+    '플레이리스트로 이동할까요?',
+    '이동',
+    () => {
+      navigation.navigate('ListHome', {
+        screen: 'Detail',
+        params: { playListId: value },
+      });
+      reset();
     },
-  };
+  );
 
   return (
     <View

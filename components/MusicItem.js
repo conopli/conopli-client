@@ -2,22 +2,13 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './MusicItem.style';
 import { useSetRecoilState } from 'recoil';
 import ModalState from '../recoil/modal.js';
+import { addSongProps } from '../util';
 
 const MusicItem = ({ item, isAdd = false }) => {
   const { num, singer, title } = item;
   const setModal = useSetRecoilState(ModalState);
 
-  const songModal = {
-    isOpen: true,
-    modalType: 'addSong',
-    props: {
-      selectedSong: {
-        title,
-        singer,
-        num,
-      },
-    },
-  };
+  const songModal = addSongProps({ title, singer, num });
 
   return (
     <TouchableOpacity
