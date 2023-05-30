@@ -10,7 +10,7 @@ import userPlayList from '../recoil/userPlayList';
 import ModalState from '../recoil/modal';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { WithLocalSvg } from 'react-native-svg';
-import { kakao, google, naver } from '../assets';
+import { kakao, google, naver, symbolLogo, typoLogo } from '../assets';
 import { confirmProps } from '../util';
 
 const Setting = ({ navigation }) => {
@@ -39,7 +39,8 @@ const Setting = ({ navigation }) => {
     <View style={styles.container}>
       <View>
         <View style={styles.logo}>
-          <Text style={{ fontSize: 28, color: 'white' }}>(대충 로고)</Text>
+          <WithLocalSvg width={96} height={97.6} asset={symbolLogo} />
+          <WithLocalSvg width={160} height={26.94} asset={typoLogo} />
         </View>
         <View style={styles.desc}>
           <Text style={styles.descText}>
