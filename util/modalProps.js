@@ -16,7 +16,7 @@ const alertProps = (title = '', subTitle = '') => {
  * @param {string} title title: 모달 창의 제목
  * @param {string} subTitle subTitle: 부가적으로 설명할 내용
  * @param {string} buttonText buttonText: '확인'에 들어갈 버튼의 텍스트
- * @param {function} handler hander: '확인'버튼을 터치 시 동작할 함수
+ * @param {function} handler hander: '확인'버튼을 터치 시 동작할 함수. 이 함수는 항상 콜백형태로 작성해야 함. (() => {func()})
  */
 const confirmProps = (
   title = '',

@@ -17,6 +17,7 @@ const Setting = ({ navigation }) => {
   const [geo, setGeo] = useState(false);
   const resetUserInfo = useResetRecoilState(userInfo);
   const resetPlayList = useResetRecoilState(userPlayList);
+  const resetModal = useResetRecoilState(ModalState);
   const setModal = useSetRecoilState(ModalState);
   const { email, loginType } = useRecoilValue(userInfo);
 
@@ -24,14 +25,16 @@ const Setting = ({ navigation }) => {
     '로그아웃',
     '로그아웃 하시겠습니까?',
     '확인',
-    logoutHandler,
+    () => {
+      logoutHandler();
+    },
   );
 
   const logoutHandler = async () => {
     await AsyncStorage.clear();
     resetUserInfo();
     resetPlayList();
-    console.log('logout');
+    resetModal();
     navigation.navigate('Populer');
   };
 
