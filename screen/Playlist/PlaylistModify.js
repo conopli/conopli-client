@@ -10,10 +10,13 @@ import {
 import { server } from '../../util';
 import { useRecoilValue } from 'recoil';
 import userInfo from '../../recoil/userInfo.js';
+import { useSetRecoilState } from 'recoil';
+import ModalState from '../../recoil/modal.js';
 
 //TODO:: 플레이리스트 내부 수정
 
 const PlaylistModify = ({ navigation, route }) => {
+  const setModal = useSetRecoilState(ModalState);
   const { Authorization } = useRecoilValue(userInfo);
   const playListId = route.params.playListId;
   //플리 내부에 있는 노래 리스트
@@ -23,6 +26,10 @@ const PlaylistModify = ({ navigation, route }) => {
   const [select, setSelect] = useState([]);
   //요 상태 기준으로 반복문 돌려서 delete 요청 보내야 함,,,
   const [deleteItems, setDeleteItems] = useState([]);
+  //이동용 스택 : [{플레이리스트 아이디 : [이동하는 노래들의 id 리스트]}]
+  const [moveItems, setMoveItems] = useState([]);
+
+  console.log(moveItems);
 
   //플레이리스트 이동 같은 경우 add, delete // confirmModal으로 확인
   //플레이리스트 내부에서 수정의 경우 연필 버튼 > 플리 이동 시 바로 적용
@@ -73,7 +80,19 @@ const PlaylistModify = ({ navigation, route }) => {
     setSelect(items.map((el) => el.userMusicId));
   };
 
-  const moveItemHandler = () => {};
+  const moveProps = {
+    isOpen: true,
+    modalType: 'moveSong',
+    props: {
+      selectedSongs: select,
+      setMoveStack: setMoveItems,
+      moveStack: moveItems,
+    },
+  };
+
+  const moveItemHandler = () => {
+    setModal(moveProps);
+  };
 
   const deleteItemHandler = () => {
     setDeleteItems((prev) => {

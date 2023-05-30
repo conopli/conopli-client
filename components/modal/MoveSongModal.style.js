@@ -14,27 +14,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 700,
-    marginBottom: 39,
+    marginBottom: 16,
   },
-  songBox: {
-    height: 60,
-    flex: 1,
-    backgroundColor: theme.white,
+  subTitle: {
+    fontSize: 16,
+    fontWeight: 500,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    columnGap: 12,
-    borderRadius: 4,
+    justifyContent: 'center',
     marginBottom: 40,
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-
-    elevation: 1,
   },
   buttonBox: {
     flexDirection: 'row',
@@ -70,24 +58,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     rowGap: 4,
-  },
-  songTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    paddingRight: 12,
-  },
-  artist: {
-    fontSize: 16,
-    paddingRight: 12,
-  },
-  num: {
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-  },
-  numText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
   },
 });
 
