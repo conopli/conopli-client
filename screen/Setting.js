@@ -56,7 +56,7 @@ const Setting = ({ navigation }) => {
             <Text style={styles.emailText}>{email}</Text>
             {loginType === 'KAKAO' ? (
               <WithLocalSvg width={16} asset={kakao} />
-            ) : type === 'GOOGLE' ? (
+            ) : loginType === 'GOOGLE' ? (
               <WithLocalSvg width={16} asset={google} />
             ) : (
               <WithLocalSvg width={16} asset={naver} />

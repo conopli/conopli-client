@@ -9,6 +9,7 @@ import userInfo from '../../recoil/userInfo.js';
 import server from '../../util/axios.js';
 import userPlayList from '../../recoil/userPlayList.js';
 import { useNavigation } from '@react-navigation/native';
+import { confirmProps } from '../../util/modalProps.js';
 
 //TODO:: default playlist 관련 로직 추가 필요
 
