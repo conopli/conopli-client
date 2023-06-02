@@ -6,6 +6,7 @@ import {
 } from './Buttons';
 import PlaylistItem from './PlaylistItem';
 import ModifyMusicItem from './ModifyMusicItem';
+import SortMusicItem from './SortMusicItem';
 
 export {
   BackButton,
@@ -14,4 +15,5 @@ export {
   ModifyListButton,
   PlaylistItem,
   ConfirmModifyButton,
+  SortMusicItem,
 };
