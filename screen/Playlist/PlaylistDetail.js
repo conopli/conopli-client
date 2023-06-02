@@ -9,6 +9,7 @@ import userInfo from '../../recoil/userInfo.js';
 
 const PlaylistDetail = ({ navigation, route }) => {
   const playListId = route.params.playListId;
+  const title = route.params.title;
   const { Authorization } = useRecoilValue(userInfo);
   const [songList, setSongList] = useState([]);
 
@@ -27,7 +28,7 @@ const PlaylistDetail = ({ navigation, route }) => {
 
   useEffect(() => {
     getSongLists();
-  }, []);
+  }, [route]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -45,6 +46,7 @@ const PlaylistDetail = ({ navigation, route }) => {
           }}
         />
       ),
+      title: title,
     });
   });
 
