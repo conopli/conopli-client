@@ -1,4 +1,3 @@
-import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './DeleteModal.style.js';
 import { RowButton } from '../index.js';

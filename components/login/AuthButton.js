@@ -1,4 +1,3 @@
-import React from 'react';
 import { TouchableOpacity, Text, Image } from 'react-native';
 import styles from './AuthButton.style.js';
 import Kakao from '../../assets/kakao.svg';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import styles from './PlusButton.style.js';
 import { MaterialIcons } from '@expo/vector-icons';
