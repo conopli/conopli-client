@@ -27,6 +27,9 @@ const Search = () => {
   //제목 vs 가수 필터 버튼 값
   const [isClicked, setIsClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAddLoading, setIsAddLoading] = useState(false);
+  const [prevConfig, setPrevConfig] = useState(null);
+  const [pageInfo, setPageInfo] = useState({});
   const server = useServer();
 
   const inputRef = useRef(null);
@@ -34,16 +37,42 @@ const Search = () => {
     const filter = isClicked ? 2 : 1;
     try {
       setIsLoading(true);
+      setSearchResult([]);
       const { data } = await server.get(
-        `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${value}&page=0`,
+        `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${value}`,
       );
       setSearchResult(data.data);
-      setTextValue('');
+      setPageInfo(data.pageInfo);
+      setPrevConfig({ filter, textValue, value });
       setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
     inputRef.current.blur();
+  };
+
+  const nextPageHandler = async () => {
+    const { page, totalPages } = pageInfo;
+
+    if (page === totalPages - 1 || this.onEndReachedCalledDuringMomentum)
+      return;
+
+    const { filter, textValue, value } = prevConfig;
+
+    try {
+      setIsAddLoading(true);
+      const { data } = await server.get(
+        `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${value}&page=${
+          pageInfo.page + 1
+        }`,
+      );
+      setSearchResult((prev) => [...prev, ...data.data]);
+      setPageInfo(data.pageInfo);
+      this.onEndReachedCalledDuringMomentum = false;
+      setIsAddLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -102,7 +131,23 @@ const Search = () => {
           <FlatList
             data={searchResult}
             renderItem={({ item }) => <MusicItem isAdd={true} item={item} />}
+            keyExtractor={(item) => item.num}
             contentContainerStyle={{ rowGap: 8, paddingBottom: 12 }}
+            ListFooterComponent={(props) =>
+              isAddLoading && (
+                <ActivityIndicator
+                  style={{ flex: 1 }}
+                  size="large"
+                  color={theme.lime}
+                  {...props}
+                />
+              )
+            }
+            onEndReached={nextPageHandler}
+            onEndReachedThreshold={0}
+            onMomentumScrollBegin={() => {
+              this.onEndReachedCalledDuringMomentum = false;
+            }}
           />
         )}
       </View>
