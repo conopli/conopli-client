@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import styles from './AddSongModal.style.js';
 import { RowButton } from '../index.js';
@@ -26,11 +26,11 @@ const AddSongModal = ({ selectedSong }) => {
 
   const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('플레이리스트 선택');
+  const [value, setValue] = useState(null);
   const [items, setItems] = useState(pickerLists);
 
   const postNewSong = async () => {
-    if (value === '플레이리스트 선택') {
+    if (!value) {
       console.log('no playlist');
       reset();
     } else {
@@ -60,7 +60,10 @@ const AddSongModal = ({ selectedSong }) => {
     () => {
       navigation.navigate('ListHome', {
         screen: 'Detail',
-        params: { playListId: value },
+        params: {
+          playListId: value,
+          title: playList.find((el) => el.playListId === value).title,
+        },
       });
       reset();
     },
@@ -97,7 +100,7 @@ const AddSongModal = ({ selectedSong }) => {
             textStyle={{ fontSize: 16, fontWeight: 'bold' }}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}
-            placeholder={value}
+            placeholder={'플레이리스트 선택'}
             open={open}
             value={value}
             items={items}
