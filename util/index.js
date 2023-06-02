@@ -1,10 +1,10 @@
-import server from './axios';
 import {
   searchDummy,
   detailDummy,
   populerDummy,
   playlistDummy,
 } from './dummyData';
+
 import {
   alertProps,
   confirmProps,
@@ -13,10 +13,10 @@ import {
   deletePlaylistProps,
   editPlaylistProps,
 } from './modalProps';
+
 import useServer from './useServer';
 
 export {
-  server,
   searchDummy,
   detailDummy,
   populerDummy,

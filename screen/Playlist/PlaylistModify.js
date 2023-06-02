@@ -7,7 +7,7 @@ import {
   ModifyListButton,
   ModifyMusicItem,
 } from '../../components/Playlist';
-import { server } from '../../util';
+import { useServer } from '../../util';
 import { useRecoilValue } from 'recoil';
 import userInfo from '../../recoil/userInfo.js';
 import { useSetRecoilState } from 'recoil';
@@ -16,6 +16,7 @@ import ModalState from '../../recoil/modal.js';
 //TODO:: 플레이리스트 내부 수정
 
 const PlaylistModify = ({ navigation, route }) => {
+  const server = useServer();
   const setModal = useSetRecoilState(ModalState);
   const { Authorization } = useRecoilValue(userInfo);
   const playListId = route.params.playListId;

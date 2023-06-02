@@ -6,14 +6,14 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userInfo from '../../recoil/userInfo.js';
-import server from '../../util/axios.js';
 import userPlayList from '../../recoil/userPlayList.js';
 import { useNavigation } from '@react-navigation/native';
-import { alertProps, confirmProps } from '../../util/modalProps.js';
+import { alertProps, confirmProps, useServer } from '../../util';
 
 //TODO:: default playlist 관련 로직 추가 필요
 
 const AddSongModal = ({ selectedSong }) => {
+  const server = useServer();
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
@@ -26,7 +26,7 @@ const AddSongModal = ({ selectedSong }) => {
 
   const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(pickerLists[0].value);
+  const [value, setValue] = useState(null);
   const [items, setItems] = useState(pickerLists);
 
   const postNewSong = async () => {

@@ -3,11 +3,12 @@ import { View, FlatList } from 'react-native';
 import { MusicItem } from '../../components';
 import styles from './PlaylistDetail.style';
 import { BackButton, ModifyButton } from '../../components/Playlist';
-import { server } from '../../util';
+import { useServer } from '../../util';
 import { useRecoilValue } from 'recoil';
 import userInfo from '../../recoil/userInfo.js';
 
 const PlaylistDetail = ({ navigation, route }) => {
+  const server = useServer();
   const playListId = route.params.playListId;
   const title = route.params.title;
   const { Authorization } = useRecoilValue(userInfo);

@@ -1,14 +1,11 @@
-import { View, TextInput, ScrollView, FlatList } from 'react-native';
+import { View, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import styles from './Search.style';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState, useRef } from 'react';
-import SearchButton from '../components/SearchButton';
-import MusicItem from '../components/MusicItem';
+import { SearchButton, MusicItem } from '../components';
 import { MaterialIcons } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native';
-import { searchDummy } from '../util';
+import { searchDummy, useServer } from '../util';
 import { theme } from '../theme.js';
-import server from '../util/axios';
 
 const Search = () => {
   const [open, setOpen] = useState(false);
@@ -22,6 +19,7 @@ const Search = () => {
   const [textValue, setTextValue] = useState('');
   //제목 vs 가수 필터 버튼 값
   const [isClicked, setIsClicked] = useState(false);
+  const server = useServer();
 
   const inputRef = useRef(null);
   const searchInputHander = async () => {
