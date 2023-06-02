@@ -28,6 +28,7 @@ const Playlist = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
+        keyExtractor={(item) => item.playListId}
         data={playList}
         renderItem={(props) => (
           <PlaylistItem {...props} navigation={navigation} />

@@ -82,12 +82,13 @@ const Populer = ({ navigation }) => {
         />
       ) : (
         <FlatList
+          keyExtractor={(item) => item.num}
           style={styles.listContainer}
           contentContainerStyle={{ rowGap: 8, paddingBottom: 16 }}
           data={visibleList}
           renderItem={({ item }) => <ListItem item={item} />}
           onEndReached={addPopulerList}
-          onEndReachedThreshold={0.3}
+          onEndReachedThreshold={0}
         />
       )}
     </View>

@@ -58,6 +58,7 @@ const PlaylistDetail = ({ navigation, route }) => {
         contentContainerStyle={{ rowGap: 8 }}
         data={songList}
         renderItem={({ item }) => <MusicItem item={item} />}
+        keyExtractor={(item) => item.num}
       />
     </View>
   );
