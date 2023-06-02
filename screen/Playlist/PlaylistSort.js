@@ -16,7 +16,6 @@ import DraggableFlatList from 'react-native-draggable-flatlist';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 const PlaylistSort = ({ navigation, route }) => {
-  const { Authorization } = useRecoilValue(userInfo);
   // TODO : route로 params 받아올 시 아래 주석 해제 및 테스트용 변수 삭제
   // const playListId = route.params.playListId;
   const playListId = 1;
@@ -34,11 +33,7 @@ const PlaylistSort = ({ navigation, route }) => {
 
   const getSongLists = async () => {
     try {
-      const { data } = await server.get(`/api/user-music/${playListId}`, {
-        headers: {
-          Authorization,
-        },
-      });
+      const { data } = await server.get(`/api/user-music/${playListId}`);
       setItems(data.data);
     } catch (error) {
       console.log(error);
@@ -49,15 +44,10 @@ const PlaylistSort = ({ navigation, route }) => {
     const orderList = items.map((el) => el.orderNum);
 
     try {
-      const { data } = await server.patch(
-        `/api/user-music`,
-        { playListId, orderList },
-        {
-          headers: {
-            Authorization,
-          },
-        },
-      );
+      const { data } = await server.patch(`/api/user-music`, {
+        playListId,
+        orderList,
+      });
       navigation.push('Detail', { playListId });
     } catch (error) {
       console.log(error);

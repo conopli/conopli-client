@@ -17,7 +17,7 @@ const AddSongModal = ({ selectedSong }) => {
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
-  const { userId, Authorization } = useRecoilValue(userInfo);
+  const { userId } = useRecoilValue(userInfo);
   const navigation = useNavigation();
 
   const pickerLists = playList.map((item) => {
@@ -40,11 +40,7 @@ const AddSongModal = ({ selectedSong }) => {
           playListId: value,
           musicNum: num,
         };
-        const data = await server.post('/api/user-music', body, {
-          headers: {
-            Authorization,
-          },
-        });
+        const data = await server.post('/api/user-music', body);
         reset();
         setModal(confirmMove);
       } catch (error) {

@@ -41,9 +41,7 @@ const Login = ({ navigation }) => {
 
       const {
         data: { data },
-      } = await server.get(`/api/users/${userId}`, {
-        headers: { Authorization },
-      });
+      } = await server.get(`/api/users/${userId}`);
 
       const { email, loginType } = data;
 
@@ -56,13 +54,9 @@ const Login = ({ navigation }) => {
     }
   };
 
-  const getPlayList = async (userId, Authorization) => {
+  const getPlayList = async (userId) => {
     try {
-      const { data } = await server.get(`/api/user-music/playlist/${userId}`, {
-        headers: {
-          Authorization,
-        },
-      });
+      const { data } = await server.get(`/api/user-music/playlist/${userId}`);
       return data.data;
     } catch (error) {
       console.log(error);

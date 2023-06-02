@@ -11,16 +11,11 @@ const PlaylistDetail = ({ navigation, route }) => {
   const server = useServer();
   const playListId = route.params.playListId;
   const title = route.params.title;
-  const { Authorization } = useRecoilValue(userInfo);
   const [songList, setSongList] = useState([]);
 
   const getSongLists = async () => {
     try {
-      const { data } = await server.get(`/api/user-music/${playListId}`, {
-        headers: {
-          Authorization,
-        },
-      });
+      const { data } = await server.get(`/api/user-music/${playListId}`);
       setSongList(data.data);
     } catch (error) {
       console.log(error);

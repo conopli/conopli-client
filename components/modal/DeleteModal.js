@@ -13,15 +13,11 @@ const DeleteModal = ({ playListId }) => {
   const server = useServer();
   const reset = useResetRecoilState(ModalState);
   const setPlayList = useSetRecoilState(userPlayList);
-  const { userId, Authorization } = useRecoilValue(userInfo);
+  const { userId } = useRecoilValue(userInfo);
 
   const deleteHandler = async () => {
     try {
-      await server.delete(`/api/user-music/playlist/${playListId}`, {
-        headers: {
-          Authorization,
-        },
-      });
+      await server.delete(`/api/user-music/playlist/${playListId}`);
       getPlaylist();
       reset();
     } catch (error) {
