@@ -9,7 +9,7 @@ import userInfo from '../../recoil/userInfo.js';
 import server from '../../util/axios.js';
 import userPlayList from '../../recoil/userPlayList.js';
 import { useNavigation } from '@react-navigation/native';
-import { confirmProps } from '../../util/modalProps.js';
+import { alertProps, confirmProps } from '../../util/modalProps.js';
 
 //TODO:: default playlist 관련 로직 추가 필요
 
@@ -48,7 +48,15 @@ const AddSongModal = ({ selectedSong }) => {
         reset();
         setModal(confirmMove);
       } catch (error) {
-        console.log(error);
+        const { status, message } = error.response.data;
+        if (status === 400 && message === 'Already Exist User Music') {
+          // TODO : 차후 토스트로 변경 요망
+          const alert = alertProps(
+            '중복된 노래',
+            '이미 플레이리스트에 노래가 있습니다.',
+          );
+          setModal(alert);
+        } else console.log(error);
       }
     }
   };
