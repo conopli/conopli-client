@@ -26,7 +26,7 @@ const AddSongModal = ({ selectedSong }) => {
 
   const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(pickerLists[0].value);
   const [items, setItems] = useState(pickerLists);
 
   const postNewSong = async () => {
