@@ -1,6 +1,11 @@
 import { theme } from '../theme';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Playlist, PlaylistModify, PlaylistDetail } from './Playlist';
+import {
+  Playlist,
+  PlaylistModify,
+  PlaylistDetail,
+  PlaylistSort,
+} from './Playlist';
 
 const ListHome = () => {
   const Stack = createNativeStackNavigator();
@@ -35,6 +40,11 @@ const ListHome = () => {
         name="Modify"
         component={PlaylistModify}
         options={{ title: '플레이리스트 수정' }}
+      />
+      <Stack.Screen
+        name="Sort"
+        component={PlaylistSort}
+        options={{ title: '플레이리스트 순서 변경' }}
       />
     </Stack.Navigator>
   );
