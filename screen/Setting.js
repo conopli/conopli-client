@@ -9,8 +9,11 @@ import userInfo from '../recoil/userInfo';
 import userPlayList from '../recoil/userPlayList';
 import ModalState from '../recoil/modal';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { WithLocalSvg } from 'react-native-svg';
-import { kakao, google, naver, symbolLogo, typoLogo } from '../assets';
+import Kakao from '../assets/kakao.svg';
+import Naver from '../assets/naver.svg';
+import Google from '../assets/google.svg';
+import SymbolLogo from '../assets/symbolLogo.svg';
+import TypoLogo from '../assets/typoLogo.svg';
 import { confirmProps } from '../util';
 
 const Setting = ({ navigation }) => {
@@ -42,8 +45,8 @@ const Setting = ({ navigation }) => {
     <View style={styles.container}>
       <View>
         <View style={styles.logo}>
-          <WithLocalSvg width={96} height={97.6} asset={symbolLogo} />
-          <WithLocalSvg width={160} height={26.94} asset={typoLogo} />
+          <SymbolLogo width={96} height={97.6} />
+          <TypoLogo width={160} height={26.94} />
         </View>
         <View style={styles.desc}>
           <Text style={styles.descText}>
@@ -55,11 +58,11 @@ const Setting = ({ navigation }) => {
           <View style={[styles.email, styles[loginType]]}>
             <Text style={styles.emailText}>{email}</Text>
             {loginType === 'KAKAO' ? (
-              <WithLocalSvg width={16} asset={kakao} />
+              <Kakao width={16} />
             ) : loginType === 'GOOGLE' ? (
-              <WithLocalSvg width={16} asset={google} />
+              <Google width={16} />
             ) : (
-              <WithLocalSvg width={16} asset={naver} />
+              <Naver width={16} />
             )}
           </View>
         </View>
