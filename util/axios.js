@@ -12,6 +12,9 @@ const server = axios.create();
 // TODO: 커스텀 훅으로 변경 후 전역 상태에서 가져오므로 삭제 예정
 const getToken = async () => {
   const userInfo = await AsyncStorage.getItem('current_user');
+
+  if (!userInfo) return;
+
   const { Authorization } = JSON.parse(userInfo);
   return Authorization;
 };
@@ -32,6 +35,7 @@ server.interceptors.request.use(
 server.interceptors.response.use(
   (res) => res,
   async (err) => {
+    console.log(err);
     const {
       config,
       response: {
