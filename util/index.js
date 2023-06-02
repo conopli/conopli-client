@@ -13,6 +13,7 @@ import {
   deletePlaylistProps,
   editPlaylistProps,
 } from './modalProps';
+import useServer from './useServer';
 
 export {
   server,
@@ -26,4 +27,5 @@ export {
   addSongProps,
   deletePlaylistProps,
   editPlaylistProps,
+  useServer,
 };
