@@ -1,10 +1,17 @@
-import { View, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+  Text,
+} from 'react-native';
 import styles from './Search.style';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState, useRef } from 'react';
 import { SearchButton, MusicItem } from '../components';
 import { MaterialIcons } from '@expo/vector-icons';
-import { searchDummy, useServer } from '../util';
+import { useServer } from '../util';
 import { theme } from '../theme.js';
 
 const Search = () => {
@@ -15,21 +22,24 @@ const Search = () => {
     { label: '영어', value: 'ENG' },
     { label: '일본', value: 'JPN' },
   ]);
-  const [searchResult, setSearchResult] = useState(searchDummy.data);
+  const [searchResult, setSearchResult] = useState(null);
   const [textValue, setTextValue] = useState('');
   //제목 vs 가수 필터 버튼 값
   const [isClicked, setIsClicked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const server = useServer();
 
   const inputRef = useRef(null);
   const searchInputHander = async () => {
     const filter = isClicked ? 2 : 1;
     try {
+      setIsLoading(true);
       const { data } = await server.get(
         `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${value}&page=0`,
       );
       setSearchResult(data.data);
       setTextValue('');
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +70,7 @@ const Search = () => {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder="제목으로 검색하세요"
+            placeholder={`${isClicked ? '가수명' : '제목'}으로 검색하세요`}
             placeholderTextColor={theme.gray}
             value={textValue}
             onChangeText={setTextValue}
@@ -77,13 +87,25 @@ const Search = () => {
           </TouchableOpacity>
         </View>
       </View>
-
-      <FlatList
-        style={styles.resultList}
-        data={searchResult}
-        renderItem={({ item }) => <MusicItem isAdd={true} item={item} />}
-        contentContainerStyle={{ rowGap: 8 }}
-      />
+      <View style={styles.result}>
+        {isLoading ? (
+          <ActivityIndicator
+            style={{ flex: 1 }}
+            size="large"
+            color={theme.lime}
+          />
+        ) : searchResult === null ? (
+          <Text style={styles.descText}>검색어를 입력하세요</Text>
+        ) : searchResult.length === 0 ? (
+          <Text style={styles.descText}>검색 결과가 없습니다</Text>
+        ) : (
+          <FlatList
+            data={searchResult}
+            renderItem={({ item }) => <MusicItem isAdd={true} item={item} />}
+            contentContainerStyle={{ rowGap: 8, paddingBottom: 12 }}
+          />
+        )}
+      </View>
     </View>
   );
 };
