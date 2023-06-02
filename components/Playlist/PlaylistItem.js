@@ -39,7 +39,7 @@ const PlaylistItem = ({ navigation, item }) => {
     <TouchableOpacity
       style={[styles.container, { backgroundColor: playlistColor[color] }]}
       onPress={() => {
-        navigation.push('Detail', { playListId: playListId });
+        navigation.push('Detail', { playListId, title });
       }}
       onLongPress={() => {
         setModal(editModal);

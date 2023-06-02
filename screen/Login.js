@@ -4,16 +4,16 @@ import { AuthButton } from '../components/Login';
 import * as WebBrowser from 'expo-web-browser';
 import * as AuthSession from 'expo-auth-session';
 import getEnv from '../env.js';
-import server from '../util/axios';
 import { useSetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
 import userPlayList from '../recoil/userPlayList.js';
-import { alertProps } from '../util/modalProps.js';
+import { alertProps, useServer } from '../util';
 
 WebBrowser.maybeCompleteAuthSession();
 
 const Login = ({ navigation }) => {
+  const server = useServer();
   const setUser = useSetRecoilState(userInfo);
   const setPlayList = useSetRecoilState(userPlayList);
   const setModal = useSetRecoilState(ModalState);
@@ -41,9 +41,7 @@ const Login = ({ navigation }) => {
 
       const {
         data: { data },
-      } = await server.get(`/api/users/${userId}`, {
-        headers: { Authorization },
-      });
+      } = await server.get(`/api/users/${userId}`);
 
       const { email, loginType } = data;
 
@@ -56,13 +54,9 @@ const Login = ({ navigation }) => {
     }
   };
 
-  const getPlayList = async (userId, Authorization) => {
+  const getPlayList = async (userId) => {
     try {
-      const { data } = await server.get(`/api/user-music/playlist/${userId}`, {
-        headers: {
-          Authorization,
-        },
-      });
+      const { data } = await server.get(`/api/user-music/playlist/${userId}`);
       return data.data;
     } catch (error) {
       console.log(error);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Text, View } from 'react-native';
 import styles from './AddSongModal.style.js';
 import { RowButton } from '../index.js';
@@ -6,18 +6,18 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userInfo from '../../recoil/userInfo.js';
-import server from '../../util/axios.js';
 import userPlayList from '../../recoil/userPlayList.js';
 import { useNavigation } from '@react-navigation/native';
-import { confirmProps } from '../../util/modalProps.js';
+import { alertProps, confirmProps, useServer } from '../../util';
 
 //TODO:: default playlist 관련 로직 추가 필요
 
 const AddSongModal = ({ selectedSong }) => {
+  const server = useServer();
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
-  const { userId, Authorization } = useRecoilValue(userInfo);
+  const { userId } = useRecoilValue(userInfo);
   const navigation = useNavigation();
 
   const pickerLists = playList.map((item) => {
@@ -26,11 +26,11 @@ const AddSongModal = ({ selectedSong }) => {
 
   const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('플레이리스트 선택');
+  const [value, setValue] = useState(null);
   const [items, setItems] = useState(pickerLists);
 
   const postNewSong = async () => {
-    if (value === '플레이리스트 선택') {
+    if (!value) {
       console.log('no playlist');
       reset();
     } else {
@@ -40,15 +40,19 @@ const AddSongModal = ({ selectedSong }) => {
           playListId: value,
           musicNum: num,
         };
-        const data = await server.post('/api/user-music', body, {
-          headers: {
-            Authorization,
-          },
-        });
+        const data = await server.post('/api/user-music', body);
         reset();
         setModal(confirmMove);
       } catch (error) {
-        console.log(error);
+        const { status, message } = error.response.data;
+        if (status === 400 && message === 'Already Exist User Music') {
+          // TODO : 차후 토스트로 변경 요망
+          const alert = alertProps(
+            '중복된 노래',
+            '이미 플레이리스트에 노래가 있습니다.',
+          );
+          setModal(alert);
+        } else console.log(error);
       }
     }
   };
@@ -60,7 +64,10 @@ const AddSongModal = ({ selectedSong }) => {
     () => {
       navigation.navigate('ListHome', {
         screen: 'Detail',
-        params: { playListId: value },
+        params: {
+          playListId: value,
+          title: playList.find((el) => el.playListId === value).title,
+        },
       });
       reset();
     },
@@ -97,7 +104,7 @@ const AddSongModal = ({ selectedSong }) => {
             textStyle={{ fontSize: 16, fontWeight: 'bold' }}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}
-            placeholder={value}
+            placeholder={'플레이리스트 선택'}
             open={open}
             value={value}
             items={items}
