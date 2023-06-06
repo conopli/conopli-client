@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import { useNavigation } from '@react-navigation/native';
+import makeToast from './makeToast';
 
 const useServer = () => {
   const server = axios.create();
@@ -36,10 +37,11 @@ const useServer = () => {
 
       if (config.sent) return Promise.reject(error);
 
-      // TODO : console.log => toast message로 모두 대체
-      if (status === 500) console.log('500 server err');
+      if (status === 500 || status === 501)
+        makeToast('서버에서 오류가 발생했습니다.', true);
 
-      if (status === 404) console.log('404 err');
+      if (status === 400 || status === 404)
+        makeToast('클라이언트 요청에 오류가 발생했습니다.', true);
 
       if (status === 403 && message === 'EXPIRED ACCESS TOKEN') {
         const originReq = config;
@@ -63,7 +65,7 @@ const useServer = () => {
           resetPlayList();
           resetModal();
           navigation.navigate('Login');
-          console.log('다시 로그인해주세요.');
+          makeToast('다시 로그인해주세요.', true);
         }
       }
       return Promise.reject(err);

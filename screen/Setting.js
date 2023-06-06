@@ -14,7 +14,7 @@ import Naver from '../assets/naver.svg';
 import Google from '../assets/google.svg';
 import SymbolLogo from '../assets/symbolLogo.svg';
 import TypoLogo from '../assets/typoLogo.svg';
-import { confirmProps } from '../util';
+import { confirmProps, makeToast } from '../util';
 
 const Setting = ({ navigation }) => {
   const [geo, setGeo] = useState(false);
@@ -39,6 +39,7 @@ const Setting = ({ navigation }) => {
     resetPlayList();
     resetModal();
     navigation.navigate('Populer');
+    makeToast('로그아웃이 완료되었습니다.');
   };
 
   return (

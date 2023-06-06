@@ -8,7 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
 import userPlayList from '../recoil/userPlayList.js';
-import { alertProps, useServer } from '../util';
+import { alertProps, useServer, makeToast } from '../util';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -50,6 +50,11 @@ const Login = ({ navigation }) => {
       const { status, message } = e.response.data;
       if (status === 400 && message === 'Already Exist User Email') {
         setModal(loginFail);
+      } else {
+        makeToast(
+          `로그인 중 오류가 발생했습니다.\nERROR: fail of get "USER INFO" `,
+        );
+        console.error(e);
       }
     }
   };
@@ -59,7 +64,10 @@ const Login = ({ navigation }) => {
       const { data } = await server.get(`/api/user-music/playlist/${userId}`);
       return data.data;
     } catch (error) {
-      console.log(error);
+      makeToast(
+        `로그인 중 오류가 발생했습니다.\nERROR: fail of get "PLAYLIST" `,
+      );
+      console.error(error);
     }
   };
 
@@ -109,6 +117,7 @@ const Login = ({ navigation }) => {
           resultOfCode = code;
         }
       } catch (e) {
+        makeToast(`로그인 중 오류가 발생했습니다.\nERROR: fail of get "CODE" `);
         console.error(e);
       }
     };
@@ -129,6 +138,9 @@ const Login = ({ navigation }) => {
         console.log('access_token', access_token);
         resultOfAccessToken = access_token;
       } catch (e) {
+        makeToast(
+          `로그인 중 오류가 발생했습니다.\nERROR: fail of get "ACCESS TOKEN" `,
+        );
         console.error(e);
       }
     };
@@ -146,6 +158,7 @@ const Login = ({ navigation }) => {
     const playList = await getPlayList(userId, Authorization);
     setPlayList(playList);
     navigation.navigate('Populer');
+    makeToast('로그인이 완료되었습니다.');
   };
 
   return (
