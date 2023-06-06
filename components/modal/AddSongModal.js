@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import styles from './AddSongModal.style.js';
 import { RowButton } from '../index.js';
@@ -8,9 +8,7 @@ import ModalState from '../../recoil/modal.js';
 import userInfo from '../../recoil/userInfo.js';
 import userPlayList from '../../recoil/userPlayList.js';
 import { useNavigation } from '@react-navigation/native';
-import { confirmProps, useServer } from '../../util';
-
-//TODO:: 중복 제거 로직 추가 필요
+import { alertProps, confirmProps, useServer } from '../../util';
 
 const AddSongModal = ({ selectedSong }) => {
   const server = useServer();
@@ -19,20 +17,22 @@ const AddSongModal = ({ selectedSong }) => {
   const playList = useRecoilValue(userPlayList);
   const { userId } = useRecoilValue(userInfo);
   const navigation = useNavigation();
+  const alert = alertProps('오류', '추가할 플레이리스트를 선택하세요.');
 
+  // TODO : 드롭다운에 사용되는 items와 value는 하드코딩 되어야만 함.
+  // 해당 부분 해결 방안 고민해야됨.
   const pickerLists = playList.map((item) => {
     return { label: item.title, value: item.playListId };
   });
 
   const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
   const [items, setItems] = useState(pickerLists);
+  const [value, setValue] = useState(null);
 
   const postNewSong = async () => {
     if (!value) {
-      console.log('no playlist');
-      reset();
+      setModal(alert);
     } else {
       try {
         const body = {
@@ -41,6 +41,7 @@ const AddSongModal = ({ selectedSong }) => {
           musicNum: [num],
         };
         const data = await server.post('/api/user-music', body);
+        //TODO:: 추가 후 중복 제거 API 연결 필요
         reset();
         setModal(confirmMove);
       } catch (error) {

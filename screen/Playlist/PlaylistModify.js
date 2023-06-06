@@ -140,6 +140,8 @@ const PlaylistModify = ({ navigation, route }) => {
           playListId: Number(key),
           musicNum: Object.values(moveItems[key]),
         });
+
+        // TODO :: 추가 후 중복 제거 API 연결 필요
       }
     }
 
