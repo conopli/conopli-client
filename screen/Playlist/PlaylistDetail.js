@@ -4,8 +4,6 @@ import { MusicItem } from '../../components';
 import styles from './PlaylistDetail.style';
 import { BackButton, ModifyButton } from '../../components/Playlist';
 import { useServer } from '../../util';
-import { useRecoilValue } from 'recoil';
-import userInfo from '../../recoil/userInfo.js';
 
 const PlaylistDetail = ({ navigation, route }) => {
   const server = useServer();

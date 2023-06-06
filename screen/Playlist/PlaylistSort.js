@@ -7,8 +7,6 @@ import {
   SortMusicItem,
 } from '../../components/Playlist';
 import { confirmProps, server } from '../../util';
-import { useRecoilValue } from 'recoil';
-import userInfo from '../../recoil/userInfo.js';
 import { useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import { detailDummy } from '../../util';
