@@ -13,28 +13,20 @@ import userInfo from '../../recoil/userInfo.js';
 import { useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 
-//TODO:: 플레이리스트 내부 수정
-
 const PlaylistModify = ({ navigation, route }) => {
   const server = useServer();
   const setModal = useSetRecoilState(ModalState);
   const playListId = route.params.playListId;
+  const { userId } = useRecoilValue(userInfo);
+
   //플리 내부에 있는 노래 리스트
   const [items, setItems] = useState([]);
-  //삭제를 위한 기능 : 선택한 노래들을 배열에 추가 (userMusicId string이 담김);
-  //수정에도 사용할 것임...
+  //삭제와 수정에 사용 : 선택한 노래들을 객체에 추가 (userMusicId(플리 내에서의 노래의 아이디) : num(고유한 노래의 number) 형태로 담김)
   const [select, setSelect] = useState([]);
-  //요 상태 기준으로 반복문 돌려서 delete 요청 보내야 함,,,
+  //삭제 요청 시 사용하는 리스트
   const [deleteItems, setDeleteItems] = useState([]);
-  //이동용 스택 : {플레이리스트 아이디 : [이동하는 노래들의 id 리스트]}
+  //곡 플리 이동용 스택 : {playListId:[ {musicId: num} , {musicId: num} ]}
   const [moveItems, setMoveItems] = useState({});
-
-  console.log(moveItems);
-
-  //플레이리스트 이동 같은 경우 add, delete // confirmModal으로 확인
-  //플레이리스트 내부에서 수정의 경우 연필 버튼 > 플리 이동 시 바로 적용
-  //플레이리스트 내부에서 삭제의 경우 삭제할 노래들 선택 > 체크버튼 눌러야 적용되고, 만약 뒤로가기 누르면 적용 x
-  //두 로직 간 차이점이 있음 - 유저의 혼란 가능성 있음
 
   const getSongLists = async () => {
     try {
@@ -61,21 +53,25 @@ const PlaylistModify = ({ navigation, route }) => {
       headerRight: () => (
         <ConfirmModifyButton
           onPress={() => {
-            //TODO:: moveSongModal로 연결, 전달한 핸들러에
-            console.log('수정완료');
-            //TODO::확인 버튼을 눌러야 API 요청을 함 (플리 옮기는 액션 or 곡 삭제 액션)
-            //현재 플레이리스트에서 삭제 + 옮기고자 하는 플레이리스트에서 곡 추가
-            navigation.push('Detail');
+            submitHandler();
+            console.log('수정 요청 완료!');
+            navigation.goBack();
           }}
         />
       ),
     });
   });
 
+  //모든 곡 선택
   const selectAllHandler = () => {
-    setSelect(items.map((el) => el.userMusicId));
+    const selectObj = {};
+    for (let item of items) {
+      selectObj[item.userMusicId] = item.num;
+    }
+    setSelect(selectObj);
   };
 
+  //곡 이동 modal
   const moveProps = {
     isOpen: true,
     modalType: 'moveSong',
@@ -83,22 +79,80 @@ const PlaylistModify = ({ navigation, route }) => {
       selectedSongs: select,
       setMoveStack: setMoveItems,
       moveStack: moveItems,
+      now: playListId,
+      submitAction: () => {
+        //select를 이용해서 setItems에서 선택된 곡들 제거
+        setItems((prev) =>
+          prev.filter((el) => !Object.keys(select).includes(el.userMusicId)),
+        );
+        //select 빈배열로 초기화
+        setSelect([]);
+      },
     },
   };
 
+  //플레이리스트 내부에서 이동 (API 요청 전 현재 modify페이지 내부에서 삭제)
   const moveItemHandler = () => {
-    setModal(moveProps);
+    if (!Object.keys(select).length) {
+      console.log('선택된 노래가 없습니다');
+      //TODO:: toast message - '선택된 노래가 없습니다'
+    } else {
+      //모달 내에서 select를 선택된 플리와 합쳐 stack으로 만드는 작업 > moveItems에 저장해줌
+      setModal(moveProps);
+    }
   };
 
+  //플레이리스트 내부에서 삭제 (API 요청 전 현재 modify페이지 내부에서만 삭제)
   const deleteItemHandler = () => {
-    setDeleteItems((prev) => {
-      const newList = [...prev, ...select];
-      setItems((prev) =>
-        prev.filter((el) => !newList.includes(el.userMusicId)),
-      );
-      setSelect([]);
-      return newList;
-    });
+    if (!Object.keys(select).length) {
+      console.log('선택된 노래가 없습니다');
+      //TODO:: toast message - '선택된 노래가 없습니다'
+    } else {
+      //modify 페이지 내에서 여러 번 삭제할 경우 고려해 삭제할 곡들 스택에 쌓는다
+      setDeleteItems((prev) => {
+        const newList = [...prev, ...Object.keys(select)];
+        //modify 페이지 내에서 안 보이도록(삭제 된 것처럼) 처리
+        setItems((prev) =>
+          prev.filter((el) => !newList.includes(el.userMusicId)),
+        );
+        //select 초기화
+        setSelect([]);
+        return newList;
+      });
+    }
+  };
+
+  const submitHandler = async () => {
+    const movePlayLists = Object.keys(moveItems);
+
+    //이동 : 삭제 & 추가
+    if (movePlayLists.length) {
+      for (let key in moveItems) {
+        //현재 플리에서 삭제
+        await server.patch(`/api/user-music`, {
+          playListId: playListId,
+          orderList: Object.keys(moveItems[key]),
+        });
+
+        //옮길 플리에서 추가
+        await server.post(`/api/user-music`, {
+          userId: userId,
+          playListId: Number(key),
+          musicNum: Object.values(moveItems[key]),
+        });
+      }
+    }
+
+    //삭제
+    if (deleteItems.length) {
+      await server.patch(`/api/user-music`, {
+        playListId: playListId,
+        orderList: deleteItems,
+      });
+    }
+
+    //플리 곡 다시 세팅
+    getSongLists();
   };
 
   return (
@@ -106,8 +160,16 @@ const PlaylistModify = ({ navigation, route }) => {
       <View style={styles.btnContainer}>
         <ModifyListButton type="select" onPress={selectAllHandler} />
         <View style={styles.btnRight}>
-          <ModifyListButton type="move" onPress={moveItemHandler} />
-          <ModifyListButton type="delete" onPress={deleteItemHandler} />
+          <ModifyListButton
+            type="move"
+            disabled={!Object.keys(select).length}
+            onPress={moveItemHandler}
+          />
+          <ModifyListButton
+            type="delete"
+            disabled={!Object.keys(select).length}
+            onPress={deleteItemHandler}
+          />
         </View>
       </View>
       <FlatList
