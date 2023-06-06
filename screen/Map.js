@@ -6,11 +6,9 @@ import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
 } from 'expo-location';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import getEnv from '../env';
-import { useSetRecoilState } from 'recoil';
-import ModalState from '../recoil/modal';
-import { alertProps } from '../util';
+import { makeToast } from '../util';
 
 const Map = () => {
   const [hasPermission, setHasPermission] = useState(true);
@@ -18,16 +16,16 @@ const Map = () => {
     latitude: 37.5662952,
     longitude: 126.9779451,
   });
-  const setModal = useSetRecoilState(ModalState);
-
-  const permissionAlert = alertProps(
-    '위치 권한 오류',
-    `현재 사용자의 위치를 확인할 수 없습니다.\n위치 권한을 사용할 수 있도록 승인해주세요.`,
-  );
 
   useEffect(() => {
     getLocation();
-  }, []);
+    if (!hasPermission)
+      makeToast(
+        '현재 사용자의 위치를 확인할 수 없습니다.\n위치 권한을 사용할 수 있도록 승인해주세요.',
+        true,
+        4000,
+      );
+  }, [hasPermission]);
 
   const { BASE_URL } = getEnv();
 
@@ -40,8 +38,6 @@ const Map = () => {
 
     if (!granted) {
       setHasPermission(false);
-
-      setModal(permissionAlert);
     }
 
     const {

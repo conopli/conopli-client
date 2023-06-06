@@ -15,6 +15,7 @@ import {
 } from './modalProps';
 
 import useServer from './useServer';
+import makeToast from './makeToast';
 
 export {
   searchDummy,
@@ -28,4 +29,5 @@ export {
   deletePlaylistProps,
   editPlaylistProps,
   useServer,
+  makeToast,
 };

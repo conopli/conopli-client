@@ -11,7 +11,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useState, useRef } from 'react';
 import { SearchButton, MusicItem } from '../components';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useServer } from '../util';
+import { makeToast, useServer } from '../util';
 import { theme } from '../theme.js';
 
 const Search = () => {
@@ -35,6 +35,10 @@ const Search = () => {
   const inputRef = useRef(null);
   const searchInputHander = async () => {
     const filter = isClicked ? 2 : 1;
+    if (textValue.length === 0) {
+      makeToast(`검색어를 입력하세요.`);
+      return;
+    }
     try {
       setIsLoading(true);
       setSearchResult([]);
