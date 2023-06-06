@@ -3,14 +3,13 @@ import { View, FlatList } from 'react-native';
 import { MusicItem } from '../../components';
 import styles from './PlaylistDetail.style';
 import { BackButton, ModifyButton } from '../../components/Playlist';
-import { useServer } from '../../util';
+import { makeToast, useServer } from '../../util';
 import { useRecoilValue } from 'recoil';
 import userInfo from '../../recoil/userInfo.js';
 
 const PlaylistDetail = ({ navigation, route }) => {
   const server = useServer();
-  const playListId = route.params.playListId;
-  const title = route.params.title;
+  const { playListId, title } = route.params;
   const [songList, setSongList] = useState([]);
 
   const getSongLists = async () => {
@@ -21,10 +20,6 @@ const PlaylistDetail = ({ navigation, route }) => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getSongLists();
-  }, [route]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -53,7 +48,7 @@ const PlaylistDetail = ({ navigation, route }) => {
         contentContainerStyle={{ rowGap: 8 }}
         data={songList}
         renderItem={({ item }) => <MusicItem item={item} />}
-        keyExtractor={(item) => item.num}
+        keyExtractor={(item) => item.userMusicId}
       />
     </View>
   );

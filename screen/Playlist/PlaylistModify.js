@@ -179,7 +179,7 @@ const PlaylistModify = ({ navigation, route }) => {
         renderItem={(props) => (
           <ModifyMusicItem {...props} select={select} setSelect={setSelect} />
         )}
-        keyExtractor={(item) => item.num}
+        keyExtractor={(item) => item.userMusicId}
       />
     </View>
   );
