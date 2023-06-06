@@ -1,5 +1,5 @@
 import { theme } from '../../theme';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 
 export const BackButton = ({ onPress }) => {
@@ -63,6 +63,37 @@ export const ModifyListButton = ({ onPress, type, disabled }) => {
           ? '선택이동'
           : '선택삭제'}
       </Text>
+    </TouchableOpacity>
+  );
+};
+
+export const SortButton = ({ handler }) => {
+  const styles = StyleSheet.create({
+    sortButton: {
+      position: 'absolute',
+      right: 14,
+      bottom: 14,
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 9999,
+      width: 60,
+      height: 60,
+      borderRadius: 50,
+      backgroundColor: theme.lime,
+      shadowColor: theme.black,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+
+      elevation: 5,
+    },
+  });
+  return (
+    <TouchableOpacity style={styles.sortButton} onPress={handler}>
+      <FontAwesome5 name="sort" size={32} color="black" />
     </TouchableOpacity>
   );
 };
