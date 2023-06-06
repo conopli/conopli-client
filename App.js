@@ -1,10 +1,13 @@
 import Home from './screen/Home';
 import { RecoilRoot } from 'recoil';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default function App() {
   return (
-    <RecoilRoot>
-      <Home />
-    </RecoilRoot>
+    <RootSiblingParent>
+      <RecoilRoot>
+        <Home />
+      </RecoilRoot>
+    </RootSiblingParent>
   );
 }
