@@ -84,7 +84,7 @@ const MoveSongModal = ({
       <View style={styles.buttonBox}>
         <View style={{ flex: 1, marginRight: 8, height: 40 }}>
           <RowButton
-            text="추가하기"
+            text="이동하기"
             color="lime"
             buttonHandler={() => {
               saveStack();
