@@ -10,7 +10,7 @@ import userPlayList from '../../recoil/userPlayList.js';
 import { useNavigation } from '@react-navigation/native';
 import { alertProps, confirmProps, useServer } from '../../util';
 
-const AddSongModal = ({ selectedSong }) => {
+const AddSongModal = ({ selectedSong, playList }) => {
   const server = useServer();
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
@@ -19,16 +19,23 @@ const AddSongModal = ({ selectedSong }) => {
   const navigation = useNavigation();
   const alert = alertProps('오류', '추가할 플레이리스트를 선택하세요.');
 
-  // TODO : 드롭다운에 사용되는 items와 value는 하드코딩 되어선 안됨.
-  // * 해당 부분 해결 방안 고민해야됨.
-  const pickerLists = playList.map((item) => {
-    return { label: item.title, value: item.playListId };
-  });
-
   const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
-  const [items, setItems] = useState(pickerLists);
+
+  // FIXME : playList가 undefined => 전역 변수를 받아오는 과정에서 최초 렌더 시 아무 값도 받아오지 않는 issue
+  // 예상 해결 방안 : 상위 컴포넌트 (ListItem, MusicItem) 에서 Global State 불러온 후 자식 컴포넌트로 전달
+  const [items, setItems] = useState(
+    playList.map((item) => ({
+      label: item.title,
+      value: item.playListId,
+    })),
+  );
   const [value, setValue] = useState(null);
+
+  // value 기본값 설정
+  useEffect(() => {
+    setValue(playList[0]?.playListId);
+  }, []);
 
   const postNewSong = async () => {
     if (!value) {
