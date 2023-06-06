@@ -38,7 +38,7 @@ const AddSongModal = ({ selectedSong }) => {
         const body = {
           userId: userId,
           playListId: value,
-          musicNum: num,
+          musicNum: [num],
         };
         const data = await server.post('/api/user-music', body);
         reset();
