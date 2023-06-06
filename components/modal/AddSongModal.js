@@ -19,8 +19,8 @@ const AddSongModal = ({ selectedSong }) => {
   const navigation = useNavigation();
   const alert = alertProps('오류', '추가할 플레이리스트를 선택하세요.');
 
-  // TODO : 드롭다운에 사용되는 items와 value는 하드코딩 되어야만 함.
-  // 해당 부분 해결 방안 고민해야됨.
+  // TODO : 드롭다운에 사용되는 items와 value는 하드코딩 되어선 안됨.
+  // * 해당 부분 해결 방안 고민해야됨.
   const pickerLists = playList.map((item) => {
     return { label: item.title, value: item.playListId };
   });
