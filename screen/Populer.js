@@ -3,14 +3,15 @@ import ListItem from '../components/Popular/ListItem';
 import styles from './Populer.style.js';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
-import server from '../util/axios';
 import { theme } from '../theme';
+import { useServer } from '../util';
 
 const Populer = ({ navigation }) => {
   const [nation, setNation] = useState(1);
   const [visibleList, setVisibleList] = useState([]);
   const [stockList, setStockList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const server = useServer();
 
   const getPopulerList = async () => {
     const year = new Date().getFullYear();
@@ -81,12 +82,13 @@ const Populer = ({ navigation }) => {
         />
       ) : (
         <FlatList
+          keyExtractor={(item) => item.num}
           style={styles.listContainer}
           contentContainerStyle={{ rowGap: 8, paddingBottom: 16 }}
           data={visibleList}
           renderItem={({ item }) => <ListItem item={item} />}
           onEndReached={addPopulerList}
-          onEndReachedThreshold={0.3}
+          onEndReachedThreshold={0}
         />
       )}
     </View>

@@ -1,6 +1,6 @@
 import { View, FlatList } from 'react-native';
 import styles from './Playlist.style';
-import { PlaylistItem } from '../../components';
+import { PlaylistItem } from '../../components/Playlist';
 import { useEffect } from 'react';
 import { PlusButton } from '../../components/index';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
@@ -28,6 +28,7 @@ const Playlist = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
+        keyExtractor={(item) => item.playListId}
         data={playList}
         renderItem={(props) => (
           <PlaylistItem {...props} navigation={navigation} />

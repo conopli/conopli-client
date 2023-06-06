@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import styles from './AddPlaylistModal.style.js';
 import { RowButton } from '../index.js';
-import { playlistColor } from '../../theme.js';
-import { theme } from '../../theme.js';
+import { playlistColor, theme } from '../../theme.js';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userInfo from '../../recoil/userInfo.js';
-import server from '../../util/axios.js';
-import EmojiPicker from 'rn-emoji-keyboard';
 import userPlayList from '../../recoil/userPlayList';
+import EmojiPicker from 'rn-emoji-keyboard';
+import useServer from '../../util/useServer.js';
 
 //플레이리스트 생성 및 수정 시 사용
 
@@ -20,9 +19,10 @@ const AddPlaylistModal = ({
   oldIcon = 127925,
   oldColor = '18',
 }) => {
+  const server = useServer();
   const reset = useResetRecoilState(ModalState);
   const setPlayList = useSetRecoilState(userPlayList);
-  const { userId, Authorization } = useRecoilValue(userInfo);
+  const { userId } = useRecoilValue(userInfo);
   const [playlistName, setPlaylistName] = useState(oldName);
   const [selected, setSelected] = useState(oldColor);
   const [emoji, setEmoji] = useState(oldIcon);
@@ -53,11 +53,7 @@ const AddPlaylistModal = ({
 
   const getPlaylist = async () => {
     try {
-      const { data } = await server.get(`/api/user-music/playlist/${userId}`, {
-        headers: {
-          Authorization: Authorization,
-        },
-      });
+      const { data } = await server.get(`/api/user-music/playlist/${userId}`);
       setPlayList(data.data);
     } catch (error) {
       console.log(error);
@@ -72,11 +68,6 @@ const AddPlaylistModal = ({
         const { data } = await server.patch(
           `/api/user-music/playlist/${playListId}`,
           editData,
-          {
-            headers: {
-              Authorization,
-            },
-          },
         );
 
         await getPlaylist();
@@ -88,20 +79,12 @@ const AddPlaylistModal = ({
       //플레이리스트 생성
       try {
         if (isValid()) {
-          const { data } = await server.post(
-            `/api/user-music/playlist`,
-            {
-              userId: userId,
-              title: playlistName,
-              color: selected,
-              emoji: emoji,
-            },
-            {
-              headers: {
-                Authorization,
-              },
-            },
-          );
+          const { data } = await server.post(`/api/user-music/playlist`, {
+            userId: userId,
+            title: playlistName,
+            color: selected,
+            emoji: emoji,
+          });
           await getPlaylist();
           reset();
         } else {

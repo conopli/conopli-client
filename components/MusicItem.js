@@ -3,6 +3,7 @@ import styles from './MusicItem.style';
 import { useSetRecoilState } from 'recoil';
 import ModalState from '../recoil/modal.js';
 import { addSongProps } from '../util';
+import { memo } from 'react';
 
 const MusicItem = ({ item, isAdd = false }) => {
   const { num, singer, title } = item;
@@ -33,4 +34,4 @@ const MusicItem = ({ item, isAdd = false }) => {
   );
 };
 
-export default MusicItem;
+export default memo(MusicItem);

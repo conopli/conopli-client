@@ -1,27 +1,23 @@
-import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './DeleteModal.style.js';
 import { RowButton } from '../index.js';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useServer } from '../../util';
 import ModalState from '../../recoil/modal.js';
-import { server } from '../../util';
-import userInfo from '../../recoil/userInfo.js';
-import userPlayList from '../../recoil/userPlayList.js';
+import userInfo from '../../recoil/userInfo';
+import userPlayList from '../../recoil/userPlayList';
 
 //보관함 삭제 시 사용
 
 const DeleteModal = ({ playListId }) => {
+  const server = useServer();
   const reset = useResetRecoilState(ModalState);
   const setPlayList = useSetRecoilState(userPlayList);
-  const { userId, Authorization } = useRecoilValue(userInfo);
+  const { userId } = useRecoilValue(userInfo);
 
   const deleteHandler = async () => {
     try {
-      await server.delete(`/api/user-music/playlist/${playListId}`, {
-        headers: {
-          Authorization,
-        },
-      });
+      await server.delete(`/api/user-music/playlist/${playListId}`);
       getPlaylist();
       reset();
     } catch (error) {

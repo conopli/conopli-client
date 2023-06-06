@@ -58,10 +58,18 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 12,
   },
-  resultList: {
+  result: {
     flex: 1,
-    marginTop: 24,
+    marginTop: 12,
     rowGap: 8,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  descText: {
+    color: theme.lightGray,
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

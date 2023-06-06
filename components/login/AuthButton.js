@@ -1,42 +1,33 @@
-import React from 'react';
 import { TouchableOpacity, Text, Image } from 'react-native';
 import styles from './AuthButton.style.js';
-import { WithLocalSvg } from 'react-native-svg';
-import { kakao, google, naver } from '../../assets/index.js';
+import Kakao from '../../assets/kakao.svg';
+import Naver from '../../assets/naver.svg';
+import Google from '../../assets/google.svg';
 
 const AuthButton = ({ buttonHandler, type }) => {
   const typeHandler = (t) => {
-    const style =
-      t === 'kakao'
-        ? styles.kakao
-        : t === 'google'
-        ? styles.google
-        : styles.naver;
-    const buttonText =
-      t === 'kakao'
-        ? '카카오 로그인'
-        : t === 'google'
-        ? '구글 로그인'
-        : '네이버 로그인';
-
-    return { style, buttonText };
+    return t === 'kakao'
+      ? '카카오 로그인'
+      : t === 'google'
+      ? '구글 로그인'
+      : '네이버 로그인';
   };
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      style={typeHandler(type).style}
+      style={[styles.btnContainer, styles[type]]}
       onPress={buttonHandler}
     >
       {type === 'kakao' ? (
-        <WithLocalSvg width={22} height={21} asset={kakao} />
+        <Kakao width={20} height={20} />
       ) : type === 'google' ? (
-        <WithLocalSvg width={20} height={20} asset={google} />
+        <Google width={20} />
       ) : (
-        <WithLocalSvg width={20} height={19.83} asset={naver} />
+        <Naver width={20} />
       )}
-      <Text style={type === 'naver' ? styles.ft_white : styles.ft_black}>
-        {typeHandler(type).buttonText}
+      <Text style={[styles.loginText, type === 'naver' && styles.textWhite]}>
+        {typeHandler(type)}
       </Text>
     </TouchableOpacity>
   );

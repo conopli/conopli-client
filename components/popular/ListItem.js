@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import styles from './ListItem.style.js';
 import ModalState from '../../recoil/modal';

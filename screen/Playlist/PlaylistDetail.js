@@ -3,22 +3,19 @@ import { View, FlatList } from 'react-native';
 import { MusicItem } from '../../components';
 import styles from './PlaylistDetail.style';
 import { BackButton, ModifyButton } from '../../components/Playlist';
-import { server } from '../../util';
+import { useServer } from '../../util';
 import { useRecoilValue } from 'recoil';
 import userInfo from '../../recoil/userInfo.js';
 
 const PlaylistDetail = ({ navigation, route }) => {
+  const server = useServer();
   const playListId = route.params.playListId;
-  const { Authorization } = useRecoilValue(userInfo);
+  const title = route.params.title;
   const [songList, setSongList] = useState([]);
 
   const getSongLists = async () => {
     try {
-      const { data } = await server.get(`/api/user-music/${playListId}`, {
-        headers: {
-          Authorization,
-        },
-      });
+      const { data } = await server.get(`/api/user-music/${playListId}`);
       setSongList(data.data);
     } catch (error) {
       console.log(error);
@@ -27,7 +24,7 @@ const PlaylistDetail = ({ navigation, route }) => {
 
   useEffect(() => {
     getSongLists();
-  }, []);
+  }, [route]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -45,6 +42,7 @@ const PlaylistDetail = ({ navigation, route }) => {
           }}
         />
       ),
+      title: title,
     });
   });
 
@@ -55,6 +53,7 @@ const PlaylistDetail = ({ navigation, route }) => {
         contentContainerStyle={{ rowGap: 8 }}
         data={songList}
         renderItem={({ item }) => <MusicItem item={item} />}
+        keyExtractor={(item) => item.num}
       />
     </View>
   );
