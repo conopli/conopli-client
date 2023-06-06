@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { MusicItem } from '../../components';
 import styles from './PlaylistDetail.style';
-import { BackButton, ModifyButton } from '../../components/Playlist';
+import {
+  BackButton,
+  ModifyButton,
+  SortButton,
+} from '../../components/Playlist';
 import { useServer } from '../../util';
 
 const PlaylistDetail = ({ navigation, route }) => {
@@ -51,6 +55,11 @@ const PlaylistDetail = ({ navigation, route }) => {
         data={songList}
         renderItem={({ item }) => <MusicItem item={item} />}
         keyExtractor={(item) => item.userMusicId}
+      />
+      <SortButton
+        handler={() => {
+          navigation.push('Sort', { playListId, title });
+        }}
       />
     </View>
   );

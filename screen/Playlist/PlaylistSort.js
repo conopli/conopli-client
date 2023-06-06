@@ -1,31 +1,32 @@
 import { useEffect, useState } from 'react';
-import { View, FlatList } from 'react-native';
+import { View } from 'react-native';
 import styles from './PlaylistSort.style';
 import {
   BackButton,
   ConfirmModifyButton,
   SortMusicItem,
 } from '../../components/Playlist';
-import { confirmProps, server } from '../../util';
-import { useSetRecoilState } from 'recoil';
+import { confirmProps, useServer } from '../../util';
+import { useSetRecoilState, useResetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
-import { detailDummy } from '../../util';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 const PlaylistSort = ({ navigation, route }) => {
-  // TODO : route로 params 받아올 시 아래 주석 해제 및 테스트용 변수 삭제
-  // const playListId = route.params.playListId;
-  const playListId = 1;
-  // TODO : 실제 연결 시 더미데이터 제거 후 빈 배열로 변경해야 함
-  const [items, setItems] = useState(detailDummy.data);
+  const server = useServer();
+  const { playListId } = route.params;
+  const [items, setItems] = useState([]);
   const setModal = useSetRecoilState(ModalState);
+  const reset = useResetRecoilState(ModalState);
   const confirm = confirmProps(
     '수정하시겠습니까?',
     '배치하신 순서대로 수정됩니다.',
     '확인',
     () => {
-      setSortedSongList;
+      setSortedSongList();
+      reset();
+      navigation.goBack();
+      // TODO for SG : api 요청보다 goBack이 빨라서 화면상에 구현이 안되는 부분 해결해야됨
     },
   );
 
@@ -42,18 +43,17 @@ const PlaylistSort = ({ navigation, route }) => {
     const orderList = items.map((el) => el.orderNum);
 
     try {
-      const { data } = await server.patch(`/api/user-music`, {
+      const { data } = await server.patch(`/api/user-music/contents`, {
         playListId,
         orderList,
       });
-      navigation.push('Detail', { playListId });
     } catch (error) {
       console.log(error);
     }
   };
-  // TODO : route로 params 받아올 시 아래 주석 해제
+
   useEffect(() => {
-    // getSongLists();
+    getSongLists();
   }, []);
 
   useEffect(() => {
