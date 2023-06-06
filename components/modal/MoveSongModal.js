@@ -3,58 +3,54 @@ import { Text, View } from 'react-native';
 import styles from './MoveSongModal.style';
 import { RowButton } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userPlayList from '../../recoil/userPlayList.js';
-import { confirmProps } from '../../util/modalProps.js';
 
-const MoveSongModal = ({ selectedSongs, setMoveStack, moveStack }) => {
-  const setModal = useSetRecoilState(ModalState);
+const MoveSongModal = ({
+  selectedSongs,
+  setMoveStack,
+  moveStack,
+  now,
+  submitAction,
+}) => {
   const reset = useResetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
 
-  //TODO:: moveStack이 객체인 경우로 다시 작성하기
+  //현재 플레이리스트 제거한 플레이리스트 목록
+  const pickerLists = () => {
+    const lists = [];
+    for (const item of playList) {
+      if (item.playListId !== now) {
+        lists.push({ label: item.title, value: item.playListId });
+      }
+    }
 
-  const pickerLists = playList.map((item) => {
-    return { label: item.title, value: item.playListId };
-  });
+    return lists;
+  };
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('플레이리스트 선택');
-  const [items, setItems] = useState(pickerLists);
+  const [items, setItems] = useState(pickerLists());
 
-  //곡 이동이기는 하지만, 현재 플레이리스트에서 선택한 플리에 해당 곡들을 추가하는 로직임
-  //근데 여기서 바로 api 요청 보내는 건 아니고, confirm 버튼 눌렀을 때 반영되므로
-  //아래 api 요청은 이 모달에서 이뤄지지 않는다.
   const saveStack = () => {
-    //TODO::중복 제거 필요
-    if (moveStack[value].length) {
-      console.log('넘어옴!');
-      //   moveStack.map((item) => {
-      //     item[value].push(...selectedSongs);
-      //     console.log(item[value]);
-      //     return item[value];
-      //   });
-    } else {
-      setMoveStack((prev) => [
-        //{플레이리스트 아이디 : [...노래 id들]}
-      ]);
-    }
-    //TODO:: toast message - '노래가 이동 되었습니다.'
-  };
+    //moveStack에 선택한 playListId가 존재하는지 확인
+    const isAlready = Object.keys(moveStack).includes(value.toString());
 
-  const confirmMove = confirmProps(
-    '노래 이동이 완료되었습니다.',
-    '플레이리스트로 이동할까요?',
-    '이동',
-    () => {
-      navigation.navigate('ListHome', {
-        screen: 'Detail',
-        params: { playListId: value },
-      });
-      reset();
-    },
-  );
+    //moveStack의 형태는 {playListId: {musicId: num, musicId: num}} - 객체 내의 객체
+
+    if (isAlready) {
+      const newStack = {
+        ...moveStack,
+        [value]: { ...moveStack[value], ...selectedSongs },
+      };
+      setMoveStack(newStack);
+    } else {
+      setMoveStack({ ...moveStack, [value]: { ...selectedSongs } });
+    }
+    submitAction();
+    //TODO:: toast message - '우측 상단의 완료 버튼을 클릭해야 반영됩니다'
+  };
 
   return (
     <View
@@ -92,6 +88,7 @@ const MoveSongModal = ({ selectedSongs, setMoveStack, moveStack }) => {
             color="lime"
             buttonHandler={() => {
               saveStack();
+              reset();
             }}
           />
         </View>
