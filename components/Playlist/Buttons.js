@@ -26,7 +26,7 @@ export const ConfirmModifyButton = ({ onPress }) => {
   );
 };
 
-export const ModifyListButton = ({ onPress, type }) => {
+export const ModifyListButton = ({ onPress, type, disabled }) => {
   const styles = StyleSheet.create({
     btn: {
       flexDirection: 'row',
@@ -55,7 +55,7 @@ export const ModifyListButton = ({ onPress, type }) => {
   });
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.btn}>
+    <TouchableOpacity disabled={disabled} onPress={onPress} style={styles.btn}>
       <Text>
         {type === 'select'
           ? '전체선택'
