@@ -26,7 +26,7 @@ const PlaylistSort = ({ navigation, route }) => {
       setSortedSongList();
       reset();
       navigation.goBack();
-      // TODO for SG : api 요청보다 goBack이 빨라서 화면상에 구현이 안되는 부분 해결해야됨
+      // FIXME : api 요청보다 goBack이 빨라서 화면상에 구현이 안되는 부분 해결해야됨
     },
   );
 
