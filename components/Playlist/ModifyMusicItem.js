@@ -3,16 +3,26 @@ import styles from './ModifyMusicItem.style';
 
 const ModifyMusicItem = ({ item, select, setSelect }) => {
   const { title, singer, userMusicId, num } = item;
+  const selectMusicIds = Object.keys(select);
 
   const selectHandler = () => {
-    if (!select.includes(userMusicId))
-      setSelect((prev) => [...prev, userMusicId]);
-    else setSelect((prev) => prev.filter((el) => el !== userMusicId));
+    if (!selectMusicIds.includes(userMusicId))
+      setSelect((prev) => {
+        return { ...prev, [userMusicId]: num };
+      });
+    else {
+      const selectObj = { ...select };
+      delete selectObj[userMusicId];
+      setSelect(selectObj);
+    }
   };
 
   return (
     <TouchableOpacity
-      style={[styles.container, select.includes(userMusicId) && styles.select]}
+      style={[
+        styles.container,
+        selectMusicIds.includes(userMusicId) && styles.select,
+      ]}
       onPress={selectHandler}
     >
       <View style={styles.songInfo}>
