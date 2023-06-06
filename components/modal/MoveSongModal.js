@@ -6,13 +6,14 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userPlayList from '../../recoil/userPlayList.js';
-import { useNavigation } from '@react-navigation/native';
 import { confirmProps } from '../../util/modalProps.js';
 
 const MoveSongModal = ({ selectedSongs, setMoveStack, moveStack }) => {
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
+
+  //TODO:: moveStack이 객체인 경우로 다시 작성하기
 
   const pickerLists = playList.map((item) => {
     return { label: item.title, value: item.playListId };
@@ -27,7 +28,7 @@ const MoveSongModal = ({ selectedSongs, setMoveStack, moveStack }) => {
   //아래 api 요청은 이 모달에서 이뤄지지 않는다.
   const saveStack = () => {
     //TODO::중복 제거 필요
-    if (moveStack[value]) {
+    if (moveStack[value].length) {
       console.log('넘어옴!');
       //   moveStack.map((item) => {
       //     item[value].push(...selectedSongs);
@@ -36,10 +37,7 @@ const MoveSongModal = ({ selectedSongs, setMoveStack, moveStack }) => {
       //   });
     } else {
       setMoveStack((prev) => [
-        ...prev,
-        {
-          [value]: selectedSongs,
-        },
+        //{플레이리스트 아이디 : [...노래 id들]}
       ]);
     }
     //TODO:: toast message - '노래가 이동 되었습니다.'

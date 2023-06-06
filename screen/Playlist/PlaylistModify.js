@@ -26,8 +26,8 @@ const PlaylistModify = ({ navigation, route }) => {
   const [select, setSelect] = useState([]);
   //요 상태 기준으로 반복문 돌려서 delete 요청 보내야 함,,,
   const [deleteItems, setDeleteItems] = useState([]);
-  //이동용 스택 : [{플레이리스트 아이디 : [이동하는 노래들의 id 리스트]}]
-  const [moveItems, setMoveItems] = useState([]);
+  //이동용 스택 : {플레이리스트 아이디 : [이동하는 노래들의 id 리스트]}
+  const [moveItems, setMoveItems] = useState({});
 
   console.log(moveItems);
 
