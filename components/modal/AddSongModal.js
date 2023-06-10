@@ -35,6 +35,7 @@ const AddSongModal = ({ selectedSong, playList }) => {
 
   const postNewSong = async () => {
     if (!value) {
+      //TODO:: 디폴트 플리가 있으면 사라져도 될 모달
       setModal(alert);
     } else {
       try {

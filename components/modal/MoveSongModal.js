@@ -36,6 +36,7 @@ const MoveSongModal = ({
 
   const saveStack = () => {
     if (value === '플레이리스트 선택') {
+      //TODO:: 디폴트 플리가 있으면 사라져도 될 토스트 메시지
       return makeToast('플레이리스트를 선택해주세요!', true);
     }
     //moveStack에 선택한 playListId가 존재하는지 확인
