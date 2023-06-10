@@ -11,27 +11,10 @@ import { theme } from '../theme';
 const makeToast = (msg = '', warning = false, duration = 2500) => {
   Toast.show(msg, {
     duration: duration,
-    position: Toast.positions.BOTTOM - 50,
+    position: Toast.positions.BOTTOM - 80,
     shadow: true,
-    delay: 200,
-    backgroundColor: theme.background,
-    opacity: 1,
-    textColor: theme.white,
-    textStyle: {
-      fontSize: 16,
-      fontWeight: 'bold',
-      borderTopColor: warning ? theme.red : theme.lime,
-      borderTopWidth: 3,
-      paddingTop: 10,
-      paddingBottom: 4,
-      paddingHorizontal: 16,
-    },
-    animation: true,
-    containerStyle: {
-      padding: 0,
-      borderRadius: 4,
-      overflow: 'hidden',
-      shadowColor: '#000',
+    shadowColor: theme.black,
+    shadowStyle: {
       shadowOffset: {
         width: 0,
         height: 12,
@@ -40,6 +23,22 @@ const makeToast = (msg = '', warning = false, duration = 2500) => {
       shadowRadius: 16.0,
 
       elevation: 24,
+    },
+    delay: 200,
+    backgroundColor: theme.background,
+    opacity: 1,
+    textColor: theme.white,
+    textStyle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    animation: true,
+    containerStyle: {
+      borderTopColor: warning ? theme.red : theme.lime,
+      borderTopWidth: 3,
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      borderRadius: 4,
     },
   });
 };
