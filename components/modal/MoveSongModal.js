@@ -6,6 +6,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useResetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userPlayList from '../../recoil/userPlayList.js';
+import { makeToast } from '../../util';
 
 const MoveSongModal = ({
   selectedSongs,
@@ -34,6 +35,9 @@ const MoveSongModal = ({
   const [items, setItems] = useState(pickerLists());
 
   const saveStack = () => {
+    if (value === '플레이리스트 선택') {
+      return makeToast('플레이리스트를 선택해주세요!', true);
+    }
     //moveStack에 선택한 playListId가 존재하는지 확인
     const isAlready = Object.keys(moveStack).includes(value.toString());
 
@@ -49,7 +53,8 @@ const MoveSongModal = ({
       setMoveStack({ ...moveStack, [value]: { ...selectedSongs } });
     }
     submitAction();
-    //TODO:: toast message - '우측 상단의 완료 버튼을 클릭해야 반영됩니다'
+    reset();
+    makeToast('우측 상단의 완료 버튼을 클릭해야 반영됩니다');
   };
 
   return (
@@ -88,7 +93,6 @@ const MoveSongModal = ({
             color="lime"
             buttonHandler={() => {
               saveStack();
-              reset();
             }}
           />
         </View>

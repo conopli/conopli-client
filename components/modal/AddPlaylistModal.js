@@ -8,7 +8,7 @@ import ModalState from '../../recoil/modal.js';
 import userInfo from '../../recoil/userInfo.js';
 import userPlayList from '../../recoil/userPlayList';
 import EmojiPicker from 'rn-emoji-keyboard';
-import useServer from '../../util/useServer.js';
+import { makeToast, useServer } from '../../util';
 
 //플레이리스트 생성 및 수정 시 사용
 
@@ -88,7 +88,7 @@ const AddPlaylistModal = ({
           await getPlaylist();
           reset();
         } else {
-          console.log('toast message: you need to fill all the blank');
+          makeToast('모든 내용이 작성되었는지 확인해주세요');
         }
       } catch (error) {
         console.log(error);

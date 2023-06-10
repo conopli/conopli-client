@@ -7,7 +7,7 @@ import {
   ModifyListButton,
   ModifyMusicItem,
 } from '../../components/Playlist';
-import { useServer } from '../../util';
+import { useServer, makeToast } from '../../util';
 import { useRecoilValue } from 'recoil';
 import userInfo from '../../recoil/userInfo.js';
 import { useSetRecoilState } from 'recoil';
@@ -94,8 +94,7 @@ const PlaylistModify = ({ navigation, route }) => {
   //플레이리스트 내부에서 이동 (API 요청 전 현재 modify페이지 내부에서 삭제)
   const moveItemHandler = () => {
     if (!Object.keys(select).length) {
-      console.log('선택된 노래가 없습니다');
-      //TODO:: toast message - '선택된 노래가 없습니다'
+      makeToast('선택된 노래가 없습니다');
     } else {
       //모달 내에서 select를 선택된 플리와 합쳐 stack으로 만드는 작업 > moveItems에 저장해줌
       setModal(moveProps);
@@ -105,8 +104,7 @@ const PlaylistModify = ({ navigation, route }) => {
   //플레이리스트 내부에서 삭제 (API 요청 전 현재 modify페이지 내부에서만 삭제)
   const deleteItemHandler = () => {
     if (!Object.keys(select).length) {
-      console.log('선택된 노래가 없습니다');
-      //TODO:: toast message - '선택된 노래가 없습니다'
+      makeToast('선택된 노래가 없습니다');
     } else {
       //modify 페이지 내에서 여러 번 삭제할 경우 고려해 삭제할 곡들 스택에 쌓는다
       setDeleteItems((prev) => {
@@ -162,14 +160,10 @@ const PlaylistModify = ({ navigation, route }) => {
       <View style={styles.btnContainer}>
         <ModifyListButton type="select" onPress={selectAllHandler} />
         <View style={styles.btnRight}>
-          <ModifyListButton
-            type="move"
-            disabled={!Object.keys(select).length}
-            onPress={moveItemHandler}
-          />
+          <ModifyListButton type="move" onPress={moveItemHandler} />
           <ModifyListButton
             type="delete"
-            disabled={!Object.keys(select).length}
+            // disabled={!Object.keys(select).length}
             onPress={deleteItemHandler}
           />
         </View>
