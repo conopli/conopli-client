@@ -52,9 +52,8 @@ const PlaylistModify = ({ navigation, route }) => {
       ),
       headerRight: () => (
         <ConfirmModifyButton
-          onPress={() => {
-            submitHandler();
-            console.log('수정 요청 완료!');
+          onPress={async () => {
+            await submitHandler();
             navigation.goBack();
           }}
         />
@@ -150,9 +149,6 @@ const PlaylistModify = ({ navigation, route }) => {
         orderList: deleteItems,
       });
     }
-
-    //플리 곡 다시 세팅
-    getSongLists();
   };
 
   return (
