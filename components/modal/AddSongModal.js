@@ -14,16 +14,12 @@ const AddSongModal = ({ selectedSong, playList }) => {
   const server = useServer();
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
-  const playList = useRecoilValue(userPlayList);
   const { userId } = useRecoilValue(userInfo);
   const navigation = useNavigation();
   const alert = alertProps('오류', '추가할 플레이리스트를 선택하세요.');
 
   const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
-
-  // FIXME : playList가 undefined => 전역 변수를 받아오는 과정에서 최초 렌더 시 아무 값도 받아오지 않는 issue
-  // 예상 해결 방안 : 상위 컴포넌트 (ListItem, MusicItem) 에서 Global State 불러온 후 자식 컴포넌트로 전달
   const [items, setItems] = useState(
     playList.map((item) => ({
       label: item.title,
