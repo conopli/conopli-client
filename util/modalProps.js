@@ -34,12 +34,13 @@ const confirmProps = (
 /**
  * 곡 추가 모달을 호출하기 위한 생성 함수입니다.
  * @param {Object} selectedSong selectedSong: 추가할 곡에 대한 객체
+ * @param {Array} playList 상위 컴포넌트에서 하위 컴포넌트로 playList 전역 객체 전달
  */
-const addSongProps = (selectedSong = {}) => {
+const addSongProps = (selectedSong = {}, playList = []) => {
   return {
     isOpen: true,
     modalType: 'addSong',
-    props: { selectedSong },
+    props: { selectedSong, playList },
   };
 };
 
