@@ -8,15 +8,16 @@ import {
   ModifyMusicItem,
 } from '../../components/Playlist';
 import { useServer, makeToast } from '../../util';
-import { useRecoilValue } from 'recoil';
 import userInfo from '../../recoil/userInfo.js';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
+import userPlayList from '../../recoil/userPlayList';
 
 const PlaylistModify = ({ navigation, route }) => {
   const server = useServer();
   const setModal = useSetRecoilState(ModalState);
   const playListId = route.params.playListId;
+  const playList = useRecoilValue(userPlayList);
   const { userId } = useRecoilValue(userInfo);
 
   //플리 내부에 있는 노래 리스트
@@ -79,6 +80,7 @@ const PlaylistModify = ({ navigation, route }) => {
       setMoveStack: setMoveItems,
       moveStack: moveItems,
       now: playListId,
+      playList: playList,
       submitAction: () => {
         //select를 이용해서 setItems에서 선택된 곡들 제거
         setItems((prev) =>
