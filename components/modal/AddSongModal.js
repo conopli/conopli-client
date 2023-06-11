@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import styles from './AddSongModal.style.js';
 import { RowButton } from '../index.js';
@@ -6,9 +6,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userInfo from '../../recoil/userInfo.js';
-import userPlayList from '../../recoil/userPlayList.js';
 import { useNavigation } from '@react-navigation/native';
-import { alertProps, confirmProps, useServer } from '../../util';
+import { confirmProps, useServer } from '../../util';
 
 const AddSongModal = ({ selectedSong, playList }) => {
   const server = useServer();
@@ -16,7 +15,6 @@ const AddSongModal = ({ selectedSong, playList }) => {
   const reset = useResetRecoilState(ModalState);
   const { userId } = useRecoilValue(userInfo);
   const navigation = useNavigation();
-  const alert = alertProps('오류', '추가할 플레이리스트를 선택하세요.');
 
   const { title, singer, num } = selectedSong;
   const [open, setOpen] = useState(false);
@@ -34,23 +32,18 @@ const AddSongModal = ({ selectedSong, playList }) => {
   }, []);
 
   const postNewSong = async () => {
-    if (!value) {
-      //TODO:: 디폴트 플리가 있으면 사라져도 될 모달
-      setModal(alert);
-    } else {
-      try {
-        const body = {
-          userId: userId,
-          playListId: value,
-          musicNum: [num],
-        };
-        const data = await server.post('/api/user-music', body);
-        //TODO:: 추가 후 중복 제거 API 연결 필요
-        reset();
-        setModal(confirmMove);
-      } catch (error) {
-        console.log(error);
-      }
+    try {
+      const body = {
+        userId: userId,
+        playListId: value,
+        musicNum: [num],
+      };
+      const data = await server.post('/api/user-music', body);
+      //TODO:: 추가 후 중복 제거 API 연결 필요
+      reset();
+      setModal(confirmMove);
+    } catch (error) {
+      console.log(error);
     }
   };
 
