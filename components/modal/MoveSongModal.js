@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import styles from './MoveSongModal.style';
 import { RowButton } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useResetRecoilState, useRecoilValue } from 'recoil';
+import { useResetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
-import userPlayList from '../../recoil/userPlayList.js';
 import { makeToast } from '../../util';
 
 const MoveSongModal = ({
@@ -13,10 +12,10 @@ const MoveSongModal = ({
   setMoveStack,
   moveStack,
   now,
+  playList,
   submitAction,
 }) => {
   const reset = useResetRecoilState(ModalState);
-  const playList = useRecoilValue(userPlayList);
 
   //현재 플레이리스트 제거한 플레이리스트 목록
   const pickerLists = () => {
@@ -31,14 +30,17 @@ const MoveSongModal = ({
   };
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('플레이리스트 선택');
-  const [items, setItems] = useState(pickerLists());
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([]);
+
+  // dropdownPicker : 현재 플리 제외 + default 플레이리스트 설정
+  useEffect(() => {
+    const noCurrent = pickerLists();
+    setItems(noCurrent);
+    setValue(noCurrent[0]?.value);
+  }, []);
 
   const saveStack = () => {
-    if (value === '플레이리스트 선택') {
-      //TODO:: 디폴트 플리가 있으면 사라져도 될 토스트 메시지
-      return makeToast('플레이리스트를 선택해주세요!', true);
-    }
     //moveStack에 선택한 playListId가 존재하는지 확인
     const isAlready = Object.keys(moveStack).includes(value.toString());
 
@@ -77,7 +79,7 @@ const MoveSongModal = ({
             textStyle={{ fontSize: 16, fontWeight: 'bold' }}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}
-            placeholder={value}
+            placeholder={'플레이리스트 선택'}
             open={open}
             value={value}
             items={items}
