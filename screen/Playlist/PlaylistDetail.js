@@ -45,7 +45,7 @@ const PlaylistDetail = ({ navigation, route }) => {
     navigation.addListener('focus', () => {
       getSongLists();
     });
-  });
+  }, [route]);
 
   return (
     <View style={styles.container}>
