@@ -2,9 +2,6 @@ import { useRecoilValue } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import { useServer } from './index';
 
-const { userId } = useRecoilValue(userInfo);
-const server = useServer();
-
 /**
  * 곡 추가 + 곡 중복 제거
  * @param {string} playListId 곡을 추가할 플레이리스트 아이디
@@ -17,6 +14,9 @@ const useAddSong = async (
   musicNum = [],
   action = () => {},
 ) => {
+  const { userId } = useRecoilValue(userInfo);
+  const server = useServer();
+
   try {
     const body = {
       userId,
