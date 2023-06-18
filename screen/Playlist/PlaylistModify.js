@@ -140,7 +140,8 @@ const PlaylistModify = ({ navigation, route }) => {
           musicNum: Object.values(moveItems[key]),
         });
 
-        // TODO :: 추가 후 중복 제거 API 연결 필요
+        //중복제거
+        await server.patch(`/api/user-music/duplication/${Number(key)}`);
       }
     }
 

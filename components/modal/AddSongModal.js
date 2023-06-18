@@ -38,8 +38,10 @@ const AddSongModal = ({ selectedSong, playList }) => {
         playListId: value,
         musicNum: [num],
       };
-      const data = await server.post('/api/user-music', body);
-      //TODO:: 추가 후 중복 제거 API 연결 필요
+      //곡 추가
+      await server.post('/api/user-music', body);
+      //중복 제거
+      await server.patch(`/api/user-music/duplication/${value}`);
       reset();
       setModal(confirmMove);
     } catch (error) {

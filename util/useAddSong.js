@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import userInfo from '../recoil/userInfo';
-import { useServer } from '../../util';
+import { useServer } from './index';
 
 const { userId } = useRecoilValue(userInfo);
 const server = useServer();
@@ -25,7 +25,7 @@ const useAddSong = async (
     };
     await server.post('/api/user-music', body);
     await server.patch(`/api/user-music/duplication/${playListId}`);
-    action();
+    return action();
   } catch (error) {
     console.log(error);
   }
