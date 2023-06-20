@@ -13,6 +13,16 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     rowGap: 8,
   },
+  emptySongDesc: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  descText: {
+    fontSize: 20,
+    color: theme.lightGray,
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;

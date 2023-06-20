@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import { MusicItem } from '../../components';
 import styles from './PlaylistDetail.style';
 import {
@@ -38,31 +38,44 @@ const PlaylistDetail = ({ navigation, route }) => {
             onPress={() => {
               navigation.push('Sort', { playListId, title });
             }}
+            disabled={songList.length === 0}
           />
           <ModifyButton
             onPress={() => {
               navigation.push('Modify', { playListId: playListId });
             }}
+            disabled={songList.length === 0}
           />
         </View>
       ),
-      title: title.length > 15 ? title.slice(0, 13) + '..' : title,
     });
+  }, [songList]);
 
+  useEffect(() => {
     navigation.addListener('focus', () => {
       getSongLists();
+    });
+
+    navigation.setOptions({
+      title: title.length > 15 ? title.slice(0, 13) + '..' : title,
     });
   }, [route]);
 
   return (
     <View style={styles.container}>
-      <FlatList
-        style={styles.playlist}
-        contentContainerStyle={{ rowGap: 8, paddingBottom: 16 }}
-        data={songList}
-        renderItem={({ item }) => <MusicItem item={item} />}
-        keyExtractor={(item) => item.userMusicId}
-      />
+      {songList.length === 0 ? (
+        <View style={styles.emptySongDesc}>
+          <Text style={styles.descText}>플레이리스트에 곡이 없습니다</Text>
+        </View>
+      ) : (
+        <FlatList
+          style={styles.playlist}
+          contentContainerStyle={{ rowGap: 8, paddingBottom: 16 }}
+          data={songList}
+          renderItem={({ item }) => <MusicItem item={item} />}
+          keyExtractor={(item) => item.userMusicId}
+        />
+      )}
     </View>
   );
 };
