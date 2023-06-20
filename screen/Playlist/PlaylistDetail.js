@@ -33,7 +33,7 @@ const PlaylistDetail = ({ navigation, route }) => {
         />
       ),
       headerRight: () => (
-        <View style={{ flexDirection: 'row', columnGap: 12 }}>
+        <View style={{ flexDirection: 'row', columnGap: 16 }}>
           <SortButton
             onPress={() => {
               navigation.push('Sort', { playListId, title });
