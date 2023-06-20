@@ -2,34 +2,50 @@ import { theme } from '../../theme';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 
-export const BackButton = ({ onPress }) => {
+export const BackButton = ({ onPress, ...props }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <MaterialIcons name="arrow-back-ios" size={24} color={theme.white} />
+    <TouchableOpacity onPress={onPress} {...props}>
+      <MaterialIcons
+        name="arrow-back-ios"
+        size={24}
+        color={props.disabled ? theme.black : theme.white}
+      />
     </TouchableOpacity>
   );
 };
 
-export const ModifyButton = ({ onPress }) => {
+export const ModifyButton = ({ onPress, ...props }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <MaterialIcons name="edit" size={24} color={theme.white} />
+    <TouchableOpacity onPress={onPress} {...props}>
+      <MaterialIcons
+        name="edit"
+        size={24}
+        color={props.disabled ? theme.black : theme.white}
+      />
     </TouchableOpacity>
   );
 };
 
-export const ConfirmModifyButton = ({ onPress }) => {
+export const ConfirmModifyButton = ({ onPress, ...props }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <MaterialIcons name="check" size={24} color={theme.white} />
+    <TouchableOpacity onPress={onPress} {...props}>
+      <MaterialIcons
+        name="check"
+        size={24}
+        color={props.disabled ? theme.black : theme.white}
+      />
     </TouchableOpacity>
   );
 };
 
-export const SortButton = ({ onPress }) => {
+export const SortButton = ({ onPress, ...props }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <FontAwesome5 name="sort" size={24} color={theme.white} />
+    <TouchableOpacity onPress={onPress} {...props}>
+      <FontAwesome5
+        name="sort"
+        size={24}
+        color={props.disabled ? theme.black : theme.white}
+      />
     </TouchableOpacity>
   );
 };
