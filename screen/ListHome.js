@@ -31,11 +31,7 @@ const ListHome = () => {
         component={Playlist}
         options={{ title: '내 플레이리스트' }}
       />
-      <Stack.Screen
-        name="Detail"
-        component={PlaylistDetail}
-        options={{ title: '플레이리스트' }}
-      />
+      <Stack.Screen name="Detail" component={PlaylistDetail} />
       <Stack.Screen
         name="Modify"
         component={PlaylistModify}

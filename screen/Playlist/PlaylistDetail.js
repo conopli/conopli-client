@@ -46,7 +46,7 @@ const PlaylistDetail = ({ navigation, route }) => {
           />
         </View>
       ),
-      title: title,
+      title: title.length > 15 ? title.slice(0, 13) + '..' : title,
     });
 
     navigation.addListener('focus', () => {

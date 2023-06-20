@@ -49,7 +49,9 @@ const PlaylistItem = ({ navigation, item }) => {
         <Text style={styles.icon}>{String.fromCodePoint(emoji)}</Text>
       </View>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title} numberOfLines={1}>
+          {title}
+        </Text>
       </View>
     </TouchableOpacity>
   );
