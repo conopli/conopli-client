@@ -26,6 +26,14 @@ export const ConfirmModifyButton = ({ onPress }) => {
   );
 };
 
+export const SortButton = ({ onPress }) => {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <FontAwesome5 name="sort" size={24} color={theme.white} />
+    </TouchableOpacity>
+  );
+};
+
 export const ModifyListButton = ({ onPress, type, disabled }) => {
   const styles = StyleSheet.create({
     btn: {
@@ -63,37 +71,6 @@ export const ModifyListButton = ({ onPress, type, disabled }) => {
           ? '선택이동'
           : '선택삭제'}
       </Text>
-    </TouchableOpacity>
-  );
-};
-
-export const SortButton = ({ handler }) => {
-  const styles = StyleSheet.create({
-    sortButton: {
-      position: 'absolute',
-      right: 14,
-      bottom: 14,
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 9999,
-      width: 60,
-      height: 60,
-      borderRadius: 50,
-      backgroundColor: theme.lime,
-      shadowColor: theme.black,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-
-      elevation: 5,
-    },
-  });
-  return (
-    <TouchableOpacity style={styles.sortButton} onPress={handler}>
-      <FontAwesome5 name="sort" size={32} color="black" />
     </TouchableOpacity>
   );
 };

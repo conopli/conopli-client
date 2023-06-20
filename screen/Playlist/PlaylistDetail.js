@@ -33,11 +33,18 @@ const PlaylistDetail = ({ navigation, route }) => {
         />
       ),
       headerRight: () => (
-        <ModifyButton
-          onPress={() => {
-            navigation.push('Modify', { playListId: playListId });
-          }}
-        />
+        <View style={{ flexDirection: 'row', columnGap: 12 }}>
+          <SortButton
+            onPress={() => {
+              navigation.push('Sort', { playListId, title });
+            }}
+          />
+          <ModifyButton
+            onPress={() => {
+              navigation.push('Modify', { playListId: playListId });
+            }}
+          />
+        </View>
       ),
       title: title,
     });
@@ -55,11 +62,6 @@ const PlaylistDetail = ({ navigation, route }) => {
         data={songList}
         renderItem={({ item }) => <MusicItem item={item} />}
         keyExtractor={(item) => item.userMusicId}
-      />
-      <SortButton
-        handler={() => {
-          navigation.push('Sort', { playListId, title });
-        }}
       />
     </View>
   );
