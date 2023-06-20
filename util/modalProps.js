@@ -73,8 +73,8 @@ const addPlaylistProps = (
   isEdit = false,
   playListId = 0,
   oldName = '',
-  oldIcon = 0,
-  oldColor = '',
+  oldIcon = 127925,
+  oldColor = '18',
 ) => {
   return {
     isOpen: true,
