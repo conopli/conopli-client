@@ -1,5 +1,6 @@
 import { Text, View, TouchableOpacity } from 'react-native';
 import styles from './ModifyMusicItem.style';
+import { memo } from 'react';
 
 const ModifyMusicItem = ({ item, select, setSelect }) => {
   const { title, singer, userMusicId, num } = item;
@@ -36,4 +37,4 @@ const ModifyMusicItem = ({ item, select, setSelect }) => {
   );
 };
 
-export default ModifyMusicItem;
+export default memo(ModifyMusicItem);
