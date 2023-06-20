@@ -26,10 +26,12 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 4,
     backgroundColor: theme.lightGray,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   icon: {
     padding: 6,
-    fontSize: 28,
+    fontSize: 24,
   },
   nameInput: {
     backgroundColor: theme.lightGray,
