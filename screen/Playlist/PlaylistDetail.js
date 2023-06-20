@@ -58,7 +58,7 @@ const PlaylistDetail = ({ navigation, route }) => {
     <View style={styles.container}>
       <FlatList
         style={styles.playlist}
-        contentContainerStyle={{ rowGap: 8 }}
+        contentContainerStyle={{ rowGap: 8, paddingBottom: 16 }}
         data={songList}
         renderItem={({ item }) => <MusicItem item={item} />}
         keyExtractor={(item) => item.userMusicId}

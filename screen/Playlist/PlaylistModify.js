@@ -169,7 +169,7 @@ const PlaylistModify = ({ navigation, route }) => {
       </View>
       <FlatList
         style={styles.playlist}
-        contentContainerStyle={{ rowGap: 8 }}
+        contentContainerStyle={{ rowGap: 8, paddingBottom: 16 }}
         data={items}
         renderItem={(props) => (
           <ModifyMusicItem {...props} select={select} setSelect={setSelect} />
