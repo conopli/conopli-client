@@ -32,22 +32,24 @@ const PlaylistDetail = ({ navigation, route }) => {
           }}
         />
       ),
-      headerRight: () => (
-        <View style={{ flexDirection: 'row', columnGap: 16 }}>
-          <SortButton
-            onPress={() => {
-              navigation.push('Sort', { playListId, title });
-            }}
-            disabled={songList.length === 0}
-          />
-          <ModifyButton
-            onPress={() => {
-              navigation.push('Modify', { playListId: playListId });
-            }}
-            disabled={songList.length === 0}
-          />
-        </View>
-      ),
+      headerRight: () => {
+        return songList.length === 0 ? (
+          <View></View>
+        ) : (
+          <View style={{ flexDirection: 'row', columnGap: 16 }}>
+            <SortButton
+              onPress={() => {
+                navigation.push('Sort', { playListId, title });
+              }}
+            />
+            <ModifyButton
+              onPress={() => {
+                navigation.push('Modify', { playListId: playListId });
+              }}
+            />
+          </View>
+        );
+      },
     });
   }, [songList]);
 
