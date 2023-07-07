@@ -33,15 +33,16 @@ const Search = () => {
   const server = useServer();
 
   const inputRef = useRef(null);
-  const searchInputHander = async () => {
+  const searchHander = async () => {
     const filter = isClicked ? 2 : 1;
+
     if (textValue.length === 0) {
       makeToast(`검색어를 입력하세요.`);
       return;
     }
+
     try {
       setIsLoading(true);
-      setSearchResult([]);
       const { data } = await server.get(
         `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${value}`,
       );
@@ -56,6 +57,8 @@ const Search = () => {
   };
 
   const nextPageHandler = async () => {
+    if (isAddLoading) return;
+
     const { page, totalPages } = pageInfo;
 
     if (page === totalPages - 1 || this.onEndReachedCalledDuringMomentum)
@@ -63,20 +66,16 @@ const Search = () => {
 
     const { filter, textValue, value } = prevConfig;
 
-    try {
-      setIsAddLoading(true);
-      const { data } = await server.get(
-        `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${value}&page=${
-          pageInfo.page + 1
-        }`,
-      );
-      setSearchResult((prev) => [...prev, ...data.data]);
-      setPageInfo(data.pageInfo);
-      this.onEndReachedCalledDuringMomentum = false;
-      setIsAddLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
+    setIsAddLoading(true);
+    const { data } = await server.get(
+      `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${value}&page=${
+        page + 1
+      }`,
+    );
+    setSearchResult((prev) => [...prev, ...data.data]);
+    setPageInfo(data.pageInfo);
+    this.onEndReachedCalledDuringMomentum = false;
+    setIsAddLoading(false);
   };
 
   return (
@@ -107,7 +106,7 @@ const Search = () => {
             placeholderTextColor={theme.gray}
             value={textValue}
             onChangeText={setTextValue}
-            onSubmitEditing={searchInputHander}
+            onSubmitEditing={searchHander}
             ref={inputRef}
           />
           <TouchableOpacity style={styles.searchIcon}>
@@ -115,7 +114,7 @@ const Search = () => {
               name="search"
               size={28}
               color="black"
-              onPress={searchInputHander}
+              onPress={searchHander}
             />
           </TouchableOpacity>
         </View>
@@ -135,7 +134,7 @@ const Search = () => {
           <FlatList
             data={searchResult}
             renderItem={({ item }) => <MusicItem isAdd={true} item={item} />}
-            keyExtractor={(item) => item.num}
+            // TODO: 검색 정상화 이후 되돌릴 것 keyExtractor={(item) => item.num}
             contentContainerStyle={{ rowGap: 8, paddingBottom: 12 }}
             ListFooterComponent={(props) =>
               isAddLoading && (
