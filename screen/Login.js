@@ -18,11 +18,6 @@ const Login = ({ navigation }) => {
   const setPlayList = useSetRecoilState(userPlayList);
   const setModal = useSetRecoilState(ModalState);
 
-  const loginFail = alertProps(
-    '오류',
-    `이미 가입한 이메일입니다.\n최초 가입한 소셜 서비스를 선택하세요.`,
-  );
-
   const expoAuthUri = AuthSession.makeRedirectUri({
     path: 'redirect',
     useProxy: true,
@@ -48,7 +43,20 @@ const Login = ({ navigation }) => {
       return { Authorization, userId, email, loginType };
     } catch (e) {
       const { status, message } = e.response.data;
+      const { userlogintype: loginType } = e.response.headers;
+
       if (status === 400 && message === 'Already Exist User Email') {
+        const service =
+          loginType === 'KAKAO'
+            ? '카카오'
+            : loginType === 'GOOGLE'
+            ? '구글'
+            : '네이버';
+
+        const loginFail = alertProps(
+          '오류',
+          `이미 가입한 이메일입니다.\n최초 가입한 소셜 서비스를 선택하세요.\n가입한 서비스 : ${service}`,
+        );
         setModal(loginFail);
       } else {
         makeToast(
