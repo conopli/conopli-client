@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import styles from './PlaylistSort.style';
+import { theme } from '../../theme';
 import {
   BackButton,
   ConfirmModifyButton,
@@ -16,6 +17,7 @@ const PlaylistSort = ({ navigation, route }) => {
   const server = useServer();
   const { playListId } = route.params;
   const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
   const confirm = confirmProps(
@@ -25,8 +27,11 @@ const PlaylistSort = ({ navigation, route }) => {
     () => {
       setSortedSongList();
       reset();
-      navigation.goBack();
-      // FIXME : api 요청보다 goBack이 빨라서 화면상에 구현이 안되는 부분 해결해야됨
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        navigation.goBack();
+      }, 700);
     },
   );
 
@@ -87,9 +92,22 @@ const PlaylistSort = ({ navigation, route }) => {
     />
   ));
 
+  const Loading = () => {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator
+          style={{ flex: 1 }}
+          size="large"
+          color={theme.lime}
+        />
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <DragList />
+      {isLoading && <Loading />}
     </View>
   );
 };
