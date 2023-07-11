@@ -29,6 +29,7 @@ const Search = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isAddLoading, setIsAddLoading] = useState(false);
   const [prevConfig, setPrevConfig] = useState(null);
+  const [isTooltip, setIsTooltip] = useState(false);
   const [pageInfo, setPageInfo] = useState({});
   const server = useServer();
 
@@ -78,6 +79,17 @@ const Search = () => {
     setIsAddLoading(false);
   };
 
+  const Tooltip = () => {
+    return (
+      <View style={styles.tooltipContainer}>
+        <View style={styles.msgBox}>
+          <Text style={styles.msgText}>한글은 띄어쓰기 없이 입력하세요</Text>
+          <View style={styles.triangle} />
+        </View>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.dropdown}>
@@ -108,6 +120,12 @@ const Search = () => {
             onChangeText={setTextValue}
             onSubmitEditing={searchHander}
             ref={inputRef}
+            onFocus={() => {
+              setIsTooltip(true);
+            }}
+            onBlur={() => {
+              setIsTooltip(false);
+            }}
           />
           <TouchableOpacity style={styles.searchIcon}>
             <MaterialIcons
@@ -118,6 +136,7 @@ const Search = () => {
             />
           </TouchableOpacity>
         </View>
+        {isTooltip && <Tooltip />}
       </View>
       <View style={styles.result}>
         {isLoading ? (
