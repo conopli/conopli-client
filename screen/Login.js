@@ -3,7 +3,7 @@ import styles from './Login.style.js';
 import { AuthButton } from '../components/Login';
 import * as WebBrowser from 'expo-web-browser';
 import * as AuthSession from 'expo-auth-session';
-import getEnv from '../env.js';
+import { KAKAO_ID, NAVER_ID, NAVER_KEY, GOOGLE_ID } from 'react-native-dotenv';
 import { useSetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
@@ -22,8 +22,6 @@ const Login = ({ navigation }) => {
     path: 'redirect',
     useProxy: true,
   });
-
-  const { KAKAO_ID, NAVER_ID, NAVER_KEY, GOOGLE_ID } = getEnv();
 
   const getUserInfo = async (type, accessToken) => {
     try {

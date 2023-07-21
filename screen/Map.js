@@ -7,7 +7,7 @@ import {
   getCurrentPositionAsync,
 } from 'expo-location';
 import { useEffect, useState } from 'react';
-import getEnv from '../env';
+import { BASE_URL } from 'react-native-dotenv';
 import { makeToast } from '../util';
 
 const Map = () => {
@@ -26,8 +26,6 @@ const Map = () => {
         4000,
       );
   }, [hasPermission]);
-
-  const { BASE_URL } = getEnv();
 
   const mapUri = `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`;
 
