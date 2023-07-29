@@ -6,7 +6,7 @@ import { theme } from '../../theme';
 function ThreeDotButton({ buttonHandler }) {
   return (
     <TouchableOpacity style={styles.button} onPress={buttonHandler}>
-      <Entypo name="dots-three-vertical" size={24} color={theme.white} />{' '}
+      <Entypo name="dots-three-vertical" size={24} color={theme.white} />
     </TouchableOpacity>
   );
 }

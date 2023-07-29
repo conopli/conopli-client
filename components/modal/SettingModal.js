@@ -31,7 +31,7 @@ const EditPlaylistModal = ({ leaveHandler }) => {
             text="문의하기"
             color="lime"
             buttonHandler={() => {
-              leaveHandler();
+              console.log('문의하기는 준비중!');
             }}
           />
         </View>

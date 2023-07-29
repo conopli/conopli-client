@@ -16,7 +16,7 @@ import SymbolLogo from '../assets/symbolLogo.svg';
 import TypoLogo from '../assets/typoLogo.svg';
 import { confirmProps, makeToast } from '../util';
 import { settingProps } from '../util';
-import ThreeDotButton from '../components/Setting';
+import { ThreeDotButton } from '../components/Setting';
 
 const Setting = ({ navigation }) => {
   const [geo, setGeo] = useState(false);
@@ -30,8 +30,8 @@ const Setting = ({ navigation }) => {
     '로그아웃',
     '로그아웃 하시겠습니까?',
     '확인',
-    () => {
-      logoutHandler();
+    async () => {
+      await logoutHandler();
     },
   );
 
