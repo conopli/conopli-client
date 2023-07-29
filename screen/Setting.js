@@ -15,6 +15,9 @@ import Google from '../assets/google.svg';
 import SymbolLogo from '../assets/symbolLogo.svg';
 import TypoLogo from '../assets/typoLogo.svg';
 import { confirmProps, makeToast } from '../util';
+import ModalState from '../recoil/modal.js';
+import { settingProps } from '../util';
+import ThreeDotButton from '../components/Setting/ThreeDotButton';
 
 const Setting = ({ navigation }) => {
   const [geo, setGeo] = useState(false);
@@ -22,7 +25,7 @@ const Setting = ({ navigation }) => {
   const resetPlayList = useResetRecoilState(userPlayList);
   const resetModal = useResetRecoilState(ModalState);
   const setModal = useSetRecoilState(ModalState);
-  const { email, loginType } = useRecoilValue(userInfo);
+  const { email, loginType, userId } = useRecoilValue(userInfo);
 
   const confirm = confirmProps(
     '로그아웃',
@@ -41,6 +44,45 @@ const Setting = ({ navigation }) => {
     navigation.navigate('Populer');
     makeToast('로그아웃이 완료되었습니다.');
   };
+
+  const setting = settingProps(() => {
+    setModal(confirmLeave);
+  });
+
+  const confirmLeave = confirmProps(
+    '회원 탈퇴',
+    '탈퇴 하시겠습니까?',
+    '확인',
+    async () => {
+      await leaveHandler();
+      await AsyncStorage.clear();
+      resetUserInfo();
+      resetPlayList();
+      resetModal();
+      navigation.navigate('Populer');
+      makeToast('회원 탈퇴가 완료되었습니다.');
+    },
+  );
+
+  const leaveHandler = async () => {
+    try {
+      await server.delete(`/api/users/${userId}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <ThreeDotButton
+          buttonHandler={() => {
+            setModal(setting);
+          }}
+        />
+      ),
+    });
+  });
 
   return (
     <View style={styles.container}>
