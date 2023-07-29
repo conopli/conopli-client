@@ -5,6 +5,7 @@ import EditPlaylistModal from './EditPlaylistModal.js';
 import AddPlaylistModal from './AddPlaylistModal.js';
 import AlertModal from './AlertModal.js';
 import MoveSongModal from './MoveSongModal.js';
+import SettingModal from './SettingModal';
 
 export {
   AddSongModal,
@@ -14,4 +15,5 @@ export {
   AddPlaylistModal,
   AlertModal,
   MoveSongModal,
+  SettingModal,
 };

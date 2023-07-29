@@ -95,6 +95,18 @@ const deletePlaylistProps = (playListId = 0) => {
   };
 };
 
+/**
+ * 설정 페이지 상세 (ex: 탈퇴하기, 문의하기 버튼 등) 모달 호출을 위한 생성 함수입니다.
+ * @param {number} leaveHandler 회원탈퇴
+ */
+const settingProps = (leaveHandler = () => {}) => {
+  return {
+    isOpen: true,
+    modalType: 'setting',
+    props: { leaveHandler },
+  };
+};
+
 export {
   alertProps,
   confirmProps,
@@ -102,4 +114,5 @@ export {
   addSongProps,
   deletePlaylistProps,
   editPlaylistProps,
+  settingProps,
 };
