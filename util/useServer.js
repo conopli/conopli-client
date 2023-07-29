@@ -50,9 +50,7 @@ const useServer = () => {
         try {
           const {
             data: { authorization: Authorization },
-          } = await axios.get(
-            `${getEnv.BASE_URL}/api/auth/reissue-token/${userId}`,
-          );
+          } = await axios.get(`${BASE_URL}/api/auth/reissue-token/${userId}`);
 
           setUserInfo((prev) => ({ ...prev, Authorization }));
 
