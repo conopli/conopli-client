@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Setting.style';
 import RowButton from '../components/RowButton';
 import CheckBox from 'expo-checkbox';
