@@ -15,9 +15,8 @@ import Google from '../assets/google.svg';
 import SymbolLogo from '../assets/symbolLogo.svg';
 import TypoLogo from '../assets/typoLogo.svg';
 import { confirmProps, makeToast } from '../util';
-import ModalState from '../recoil/modal.js';
 import { settingProps } from '../util';
-import ThreeDotButton from '../components/Setting/ThreeDotButton';
+import ThreeDotButton from '../components/Setting';
 
 const Setting = ({ navigation }) => {
   const [geo, setGeo] = useState(false);

@@ -1,7 +1,7 @@
 import { TouchableOpacity } from 'react-native';
 import styles from './ThreeDotButton.style.js';
 import { Entypo } from '@expo/vector-icons';
-import { theme } from '../theme';
+import { theme } from '../../theme';
 
 function ThreeDotButton({ buttonHandler }) {
   return (
