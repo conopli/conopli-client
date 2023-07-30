@@ -8,7 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
 import userPlayList from '../recoil/userPlayList.js';
-import { alertProps, useServer, makeToast } from '../util';
+import { alertProps, confirmProps, useServer, makeToast } from '../util';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -56,6 +56,17 @@ const Login = ({ navigation }) => {
           `이미 가입한 이메일입니다.\n최초 가입한 소셜 서비스를 선택하세요.\n가입한 서비스 : ${service}`,
         );
         setModal(loginFail);
+      } else if (status === 403 && loginType) {
+        const rejoin = confirmProps(
+          '재가입',
+          '재가입 하시겠습니까?',
+          '예',
+          () => {
+            //TODO:: 재가입 로직
+            console.log('재가입 할 거임!');
+          },
+        );
+        setModal(rejoin);
       } else {
         makeToast(
           `로그인 중 오류가 발생했습니다.\nERROR: fail of get "USER INFO" `,
