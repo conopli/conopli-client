@@ -17,6 +17,7 @@ import TypoLogo from '../assets/typoLogo.svg';
 import { confirmProps, makeToast } from '../util';
 import { settingProps } from '../util';
 import { ThreeDotButton } from '../components/Setting';
+import { useServer } from '../util';
 
 const Setting = ({ navigation }) => {
   const [geo, setGeo] = useState(false);
@@ -25,6 +26,7 @@ const Setting = ({ navigation }) => {
   const resetModal = useResetRecoilState(ModalState);
   const setModal = useSetRecoilState(ModalState);
   const { email, loginType, userId } = useRecoilValue(userInfo);
+  const server = useServer();
 
   const confirm = confirmProps(
     '로그아웃',
