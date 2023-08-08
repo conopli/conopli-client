@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     rowGap: 60,
+    position: 'relative',
   },
   login_text: {
     flex: 0.05,
@@ -24,6 +25,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     rowGap: 24,
+  },
+  webView: {
+    flex: 1,
+    zIndex: 1,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });
 
