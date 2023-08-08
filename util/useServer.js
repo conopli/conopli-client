@@ -6,6 +6,8 @@ import userInfo from '../recoil/userInfo';
 import { useNavigation } from '@react-navigation/native';
 import makeToast from './makeToast';
 
+// TODO : 에러코드 정리된 이후 에러 핸들링 점검 후 수정 필요
+
 const useServer = () => {
   const server = axios.create();
   const [{ Authorization, userId }, setUserInfo] = useRecoilState(userInfo);
