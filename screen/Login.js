@@ -8,7 +8,7 @@ import {
   GOOGLE_ID,
   BASE_URL,
 } from 'react-native-dotenv';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useResetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
 import userPlayList from '../recoil/userPlayList.js';
@@ -25,6 +25,7 @@ const Login = ({ navigation }) => {
   const setUser = useSetRecoilState(userInfo);
   const setPlayList = useSetRecoilState(userPlayList);
   const setModal = useSetRecoilState(ModalState);
+  const reset = useResetRecoilState(ModalState);
   const [loginInfo, setLoginInfo] = useState({ type: '', uri: '' });
   const [isLogin, setIsLogin] = useState(false);
 
@@ -52,30 +53,30 @@ const Login = ({ navigation }) => {
       const { userlogintype: loginType } = e.response.headers;
       setIsLogin(false);
 
-      if (status === 400 && message === 'Already Exist User Email') {
-        const service =
-          loginType === 'KAKAO'
-            ? '카카오'
-            : loginType === 'GOOGLE'
-            ? '구글'
-            : '네이버';
+      const service =
+        loginType === 'KAKAO'
+          ? '카카오'
+          : loginType === 'GOOGLE'
+          ? '구글'
+          : '네이버';
 
+      if (status === 400 && message === 'Already Exist User Email') {
         const loginFail = alertProps(
           '오류',
           `이미 가입한 이메일입니다.\n최초 가입한 소셜 서비스를 선택하세요.\n가입한 서비스 : ${service}`,
         );
         setModal(loginFail);
       } else if (status === 403 && loginType) {
-        const rejoin = confirmProps(
+        const rejoinProps = confirmProps(
           '재가입',
-          '재가입 하시겠습니까?',
+          `이전에 ${service}로 가입했던 계정입니다.\n재가입 하시겠습니까?`,
           '예',
           () => {
-            //TODO:: 재가입 로직
-            console.log('재가입 할 거임!');
+            rejoin(accessToken, loginType);
+            reset();
           },
         );
-        setModal(rejoin);
+        setModal(rejoinProps);
       } else {
         makeToast(
           `로그인 중 오류가 발생했습니다.\nERROR: fail of get "USER INFO" `,
@@ -153,7 +154,7 @@ const Login = ({ navigation }) => {
         } = await server.get(tokenUrl);
 
         accessToken = access_token;
-        console.log(accessToken);
+        console.log('getToken 안에 acceess_token', accessToken);
       } catch (e) {
         makeToast(
           `로그인 중 오류가 발생했습니다.\nERROR: fail of get "ACCESS TOKEN" `,
@@ -163,21 +164,55 @@ const Login = ({ navigation }) => {
       }
     }
 
-    //* 발급받은 accessToken으로 서버에게 유저 정보 받아오고 적용
-    const { Authorization, userId, loginType, email } = await getUserInfo(
-      type,
-      accessToken,
-    );
-    setUser({ userId, Authorization, loginType, email });
+    //* 발급받은 accessToken으로 서버에게 유저 정보 받아옴
+    const userInfo = await getUserInfo(type, accessToken);
 
-    //* 플레이리스트 서버에게 받아오고 적용
-    const playList = await getPlayList(userId, Authorization);
-    setPlayList(playList);
+    //* userInfo를 올바르게 받아올 때만 이후 로직 실행
+    if (typeof userInfo === 'object') {
+      const { Authorization, userId, loginType, email } = userInfo;
+      setUser({ userId, Authorization, loginType, email });
 
-    //* 로그인 완료, 웹 뷰 닫고 스크린 이동 및 토스트 출력
-    setIsLogin(false);
-    navigation.navigate('Populer');
-    makeToast('로그인이 완료되었습니다.');
+      //* 플레이리스트 서버에게 받아오고 적용
+      const playList = await getPlayList(userId, Authorization);
+      setPlayList(playList);
+
+      //* 로그인 완료, 웹 뷰 닫고 스크린 이동 및 토스트 출력
+      setIsLogin(false);
+      navigation.navigate('Populer');
+      makeToast('로그인이 완료되었습니다.');
+    }
+  };
+
+  //* 재활성화
+  const rejoin = async (accessToken, type) => {
+    try {
+      //재활성화 요청
+      const rejoinRes = await server.patch('/api/users', {
+        oauthAccessToken: accessToken,
+        loginType: type,
+      });
+
+      const { authorization } = rejoinRes.headers;
+      const { userId, email, userStatus, loginType } = rejoinRes.data.data;
+
+      //재활성화 완료된 경우 userInfo, playList 정보 세팅
+      if (userStatus === 'VERIFIED') {
+        setUser({ userId, authorization, loginType, email });
+        console.log('userInfo!', userInfo);
+
+        const playList = await getPlayList(userId, authorization);
+        setPlayList(playList);
+        console.log('playList', playList);
+
+        setIsLogin(false);
+        navigation.navigate('Populer');
+        makeToast('재가입 및 로그인이 완료되었습니다.');
+      } else {
+        makeToast('재가입에 문제가 발생했습니다. 다시 시도해주세요.');
+      }
+    } catch (e) {
+      makeToast('재가입에 문제가 발생했습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
