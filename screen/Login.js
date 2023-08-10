@@ -131,13 +131,11 @@ const Login = ({ navigation }) => {
       const startIndex = url.indexOf('#access_token') + 14;
       const endIndex = url.indexOf('&', startIndex);
       accessToken = url.substring(startIndex, endIndex);
-      console.log('accessToken,', accessToken);
     } else {
       //* 그 외의 경우 accessToken을 받기 위한 API 통신 진행
       const urlObj = new URL(url);
       const params = new URLSearchParams(urlObj.search);
       const code = params.get('code');
-      console.log('code,', code);
 
       //* url 부여
       let tokenUrl = '';
@@ -154,7 +152,6 @@ const Login = ({ navigation }) => {
         } = await server.get(tokenUrl);
 
         accessToken = access_token;
-        console.log('getToken 안에 acceess_token', accessToken);
       } catch (e) {
         makeToast(
           `로그인 중 오류가 발생했습니다.\nERROR: fail of get "ACCESS TOKEN" `,
@@ -198,11 +195,9 @@ const Login = ({ navigation }) => {
       //재활성화 완료된 경우 userInfo, playList 정보 세팅
       if (userStatus === 'VERIFIED') {
         setUser({ userId, authorization, loginType, email });
-        console.log('userInfo!', userInfo);
 
         const playList = await getPlayList(userId, authorization);
         setPlayList(playList);
-        console.log('playList', playList);
 
         setIsLogin(false);
         navigation.navigate('Populer');
@@ -254,7 +249,6 @@ const Login = ({ navigation }) => {
           injectedJavaScript={INJECTED_JS}
           onMessage={(e) => {
             const { url } = e.nativeEvent;
-            console.log('url,', url);
             if (url.startsWith(redirectUri)) {
               getToken(url);
             }
