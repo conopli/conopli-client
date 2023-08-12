@@ -1,13 +1,7 @@
 import { Text, View } from 'react-native';
 import styles from './Login.style.js';
 import { AuthButton } from '../components/Login';
-import {
-  KAKAO_ID,
-  NAVER_ID,
-  NAVER_KEY,
-  GOOGLE_ID,
-  BASE_URL,
-} from 'react-native-dotenv';
+import { KAKAO_ID, NAVER_ID, NAVER_KEY, GOOGLE_ID } from 'react-native-dotenv';
 import { useSetRecoilState, useResetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
@@ -15,6 +9,7 @@ import userPlayList from '../recoil/userPlayList.js';
 import { alertProps, confirmProps, useServer, makeToast } from '../util';
 import { WebView } from 'react-native-webview';
 import { useState } from 'react';
+import { errorCodes } from '../util';
 
 const INJECTED_JS = `window.ReactNativeWebView.postMessage('message from webView')`;
 
@@ -49,7 +44,8 @@ const Login = ({ navigation }) => {
 
       return { Authorization, userId, email, loginType };
     } catch (e) {
-      const { status, message } = e.response.data;
+      console.log('error', e);
+      const { code } = e.response.data;
       const { userlogintype: loginType } = e.response.headers;
       setIsLogin(false);
 
@@ -60,13 +56,15 @@ const Login = ({ navigation }) => {
           ? '구글'
           : '네이버';
 
-      if (status === 400 && message === 'Already Exist User Email') {
+      if (code === 14003) {
+        //! 기가입 회원 케이스 핸들링
         const loginFail = alertProps(
           '오류',
           `이미 가입한 이메일입니다.\n최초 가입한 소셜 서비스를 선택하세요.\n가입한 서비스 : ${service}`,
         );
         setModal(loginFail);
-      } else if (status === 403 && loginType) {
+      } else if (code === 14007) {
+        //! 비활성화 회원 케이스 핸들링
         const rejoinProps = confirmProps(
           '재가입',
           `이전에 ${service}로 가입했던 계정입니다.\n재가입 하시겠습니까?`,
@@ -79,7 +77,7 @@ const Login = ({ navigation }) => {
         setModal(rejoinProps);
       } else {
         makeToast(
-          `로그인 중 오류가 발생했습니다.\nERROR: fail of get "USER INFO" `,
+          `로그인 중 오류가 발생했습니다.\nERROR: ${errorCodes[code]} `,
         );
         console.error(e);
       }
@@ -153,9 +151,6 @@ const Login = ({ navigation }) => {
 
         accessToken = access_token;
       } catch (e) {
-        makeToast(
-          `로그인 중 오류가 발생했습니다.\nERROR: fail of get "ACCESS TOKEN" `,
-        );
         console.error(e);
         setIsLogin(false);
       }
