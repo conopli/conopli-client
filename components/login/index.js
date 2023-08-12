@@ -1,3 +1,4 @@
 import AuthButton from './AuthButton.js';
+import CloseButton from './CloseButton.js';
 
-export { AuthButton };
+export { AuthButton, CloseButton };

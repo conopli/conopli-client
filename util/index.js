@@ -17,6 +17,7 @@ import {
 
 import useServer from './useServer';
 import makeToast from './makeToast';
+import errorCodes from './error';
 
 export {
   searchDummy,
@@ -32,4 +33,5 @@ export {
   settingProps,
   useServer,
   makeToast,
+  errorCodes,
 };
