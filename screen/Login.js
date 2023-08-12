@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 import styles from './Login.style.js';
-import { AuthButton } from '../components/Login';
+import { AuthButton, CloseButton } from '../components/Login';
 import { KAKAO_ID, NAVER_ID, NAVER_KEY, GOOGLE_ID } from 'react-native-dotenv';
 import { useSetRecoilState, useResetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
@@ -237,18 +237,25 @@ const Login = ({ navigation }) => {
         </View>
       </View>
       {isLogin && (
-        <WebView
-          containerStyle={styles.webView}
-          source={{ uri: loginInfo.uri }}
-          userAgent="Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3714.0 Mobile Safari/537.36"
-          injectedJavaScript={INJECTED_JS}
-          onMessage={(e) => {
-            const { url } = e.nativeEvent;
-            if (url.startsWith(redirectUri)) {
-              getToken(url);
-            }
-          }}
-        />
+        <>
+          <WebView
+            containerStyle={styles.webView}
+            source={{ uri: loginInfo.uri }}
+            userAgent="Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3714.0 Mobile Safari/537.36"
+            injectedJavaScript={INJECTED_JS}
+            onMessage={(e) => {
+              const { url } = e.nativeEvent;
+              if (url.startsWith(redirectUri)) {
+                getToken(url);
+              }
+            }}
+          />
+          <CloseButton
+            handler={() => {
+              setIsLogin(false);
+            }}
+          />
+        </>
       )}
     </View>
   );
