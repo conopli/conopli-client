@@ -28,7 +28,6 @@ const useServer = () => {
   server.interceptors.response.use(
     (res) => res,
     async (err) => {
-      console.log(err);
       const {
         config,
         response: {
@@ -58,7 +57,6 @@ const useServer = () => {
           originReq.headers.Authorization = Authorization;
           return axios(originReq);
         } catch (error) {
-          console.log(err);
           await AsyncStorage.clear();
           resetUserInfo();
           resetPlayList();
