@@ -17,8 +17,10 @@
       "supportsTablet": false
     },
     "android": {
+      "icon": "./assets/icon.png",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/foreground-icon.png",
+        "backgroundImage": "./assets/background-icon.png",
         "backgroundColor": "#0D0D0D"
       },
       "package": "com.conopli"
