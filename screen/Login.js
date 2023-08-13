@@ -13,8 +13,6 @@ import { errorCodes } from '../util';
 
 const INJECTED_JS = `window.ReactNativeWebView.postMessage('message from webView')`;
 
-// TODO : 에러코드 정리된 이후 에러 핸들링 점검 후 수정 필요
-
 const Login = ({ navigation }) => {
   const server = useServer();
   const setUser = useSetRecoilState(userInfo);
