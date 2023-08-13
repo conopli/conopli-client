@@ -1,7 +1,13 @@
 import { Text, View } from 'react-native';
 import styles from './Login.style.js';
 import { AuthButton, CloseButton } from '../components/Login';
-import { KAKAO_ID, NAVER_ID, NAVER_KEY, GOOGLE_ID } from 'react-native-dotenv';
+import {
+  KAKAO_ID,
+  NAVER_ID,
+  NAVER_KEY,
+  GOOGLE_ID,
+  BASE_URL,
+} from 'react-native-dotenv';
 import { useSetRecoilState, useResetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
@@ -22,8 +28,7 @@ const Login = ({ navigation }) => {
   const [loginInfo, setLoginInfo] = useState({ type: '', uri: '' });
   const [isLogin, setIsLogin] = useState(false);
 
-  // TODO : 차후 리디렉션 주소 변경 요망 = BASE_URL + 'redirect';
-  const redirectUri = 'https://auth.expo.io/@ninefloor/conopli';
+  const redirectUri = BASE_URL + '/redirect';
 
   const getUserInfo = async (type, accessToken) => {
     try {
@@ -42,7 +47,6 @@ const Login = ({ navigation }) => {
 
       return { Authorization, userId, email, loginType };
     } catch (e) {
-      console.log('error', e);
       const { code } = e.response.data;
       const { userlogintype: loginType } = e.response.headers;
       setIsLogin(false);
