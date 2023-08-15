@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import styles from './MoveSongModal.style';
-import { RowButton } from '../index.js';
+import { RowButton, CustomText } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useResetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
@@ -68,15 +68,21 @@ const MoveSongModal = ({
         e.stopPropagation();
       }}
     >
-      <Text style={styles.title}>플레이리스트 이동</Text>
-      <Text style={styles.subTitle}>아래 플레이리스트로 이동하시겠습니까?</Text>
+      <CustomText style={styles.title}>플레이리스트 이동</CustomText>
+      <CustomText style={styles.subTitle}>
+        아래 플레이리스트로 이동하시겠습니까?
+      </CustomText>
       <View style={styles.selectedContainer}>
-        <Text style={styles.selectedTitle}>플레이리스트 선택</Text>
+        <CustomText style={styles.selectedTitle}>플레이리스트 선택</CustomText>
         <View style={styles.pickerContainer}>
           <DropDownPicker
             style={styles.picker}
             dropDownContainerStyle={styles.dropdownContainer}
-            textStyle={{ fontSize: 16, fontWeight: 'bold' }}
+            textStyle={{
+              fontSize: 16,
+              fontWeight: 'bold',
+              fontFamily: 'Pretendard',
+            }}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}
             placeholder={'플레이리스트 선택'}

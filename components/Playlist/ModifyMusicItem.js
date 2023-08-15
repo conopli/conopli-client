@@ -1,6 +1,7 @@
-import { Text, View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import styles from './ModifyMusicItem.style';
 import { memo } from 'react';
+import { CustomText } from '../index';
 
 const ModifyMusicItem = ({ item, select, setSelect }) => {
   const { title, singer, userMusicId, num } = item;
@@ -27,11 +28,15 @@ const ModifyMusicItem = ({ item, select, setSelect }) => {
       onPress={selectHandler}
     >
       <View style={styles.songInfo}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.artist}>{singer}</Text>
+        <CustomText style={styles.title} numberOfLines={1}>
+          {title}
+        </CustomText>
+        <CustomText style={styles.artist} numberOfLines={1}>
+          {singer}
+        </CustomText>
       </View>
       <View style={styles.numberBox}>
-        <Text style={styles.number}>{num}</Text>
+        <CustomText style={styles.number}>{num}</CustomText>
       </View>
     </TouchableOpacity>
   );

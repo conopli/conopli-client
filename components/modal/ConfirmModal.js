@@ -1,6 +1,6 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import styles from './ConfirmModal.style.js';
-import { RowButton } from '../index.js';
+import { RowButton, CustomText } from '../index.js';
 import { useResetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 
@@ -17,8 +17,8 @@ const ConfirmModal = ({ title, subTitle, buttonText, handler }) => {
         e.stopPropagation();
       }}
     >
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subTitle}>{subTitle}</Text>
+      <CustomText style={styles.title}>{title}</CustomText>
+      <CustomText style={styles.subTitle}>{subTitle}</CustomText>
       <View style={styles.buttonBox}>
         <View style={{ flex: 1, marginRight: 8, height: 40 }}>
           <RowButton

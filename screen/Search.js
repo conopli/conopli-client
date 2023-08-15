@@ -9,7 +9,7 @@ import {
 import styles from './Search.style';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState, useRef } from 'react';
-import { SearchButton, MusicItem } from '../components';
+import { SearchButton, MusicItem, CustomText } from '../components';
 import { MaterialIcons } from '@expo/vector-icons';
 import { makeToast, useServer } from '../util';
 import { theme } from '../theme.js';
@@ -83,7 +83,9 @@ const Search = () => {
     return (
       <View style={styles.tooltipContainer}>
         <View style={styles.msgBox}>
-          <Text style={styles.msgText}>한글은 띄어쓰기 없이 입력하세요</Text>
+          <CustomText style={styles.msgText}>
+            한글은 띄어쓰기 없이 입력하세요
+          </CustomText>
           <View style={styles.triangle} />
         </View>
       </View>
@@ -146,9 +148,9 @@ const Search = () => {
             color={theme.lime}
           />
         ) : searchResult === null ? (
-          <Text style={styles.descText}>검색어를 입력하세요</Text>
+          <CustomText style={styles.descText}>검색어를 입력하세요</CustomText>
         ) : searchResult.length === 0 ? (
-          <Text style={styles.descText}>검색 결과가 없습니다</Text>
+          <CustomText style={styles.descText}>검색 결과가 없습니다</CustomText>
         ) : (
           <FlatList
             data={searchResult}

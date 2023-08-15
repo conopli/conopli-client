@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { useState, useEffect } from 'react';
 import styles from './Setting.style';
 import RowButton from '../components/RowButton';
@@ -14,10 +14,9 @@ import Naver from '../assets/naver.svg';
 import Google from '../assets/google.svg';
 import SymbolLogo from '../assets/symbolLogo.svg';
 import TypoLogo from '../assets/typoLogo.svg';
-import { confirmProps, makeToast } from '../util';
-import { settingProps } from '../util';
+import { confirmProps, makeToast, settingProps, useServer } from '../util';
 import { ThreeDotButton } from '../components/Setting';
-import { useServer } from '../util';
+import { CustomText } from '../components';
 
 const Setting = ({ navigation }) => {
   const [geo, setGeo] = useState(false);
@@ -93,14 +92,14 @@ const Setting = ({ navigation }) => {
           <TypoLogo width={160} height={26.94} />
         </View>
         <View style={styles.desc}>
-          <Text style={styles.descText}>
+          <CustomText style={styles.descText}>
             가수님, 오늘도 흥겨운 하루 되세요!
-          </Text>
+          </CustomText>
         </View>
         <View style={styles.emailInfo}>
-          <Text style={styles.descText}>이메일 정보</Text>
+          <CustomText style={styles.descText}>이메일 정보</CustomText>
           <View style={[styles.email, styles[loginType]]}>
-            <Text style={styles.emailText}>{email}</Text>
+            <CustomText style={styles.emailText}>{email}</CustomText>
             {loginType === 'KAKAO' ? (
               <Kakao width={16} />
             ) : loginType === 'GOOGLE' ? (
@@ -111,7 +110,7 @@ const Setting = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.geo}>
-          <Text style={styles.descText}>위치 정보 수집 동의</Text>
+          <CustomText style={styles.descText}>위치 정보 수집 동의</CustomText>
           <CheckBox
             disabled
             style={styles.checkBox}

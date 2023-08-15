@@ -1,6 +1,7 @@
 import { theme } from '../../theme';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
+import { CustomText } from '../index';
 
 export const BackButton = ({ onPress, ...props }) => {
   return (
@@ -80,13 +81,13 @@ export const ModifyListButton = ({ onPress, type, disabled }) => {
 
   return (
     <TouchableOpacity disabled={disabled} onPress={onPress} style={styles.btn}>
-      <Text>
+      <CustomText style={styles.text}>
         {type === 'select'
           ? '전체선택'
           : type === 'move'
           ? '선택이동'
           : '선택삭제'}
-      </Text>
+      </CustomText>
     </TouchableOpacity>
   );
 };
