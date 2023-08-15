@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   },
   nameInput: {
     backgroundColor: theme.lightGray,
+    fontFamily: 'Pretendard',
     fontWeight: 'bold',
     color: theme.gray,
     flex: 1,

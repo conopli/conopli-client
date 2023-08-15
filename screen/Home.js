@@ -6,10 +6,19 @@ import { Map, Populer, ListHome, Search, Setting, Login } from './index.js';
 import { useRecoilValue } from 'recoil';
 import GlobalModal from '../components/Modal/GlobalModal';
 import userInfo from '../recoil/userInfo';
+import { useFonts } from 'expo-font';
 
 const Home = () => {
   const Tab = createBottomTabNavigator();
   const { userId } = useRecoilValue(userInfo);
+
+  const [fontsLoaded] = useFonts({
+    Pretendard: require('../assets/fonts/PretendardJPVariable.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
@@ -23,6 +32,7 @@ const Home = () => {
             paddingTop: 5,
           },
           tabBarLabelStyle: {
+            fontFamily: 'Pretendard',
             fontSize: 10,
             paddingBottom: 5,
             fontWeight: '700',
@@ -32,6 +42,7 @@ const Home = () => {
             backgroundColor: theme.black,
           },
           headerTitleStyle: {
+            fontFamily: 'Pretendard',
             fontSize: 24,
             fontWeight: '700',
             color: theme.white,

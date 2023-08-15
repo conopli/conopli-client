@@ -2,8 +2,6 @@ import { View } from 'react-native';
 import { useState, useEffect } from 'react';
 import styles from './Setting.style';
 import RowButton from '../components/RowButton';
-import CheckBox from 'expo-checkbox';
-import { theme } from '../theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import userInfo from '../recoil/userInfo';
 import userPlayList from '../recoil/userPlayList';
@@ -19,7 +17,6 @@ import { ThreeDotButton } from '../components/Setting';
 import { CustomText } from '../components';
 
 const Setting = ({ navigation }) => {
-  const [geo, setGeo] = useState(false);
   const resetUserInfo = useResetRecoilState(userInfo);
   const resetPlayList = useResetRecoilState(userPlayList);
   const resetModal = useResetRecoilState(ModalState);
@@ -108,18 +105,6 @@ const Setting = ({ navigation }) => {
               <Naver width={16} />
             )}
           </View>
-        </View>
-        <View style={styles.geo}>
-          <CustomText style={styles.descText}>위치 정보 수집 동의</CustomText>
-          <CheckBox
-            disabled
-            style={styles.checkBox}
-            value={geo}
-            onChange={() => {
-              setGeo((prev) => !prev);
-            }}
-            color={geo ? theme.lime : theme.lightGray}
-          />
         </View>
       </View>
       <View style={styles.logout}>

@@ -1,7 +1,7 @@
 import { StyleSheet, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { hideAsync, preventAutoHideAsync } from 'expo-splash-screen';
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 preventAutoHideAsync();
 
@@ -36,4 +36,4 @@ const CustomText = (props) => {
   );
 };
 
-export default CustomText;
+export default memo(CustomText);

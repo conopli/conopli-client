@@ -8,6 +8,7 @@ import ModalState from '../../recoil/modal.js';
 import userInfo from '../../recoil/userInfo.js';
 import { useNavigation } from '@react-navigation/native';
 import { confirmProps, useServer } from '../../util';
+import { useFonts } from 'expo-font';
 
 const AddSongModal = ({ selectedSong, playList }) => {
   const server = useServer();
@@ -30,6 +31,13 @@ const AddSongModal = ({ selectedSong, playList }) => {
   useEffect(() => {
     setValue(playList[0]?.playListId);
   }, []);
+  const [fontsLoaded] = useFonts({
+    Pretendard: require('../../assets/fonts/PretendardJPVariable.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   const postNewSong = async () => {
     try {
@@ -93,7 +101,11 @@ const AddSongModal = ({ selectedSong, playList }) => {
           <DropDownPicker
             style={styles.picker}
             dropDownContainerStyle={styles.dropdownContainer}
-            textStyle={{ fontSize: 16, fontWeight: 'bold' }}
+            textStyle={{
+              fontSize: 16,
+              fontWeight: 'bold',
+              fontFamily: 'Pretendard',
+            }}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}
             placeholder={'플레이리스트 선택'}
