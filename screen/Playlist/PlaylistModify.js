@@ -62,6 +62,12 @@ const PlaylistModify = ({ navigation, route }) => {
     });
   });
 
+  useEffect(() => {
+    if (!userId) {
+      navigation.navigate('Playlist');
+    }
+  }, [userId]);
+
   //모든 곡 선택
   const selectAllHandler = () => {
     const selectObj = {};
