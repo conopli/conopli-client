@@ -8,11 +8,10 @@ import {
   SortMusicItem,
 } from '../../components/Playlist';
 import { confirmProps, useServer } from '../../util';
-import { useSetRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState, useResetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
-import userInfo from '../../recoil/userInfo';
 
 const PlaylistSort = ({ navigation, route }) => {
   const server = useServer();
@@ -21,7 +20,6 @@ const PlaylistSort = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
-  const { userId } = useRecoilValue(userInfo);
   const confirm = confirmProps(
     '수정하시겠습니까?',
     '배치하신 순서대로 수정됩니다.',
@@ -81,12 +79,6 @@ const PlaylistSort = ({ navigation, route }) => {
       ),
     });
   });
-
-  useEffect(() => {
-    if (!userId) {
-      navigation.navigate('Playlist');
-    }
-  }, [userId]);
 
   const DragList = gestureHandlerRootHOC(() => (
     <DraggableFlatList

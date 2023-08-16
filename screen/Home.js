@@ -82,13 +82,13 @@ const Home = () => {
         />
         <Tab.Screen
           name="ListHome"
-          component={ListHome}
+          component={userId ? ListHome : Login}
           options={{
-            title: '리스트',
+            title: '플레이리스트',
             tabBarIcon: ({ color }) => (
               <FontAwesome5 name="music" size={20} color={color} />
             ),
-            headerShown: false,
+            headerShown: userId ? false : true,
           }}
         />
         <Tab.Screen

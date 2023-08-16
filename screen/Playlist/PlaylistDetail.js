@@ -8,14 +8,11 @@ import {
   SortButton,
 } from '../../components/Playlist';
 import { useServer } from '../../util';
-import { useRecoilValue } from 'recoil';
-import userInfo from '../../recoil/userInfo';
 
 const PlaylistDetail = ({ navigation, route }) => {
   const server = useServer();
   const { playListId, title } = route.params;
   const [songList, setSongList] = useState([]);
-  const { userId } = useRecoilValue(userInfo);
 
   const getSongLists = async () => {
     try {
@@ -65,12 +62,6 @@ const PlaylistDetail = ({ navigation, route }) => {
       title: title.length > 15 ? title.slice(0, 13) + '..' : title,
     });
   }, [route]);
-
-  useEffect(() => {
-    if (!userId) {
-      navigation.navigate('Playlist');
-    }
-  }, [userId]);
 
   return (
     <View style={styles.container}>

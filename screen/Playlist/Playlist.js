@@ -7,25 +7,22 @@ import { useSetRecoilState, useRecoilValue } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userPlayList from '../../recoil/userPlayList';
 import { addPlaylistProps } from '../../util';
-import userInfo from '../../recoil/userInfo';
 
 const Playlist = ({ navigation }) => {
   const setModal = useSetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
-  const { userId } = useRecoilValue(userInfo);
 
   const addPlaylist = addPlaylistProps(false);
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () =>
-        userInfo ? (
-          <PlusButton
-            buttonHandler={() => {
-              setModal(addPlaylist);
-            }}
-          />
-        ) : null,
+      headerRight: () => (
+        <PlusButton
+          buttonHandler={() => {
+            setModal(addPlaylist);
+          }}
+        />
+      ),
     });
   });
   return (

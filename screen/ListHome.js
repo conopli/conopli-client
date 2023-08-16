@@ -6,14 +6,10 @@ import {
   PlaylistDetail,
   PlaylistSort,
 } from './Playlist';
-import userInfo from '../recoil/userInfo';
-import { useRecoilValue } from 'recoil';
 import { useFonts } from 'expo-font';
-import Login from './Login';
 
 const ListHome = () => {
   const Stack = createNativeStackNavigator();
-  const { userId } = useRecoilValue(userInfo);
 
   const [fontsLoaded] = useFonts({
     Pretendard: require('../assets/fonts/PretendardJPVariable.ttf'),
@@ -42,7 +38,7 @@ const ListHome = () => {
     >
       <Stack.Screen
         name="Playlist"
-        component={userId ? Playlist : Login}
+        component={Playlist}
         options={{ title: '내 플레이리스트' }}
       />
       <Stack.Screen name="Detail" component={PlaylistDetail} />
