@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   input: {
-    fontFamily: 'Pretendard',
     backgroundColor: theme.lightGray,
     color: theme.gray,
     flex: 1,

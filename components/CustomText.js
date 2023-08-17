@@ -1,36 +1,20 @@
 import { StyleSheet, Text } from 'react-native';
-import { useFonts } from 'expo-font';
-import { hideAsync, preventAutoHideAsync } from 'expo-splash-screen';
-import { memo, useCallback } from 'react';
-
-preventAutoHideAsync();
+import { memo } from 'react';
 
 const CustomText = (props) => {
-  const [fontsLoaded] = useFonts({
-    Pretendard: require('../assets/fonts/PretendardJPVariable.ttf'),
-  });
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   const style = StyleSheet.create({
-    fontFamily: 'Pretendard',
+    fontFamily: props.fontWeight
+      ? `Pretendard-${props.fontWeight}`
+      : 'Pretendard-400',
   });
 
   const getStyle = (styleProp) => {
-    // styleProp is able to overwrite style
     if (styleProp) return { ...style, ...styleProp };
     else return style;
   };
 
   return (
-    <Text onLayout={onLayoutRootView} {...props} style={getStyle(props.style)}>
+    <Text {...props} style={getStyle(props.style)}>
       {props.children}
     </Text>
   );

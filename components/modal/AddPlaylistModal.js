@@ -9,7 +9,6 @@ import userInfo from '../../recoil/userInfo.js';
 import userPlayList from '../../recoil/userPlayList';
 import EmojiPicker from 'rn-emoji-keyboard';
 import { makeToast, useServer } from '../../util';
-import { useFonts } from 'expo-font';
 
 //플레이리스트 생성 및 수정 시 사용
 
@@ -28,13 +27,6 @@ const AddPlaylistModal = ({
   const [selected, setSelected] = useState(oldColor);
   const [emoji, setEmoji] = useState(oldIcon);
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
-  const [fontsLoaded] = useFonts({
-    Pretendard: require('../../assets/fonts/PretendardJPVariable.ttf'),
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   const isValid = () => {
     if (!playlistName.length) return false;

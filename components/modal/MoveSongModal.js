@@ -6,7 +6,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useResetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import { makeToast } from '../../util';
-import { useFonts } from 'expo-font';
 
 const MoveSongModal = ({
   selectedSongs,
@@ -40,14 +39,6 @@ const MoveSongModal = ({
     setItems(noCurrent);
     setValue(noCurrent[0]?.value);
   }, []);
-
-  const [fontsLoaded] = useFonts({
-    Pretendard: require('../../assets/fonts/PretendardJPVariable.ttf'),
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   const saveStack = () => {
     //moveStack에 선택한 playListId가 존재하는지 확인
@@ -90,7 +81,6 @@ const MoveSongModal = ({
             textStyle={{
               fontSize: 16,
               fontWeight: 'bold',
-              fontFamily: 'Pretendard',
             }}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}

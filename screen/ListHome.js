@@ -6,18 +6,9 @@ import {
   PlaylistDetail,
   PlaylistSort,
 } from './Playlist';
-import { useFonts } from 'expo-font';
 
 const ListHome = () => {
   const Stack = createNativeStackNavigator();
-
-  const [fontsLoaded] = useFonts({
-    Pretendard: require('../assets/fonts/PretendardJPVariable.ttf'),
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   return (
     <Stack.Navigator
@@ -27,7 +18,6 @@ const ListHome = () => {
           backgroundColor: theme.black,
         },
         headerTitleStyle: {
-          fontFamily: 'Pretendard',
           fontSize: 24,
           fontWeight: '700',
         },

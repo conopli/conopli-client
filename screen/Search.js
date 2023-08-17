@@ -13,7 +13,6 @@ import { SearchButton, MusicItem, CustomText } from '../components';
 import { MaterialIcons } from '@expo/vector-icons';
 import { makeToast, useServer } from '../util';
 import { theme } from '../theme.js';
-import { useFonts } from 'expo-font';
 
 const Search = () => {
   const [open, setOpen] = useState(false);
@@ -34,13 +33,6 @@ const Search = () => {
   const [pageInfo, setPageInfo] = useState({});
   const server = useServer();
   const inputRef = useRef(null);
-  const [fontsLoaded] = useFonts({
-    Pretendard: require('../assets/fonts/PretendardJPVariable.ttf'),
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   const searchHander = async () => {
     const filter = isClicked ? 2 : 1;
@@ -108,6 +100,11 @@ const Search = () => {
           dropDownContainerStyle={styles.dropdownContainer}
           containerStyle={{ width: 80 }} // ! 드롭다운 가로 크기 고정값 필요 시, 100%일 경우 지워도 됨
           textStyle={{
+            fontSize: 16,
+            fontWeight: 'bold',
+            fontFamily: 'Pretendard',
+          }}
+          labelStyle={{
             fontSize: 16,
             fontWeight: 'bold',
             fontFamily: 'Pretendard',
