@@ -93,10 +93,8 @@ const AddSongModal = ({ selectedSong, playList }) => {
           <DropDownPicker
             style={styles.picker}
             dropDownContainerStyle={styles.dropdownContainer}
-            textStyle={{
-              fontSize: 16,
-              fontWeight: 'bold',
-            }}
+            textStyle={{ fontFamily: 'Pretendard-500', fontSize: 16 }}
+            labelStyle={{ fontFamily: 'Pretendard-500', fontSize: 16 }}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}
             placeholder={'플레이리스트 선택'}

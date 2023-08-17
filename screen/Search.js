@@ -99,16 +99,8 @@ const Search = () => {
           style={styles.picker}
           dropDownContainerStyle={styles.dropdownContainer}
           containerStyle={{ width: 80 }} // ! 드롭다운 가로 크기 고정값 필요 시, 100%일 경우 지워도 됨
-          textStyle={{
-            fontSize: 16,
-            fontWeight: 'bold',
-            fontFamily: 'Pretendard',
-          }}
-          labelStyle={{
-            fontSize: 16,
-            fontWeight: 'bold',
-            fontFamily: 'Pretendard',
-          }}
+          textStyle={{ fontFamily: 'Pretendard-700', fontSize: 16 }}
+          labelStyle={{ fontFamily: 'Pretendard-700', fontSize: 16 }}
           arrowIconContainerStyle={{ marginLeft: 4 }}
           tickIconContainerStyle={{ marginLeft: 4 }}
           placeholder={value}
