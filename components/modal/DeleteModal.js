@@ -1,6 +1,6 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import styles from './DeleteModal.style.js';
-import { RowButton } from '../index.js';
+import { RowButton, CustomText } from '../index.js';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useServer } from '../../util';
 import ModalState from '../../recoil/modal.js';
@@ -43,8 +43,10 @@ const DeleteModal = ({ playListId }) => {
         e.stopPropagation();
       }}
     >
-      <Text style={styles.title}>삭제하시겠습니까?</Text>
-      <Text style={styles.subTitle}>삭제 후에는 되돌릴 수 없습니다.</Text>
+      <CustomText style={styles.title}>삭제하시겠습니까?</CustomText>
+      <CustomText style={styles.subTitle}>
+        삭제 후에는 되돌릴 수 없습니다.
+      </CustomText>
       <View style={styles.buttonBox}>
         <View style={{ flex: 1, marginRight: 8, height: 40 }}>
           <RowButton

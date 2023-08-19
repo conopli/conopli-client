@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   leftbox: {
-    flex: 1,
+    width: 80,
     flexDirection: 'row',
     justifyContent: 'center',
   },
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   musicbox: {
-    flex: 3,
+    flex: 1,
     rowGap: 4,
   },
   title: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   numbox: {
     flexDirection: 'row',
-    flex: 1,
+    width: 80,
     justifyContent: 'flex-end',
     paddingRight: 16,
   },

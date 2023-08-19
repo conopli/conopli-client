@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 12,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Pretendard-500',
     paddingRight: 44,
   },
   searchIcon: {

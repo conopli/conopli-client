@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { View, FlatList, Text } from 'react-native';
-import { MusicItem } from '../../components';
+import { View, FlatList } from 'react-native';
+import { CustomText, MusicItem } from '../../components';
 import styles from './PlaylistDetail.style';
 import {
   BackButton,
@@ -67,7 +67,9 @@ const PlaylistDetail = ({ navigation, route }) => {
     <View style={styles.container}>
       {songList.length === 0 ? (
         <View style={styles.emptySongDesc}>
-          <Text style={styles.descText}>플레이리스트에 곡이 없습니다</Text>
+          <CustomText style={styles.descText}>
+            플레이리스트에 곡이 없습니다
+          </CustomText>
         </View>
       ) : (
         <FlatList

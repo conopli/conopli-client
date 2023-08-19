@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import styles from './AddSongModal.style.js';
-import { RowButton } from '../index.js';
+import { RowButton, CustomText } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
@@ -73,27 +73,28 @@ const AddSongModal = ({ selectedSong, playList }) => {
         e.stopPropagation();
       }}
     >
-      <Text style={styles.title}>노래 추가</Text>
+      <CustomText style={styles.title}>노래 추가</CustomText>
       <View style={styles.songBox}>
         <View style={styles.songInfo}>
-          <Text style={styles.songTitle} numberOfLines={1}>
+          <CustomText style={styles.songTitle} numberOfLines={1}>
             {title}
-          </Text>
-          <Text style={styles.artist} numberOfLines={1}>
+          </CustomText>
+          <CustomText style={styles.artist} numberOfLines={1}>
             {singer}
-          </Text>
+          </CustomText>
         </View>
         <View style={styles.num}>
-          <Text style={styles.numText}>{num}</Text>
+          <CustomText style={styles.numText}>{num}</CustomText>
         </View>
       </View>
       <View style={styles.selectedContainer}>
-        <Text style={styles.selectedTitle}>플레이리스트 선택</Text>
+        <CustomText style={styles.selectedTitle}>플레이리스트 선택</CustomText>
         <View style={styles.pickerContainer}>
           <DropDownPicker
             style={styles.picker}
             dropDownContainerStyle={styles.dropdownContainer}
-            textStyle={{ fontSize: 16, fontWeight: 'bold' }}
+            textStyle={{ fontFamily: 'Pretendard-500', fontSize: 16 }}
+            labelStyle={{ fontFamily: 'Pretendard-500', fontSize: 16 }}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}
             placeholder={'플레이리스트 선택'}

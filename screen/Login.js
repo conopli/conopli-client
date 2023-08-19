@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import styles from './Login.style.js';
 import { AuthButton, CloseButton } from '../components/Login';
 import {
@@ -16,6 +16,7 @@ import { alertProps, confirmProps, useServer, makeToast } from '../util';
 import { WebView } from 'react-native-webview';
 import { useState } from 'react';
 import { errorCodes } from '../util';
+import { CustomText } from '../components';
 
 const INJECTED_JS = `window.ReactNativeWebView.postMessage('message from webView')`;
 
@@ -209,9 +210,9 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.login_text}>
+      <CustomText style={styles.login_text}>
         해당 기능은 로그인 후 이용 가능합니다.
-      </Text>
+      </CustomText>
       <View style={styles.button_box}>
         <View style={{ flex: 1, flexDirection: 'row', height: 40 }}>
           <AuthButton

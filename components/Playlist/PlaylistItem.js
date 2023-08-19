@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { playlistColor } from '../../theme';
 import styles from './PlaylistItem.style';
 import { useSetRecoilState } from 'recoil';
@@ -8,6 +8,7 @@ import {
   deletePlaylistProps,
   editPlaylistProps,
 } from '../../util';
+import { CustomText } from '../index';
 
 const PlaylistItem = ({ navigation, item }) => {
   const { color, emoji, title, playListId } = item;
@@ -46,12 +47,14 @@ const PlaylistItem = ({ navigation, item }) => {
       }}
     >
       <View style={styles.iconContainer}>
-        <Text style={styles.icon}>{String.fromCodePoint(emoji)}</Text>
+        <CustomText style={styles.icon}>
+          {String.fromCodePoint(emoji)}
+        </CustomText>
       </View>
       <View style={styles.titleContainer}>
-        <Text style={styles.title} numberOfLines={1}>
+        <CustomText style={styles.title} numberOfLines={1}>
           {title}
-        </Text>
+        </CustomText>
       </View>
     </TouchableOpacity>
   );

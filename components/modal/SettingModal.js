@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 import styles from './EditPlaylistModal.style.js';
-import { RowButton } from '../index.js';
+import { RowButton, CustomText } from '../index.js';
 import { useResetRecoilState, useRecoilValue } from 'recoil';
 import userInfo from '../../recoil/userInfo';
 import ModalState from '../../recoil/modal.js';
@@ -62,7 +62,7 @@ const EditPlaylistModal = ({ leaveHandler }) => {
         e.stopPropagation();
       }}
     >
-      <Text style={styles.title}>설정 더보기</Text>
+      <CustomText style={styles.title}>설정 더보기</CustomText>
       <View style={styles.buttonBox}>
         {userId !== 0 && (
           <View style={styles.buttonItem}>

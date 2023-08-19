@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.lightBlue,
   },
   songInfo: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
     rowGap: 4,
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   numberBox: {
+    width: 60,
     justifyContent: 'center',
     alignItems: 'flex-end',
   },

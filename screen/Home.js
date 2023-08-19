@@ -23,17 +23,18 @@ const Home = () => {
             paddingTop: 5,
           },
           tabBarLabelStyle: {
+            fontFamily: 'Pretendard-400',
             fontSize: 10,
             paddingBottom: 5,
-            fontWeight: '700',
           },
-          tabBarIconStyle: { paddingTop: 5 },
           headerStyle: {
             backgroundColor: theme.black,
+            elevation: 0,
+            shadowColor: 'rgba(0, 0, 0, 0)',
           },
           headerTitleStyle: {
+            fontFamily: 'Pretendard-400',
             fontSize: 24,
-            fontWeight: '700',
             color: theme.white,
           },
           headerTitleAlign: 'center',
@@ -73,11 +74,11 @@ const Home = () => {
           name="ListHome"
           component={userId ? ListHome : Login}
           options={{
-            title: '리스트',
+            title: '플레이리스트',
             tabBarIcon: ({ color }) => (
               <FontAwesome5 name="music" size={20} color={color} />
             ),
-            headerShown: false,
+            headerShown: userId ? false : true,
           }}
         />
         <Tab.Screen
