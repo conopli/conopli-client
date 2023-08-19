@@ -8,13 +8,13 @@ import {
 } from 'react-native';
 import styles from './Search.style';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { SearchButton, MusicItem } from '../components';
 import { MaterialIcons } from '@expo/vector-icons';
 import { makeToast, useServer } from '../util';
 import { theme } from '../theme.js';
 
-const Search = () => {
+const Search = ({ navigation, route }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('KOR');
   const [items, setItems] = useState([
@@ -89,6 +89,13 @@ const Search = () => {
       </View>
     );
   };
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      setTextValue('');
+      setSearchResult([]);
+    });
+  }, [route]);
 
   return (
     <View style={styles.container}>
