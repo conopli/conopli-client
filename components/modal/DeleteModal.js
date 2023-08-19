@@ -29,7 +29,6 @@ const DeleteModal = ({ playListId }) => {
     try {
       const { data } = await server.get(`/api/user-music/playlist/${userId}`);
       setPlayList(data.data);
-      console.log('after delete', data.data);
     } catch (error) {
       console.log(error);
     }

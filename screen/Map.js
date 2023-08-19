@@ -32,8 +32,6 @@ const Map = () => {
   const getLocation = async () => {
     const { granted } = await requestForegroundPermissionsAsync();
 
-    console.log(granted);
-
     if (!granted) {
       setHasPermission(false);
     }
