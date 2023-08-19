@@ -20,10 +20,12 @@ const ListItem = ({ item }) => {
       onPress={() => setModal(songModal)}
     >
       <View style={styles.leftbox}>
-        <CustomText style={styles.rate}>{ranking}</CustomText>
+        <CustomText fontWeight={900} style={styles.rate}>
+          {ranking}
+        </CustomText>
       </View>
       <View style={styles.musicbox}>
-        <CustomText style={styles.title} numberOfLines={1}>
+        <CustomText fontWeight={700} style={styles.title} numberOfLines={1}>
           {title}
         </CustomText>
         <CustomText style={styles.singer} numberOfLines={1}>
@@ -31,7 +33,9 @@ const ListItem = ({ item }) => {
         </CustomText>
       </View>
       <View style={styles.numbox}>
-        <CustomText style={styles.number}>{num}</CustomText>
+        <CustomText fontWeight={900} style={styles.number}>
+          {num}
+        </CustomText>
       </View>
     </TouchableOpacity>
   );

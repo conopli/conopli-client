@@ -96,7 +96,9 @@ const Setting = ({ navigation }) => {
         <View style={styles.emailInfo}>
           <CustomText style={styles.descText}>이메일 정보</CustomText>
           <View style={[styles.email, styles[loginType]]}>
-            <CustomText style={styles.emailText}>{email}</CustomText>
+            <CustomText fontWeight={600} style={styles.emailText}>
+              {email}
+            </CustomText>
             {loginType === 'KAKAO' ? (
               <Kakao width={16} />
             ) : loginType === 'GOOGLE' ? (
