@@ -1,6 +1,6 @@
-import { Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import styles from './SearchButton.style';
-import { useState } from 'react';
+import CustomText from './CustomText';
 
 const SearchButton = ({ isClicked, setIsClicked }) => {
   return (
@@ -10,7 +10,7 @@ const SearchButton = ({ isClicked, setIsClicked }) => {
       }}
       style={styles.button}
     >
-      <Text style={styles.text}>{isClicked ? '가수' : '제목'}</Text>
+      <CustomText style={styles.text}>{isClicked ? '가수' : '제목'}</CustomText>
     </TouchableOpacity>
   );
 };

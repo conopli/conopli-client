@@ -9,7 +9,7 @@ import {
 import styles from './Search.style';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState, useRef, useEffect } from 'react';
-import { SearchButton, MusicItem } from '../components';
+import { SearchButton, MusicItem, CustomText } from '../components';
 import { MaterialIcons } from '@expo/vector-icons';
 import { makeToast, useServer } from '../util';
 import { theme } from '../theme.js';
@@ -32,8 +32,8 @@ const Search = ({ navigation, route }) => {
   const [isTooltip, setIsTooltip] = useState(false);
   const [pageInfo, setPageInfo] = useState({});
   const server = useServer();
-
   const inputRef = useRef(null);
+
   const searchHander = async () => {
     const filter = isClicked ? 2 : 1;
 
@@ -83,7 +83,9 @@ const Search = ({ navigation, route }) => {
     return (
       <View style={styles.tooltipContainer}>
         <View style={styles.msgBox}>
-          <Text style={styles.msgText}>한글은 띄어쓰기 없이 입력하세요</Text>
+          <CustomText style={styles.msgText}>
+            한글은 띄어쓰기 없이 입력하세요
+          </CustomText>
           <View style={styles.triangle} />
         </View>
       </View>
@@ -104,7 +106,8 @@ const Search = ({ navigation, route }) => {
           style={styles.picker}
           dropDownContainerStyle={styles.dropdownContainer}
           containerStyle={{ width: 80 }} // ! 드롭다운 가로 크기 고정값 필요 시, 100%일 경우 지워도 됨
-          textStyle={{ fontSize: 16, fontWeight: 'bold' }}
+          textStyle={{ fontFamily: 'Pretendard-700', fontSize: 16 }}
+          labelStyle={{ fontFamily: 'Pretendard-700', fontSize: 16 }}
           arrowIconContainerStyle={{ marginLeft: 4 }}
           tickIconContainerStyle={{ marginLeft: 4 }}
           placeholder={value}
@@ -153,9 +156,9 @@ const Search = ({ navigation, route }) => {
             color={theme.lime}
           />
         ) : searchResult === null ? (
-          <Text style={styles.descText}>검색어를 입력하세요</Text>
+          <CustomText style={styles.descText}>검색어를 입력하세요</CustomText>
         ) : searchResult.length === 0 ? (
-          <Text style={styles.descText}>검색 결과가 없습니다</Text>
+          <CustomText style={styles.descText}>검색 결과가 없습니다</CustomText>
         ) : (
           <FlatList
             data={searchResult}

@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 12,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Pretendard-500',
     height: 40,
   },
   buttonBox: {

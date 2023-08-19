@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity } from 'react-native';
 import styles from './AddPlaylistModal.style.js';
-import { RowButton } from '../index.js';
+import { RowButton, CustomText } from '../index.js';
 import { playlistColor, theme } from '../../theme.js';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
@@ -104,9 +104,9 @@ const AddPlaylistModal = ({
         e.stopPropagation();
       }}
     >
-      <Text style={styles.title}>{`플레이리스트 ${
+      <CustomText style={styles.title}>{`플레이리스트 ${
         isEdit ? '수정' : '추가'
-      }`}</Text>
+      }`}</CustomText>
       <View style={styles.inputContainer}>
         <TouchableOpacity
           style={styles.iconBox}
@@ -114,7 +114,9 @@ const AddPlaylistModal = ({
             setIsEmojiOpen(true);
           }}
         >
-          <Text style={styles.icon}>{String.fromCodePoint(emoji)}</Text>
+          <CustomText style={styles.icon}>
+            {String.fromCodePoint(emoji)}
+          </CustomText>
           <EmojiPicker
             open={isEmojiOpen}
             onClose={() => setIsEmojiOpen(false)}
@@ -130,7 +132,7 @@ const AddPlaylistModal = ({
         />
       </View>
       <View style={styles.colorContainer}>
-        <Text style={styles.colorText}>색상</Text>
+        <CustomText style={styles.colorText}>색상</CustomText>
         <View style={styles.colorSelectBox}>
           {Object.keys(playlistColor).map((color) => {
             return (

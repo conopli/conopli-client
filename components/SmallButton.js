@@ -1,5 +1,6 @@
-import { Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import styles from './SmallButton.style';
+import CustomText from './CustomText';
 
 const SmallButton = ({ text, isClicked, setIsClicked }) => {
   return (
@@ -7,7 +8,7 @@ const SmallButton = ({ text, isClicked, setIsClicked }) => {
       onPress={setIsClicked}
       style={isClicked ? styles.lime : styles.lightGray}
     >
-      <Text style={styles.text}>{text}</Text>
+      <CustomText style={styles.text}>{text}</CustomText>
     </TouchableOpacity>
   );
 };

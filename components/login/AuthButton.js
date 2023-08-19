@@ -1,8 +1,9 @@
-import { TouchableOpacity, Text, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import styles from './AuthButton.style.js';
 import Kakao from '../../assets/kakao.svg';
 import Naver from '../../assets/naver.svg';
 import Google from '../../assets/google.svg';
+import { CustomText } from '../index';
 
 const AuthButton = ({ buttonHandler, type }) => {
   const typeHandler = (t) => {
@@ -26,9 +27,14 @@ const AuthButton = ({ buttonHandler, type }) => {
       ) : (
         <Naver width={20} />
       )}
-      <Text style={[styles.loginText, type === 'naver' && styles.textWhite]}>
+      <CustomText
+        style={{
+          ...styles.loginText,
+          ...(type === 'naver' && styles.textWhite),
+        }}
+      >
         {typeHandler(type)}
-      </Text>
+      </CustomText>
     </TouchableOpacity>
   );
 };
