@@ -43,7 +43,8 @@
     "recoil": "^0.7.7",
     "rn-emoji-keyboard": "^1.5.0",
     "expo-font": "~11.1.1",
-    "expo-splash-screen": "~0.18.2"
+    "expo-splash-screen": "~0.18.2",
+    "expo-mail-composer": "~12.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
