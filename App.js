@@ -1,94 +1,50 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Home from './screen/Home';
+import { RecoilRoot } from 'recoil';
+import { RootSiblingParent } from 'react-native-root-siblings';
+import 'react-native-url-polyfill/auto';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, Platform } from 'react-native';
-import styles from './App.style';
-import { NavigationContainer } from '@react-navigation/native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { theme } from './theme';
-import { Map, Populer, Playlist, Search, Setting } from './screen';
+import * as Font from 'expo-font';
+import * as Splash from 'expo-splash-screen';
+import { useEffect, useState } from 'react';
+
+Splash.preventAutoHideAsync();
 
 export default function App() {
-  const Tab = createBottomTabNavigator();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isHideSplash, setIsHideSplash] = useState(false);
+  const fetchFonts = async () => {
+    await Font.loadAsync({
+      Pretendard: require('./assets/fonts/PretendardJPVariable.ttf'),
+      'Pretendard-100': require('./assets/fonts/PretendardJP-Thin.otf'),
+      'Pretendard-200': require('./assets/fonts/PretendardJP-ExtraLight.otf'),
+      'Pretendard-300': require('./assets/fonts/PretendardJP-Light.otf'),
+      'Pretendard-400': require('./assets/fonts/PretendardJP-Regular.otf'),
+      'Pretendard-500': require('./assets/fonts/PretendardJP-Medium.otf'),
+      'Pretendard-600': require('./assets/fonts/PretendardJP-SemiBold.otf'),
+      'Pretendard-700': require('./assets/fonts/PretendardJP-Bold.otf'),
+      'Pretendard-800': require('./assets/fonts/PretendardJP-ExtraBold.otf'),
+      'Pretendard-900': require('./assets/fonts/PretendardJP-Black.otf'),
+    });
+    setIsLoading(true);
+  };
+
+  fetchFonts();
+
+  useEffect(() => {
+    if (isLoading) {
+      setIsHideSplash(true);
+      setTimeout(() => {
+        Splash.hideAsync();
+      }, 200);
+    }
+  }, [isLoading]);
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Populer"
-        screenOptions={{
-          tabBarActiveTintColor: theme.lime,
-          tabBarInactiveTintColor: theme.violet,
-          tabBarStyle: {
-            backgroundColor: theme.black,
-            paddingTop: 5,
-          },
-          tabBarLabelStyle: {
-            fontSize: 10,
-            paddingBottom: 5,
-            fontWeight: '700',
-          },
-          tabBarIconStyle: { paddingTop: 5 },
-          headerStyle: {
-            backgroundColor: theme.black,
-          },
-          headerTitleStyle: {
-            fontSize: 24,
-            fontWeight: '700',
-            color: theme.white,
-          },
-          headerTitleAlign: 'center',
-        }}
-      >
-        <Tab.Screen
-          name="Populer"
-          component={Populer}
-          options={{
-            title: '인기',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="hotjar" size={20} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Map"
-          component={Map}
-          options={{
-            title: '주변',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="map-marked-alt" size={20} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Search"
-          component={Search}
-          options={{
-            title: '검색',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="search" size={20} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Playlist"
-          component={Playlist}
-          options={{
-            title: '리스트',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="music" size={20} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Setting"
-          component={Setting}
-          options={{
-            title: '설정',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="cog" size={20} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <RootSiblingParent>
+      <RecoilRoot>
+        <StatusBar style="auto" />
+        {isHideSplash && <Home />}
+      </RecoilRoot>
+    </RootSiblingParent>
   );
 }

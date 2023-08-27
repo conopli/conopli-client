@@ -1,7 +1,8 @@
 import Map from './Map';
 import Populer from './Populer';
-import Playlist from './Playlist';
+import ListHome from './ListHome';
 import Search from './Search';
 import Setting from './Setting';
+import Login from './Login';
 
-export { Map, Populer, Playlist, Search, Setting };
+export { Map, Populer, ListHome, Search, Setting, Login };
