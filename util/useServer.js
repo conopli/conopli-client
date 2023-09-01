@@ -17,7 +17,7 @@ const useServer = () => {
 
   server.interceptors.request.use(
     async (config) => {
-      config.headers.Authorization = Authorization;
+      if (Authorization !== '') config.headers.Authorization = Authorization;
       return config;
     },
     (error) => {
