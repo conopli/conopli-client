@@ -83,9 +83,6 @@ const Login = ({ navigation }) => {
         );
         setModal(rejoinProps);
       } else {
-        makeToast(
-          `로그인 중 오류가 발생했습니다.\nERROR: ${errorCodes[code]} `,
-        );
         console.error(e);
       }
     }
