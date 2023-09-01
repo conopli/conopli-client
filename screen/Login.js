@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import styles from './Login.style.js';
-import { AuthButton, CloseButton } from '../components/Login';
+import { AuthButton, CloseButton } from '../components/login';
 import {
   KAKAO_ID,
   NAVER_ID,
@@ -15,8 +15,8 @@ import userPlayList from '../recoil/userPlayList.js';
 import { alertProps, confirmProps, useServer, makeToast } from '../util';
 import { WebView } from 'react-native-webview';
 import { useState } from 'react';
-import { errorCodes } from '../util';
 import { CustomText } from '../components';
+import Constants from 'expo-constants';
 
 const INJECTED_JS = `window.ReactNativeWebView.postMessage('message from webView')`;
 
@@ -247,7 +247,11 @@ const Login = ({ navigation }) => {
           <WebView
             containerStyle={styles.webView}
             source={{ uri: loginInfo.uri }}
-            userAgent="Mobile"
+            userAgent={
+              Constants.platform === 'ios'
+                ? `mozilla/5.0 (iphone; CPU IPhone OS ${Constants.systemVersion} like Mac OS X) applewebkit/605.1.15 (khtml, like gecko) version/15.0 mobile/15e148 safari/604.1`
+                : `Mozilla/5.0 (Linux; Android ${Constants.systemVersion}; ${Constants.deviceName}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3714.0 Mobile Safari/537.36`
+            }
             injectedJavaScript={INJECTED_JS}
             onMessage={(e) => {
               // console.log(e);

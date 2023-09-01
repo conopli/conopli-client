@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import styles from './Map.style';
-import MapButton from '../components/Map/MapButton';
+import MapButton from '../components/map/MapButton';
 import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from 'react';
 import { BASE_URL } from 'react-native-dotenv';
 import { makeToast } from '../util';
+import Constants from 'expo-constants';
 
 const Map = () => {
   const [hasPermission, setHasPermission] = useState(true);
@@ -49,7 +50,11 @@ const Map = () => {
         source={{
           uri: mapUri,
         }}
-        userAgent="Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3714.0 Mobile Safari/537.36"
+        userAgent={
+          Constants.platform === 'ios'
+            ? `mozilla/5.0 (iphone; CPU IPhone OS ${Constants.systemVersion} like Mac OS X) applewebkit/605.1.15 (khtml, like gecko) version/15.0 mobile/15e148 safari/604.1`
+            : `Mozilla/5.0 (Linux; Android ${Constants.systemVersion}; ${Constants.deviceName}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3714.0 Mobile Safari/537.36`
+        }
       />
       <MapButton handler={getLocation} />
     </View>
