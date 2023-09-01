@@ -40,9 +40,13 @@ const Login = ({ navigation }) => {
 
       const { authorization: Authorization, userid: userId } = res.headers;
 
+      setUser({ Authorization });
+
       const {
         data: { data },
-      } = await server.get(`/api/users/${userId}`);
+      } = await server.get(`/api/users/${userId}`, {
+        headers: { Authorization },
+      });
 
       const { email, loginType } = data;
 
@@ -79,17 +83,16 @@ const Login = ({ navigation }) => {
         );
         setModal(rejoinProps);
       } else {
-        makeToast(
-          `로그인 중 오류가 발생했습니다.\nERROR: ${errorCodes[code]} `,
-        );
         console.error(e);
       }
     }
   };
 
-  const getPlayList = async (userId) => {
+  const getPlayList = async (userId, Authorization) => {
     try {
-      const { data } = await server.get(`/api/user-music/playlist/${userId}`);
+      const { data } = await server.get(`/api/user-music/playlist/${userId}`, {
+        headers: { Authorization },
+      });
       return data.data;
     } catch (error) {
       setIsLogin(false);
@@ -164,8 +167,8 @@ const Login = ({ navigation }) => {
 
     //* userInfo를 올바르게 받아올 때만 이후 로직 실행
     if (typeof userInfo === 'object') {
-      const { Authorization, userId, loginType, email } = userInfo;
-      setUser({ userId, Authorization, loginType, email });
+      const { userId, loginType, Authorization, email } = userInfo;
+      setUser((prev) => ({ ...prev, Authorization, loginType, email, userId }));
 
       //* 플레이리스트 서버에게 받아오고 적용
       const playList = await getPlayList(userId, Authorization);
@@ -187,14 +190,14 @@ const Login = ({ navigation }) => {
         loginType: type,
       });
 
-      const { authorization } = rejoinRes.headers;
+      const { authorization: Authorization } = rejoinRes.headers;
       const { userId, email, userStatus, loginType } = rejoinRes.data.data;
 
       //재활성화 완료된 경우 userInfo, playList 정보 세팅
       if (userStatus === 'VERIFIED') {
-        setUser({ userId, authorization, loginType, email });
+        setUser({ userId, Authorization, loginType, email });
 
-        const playList = await getPlayList(userId, authorization);
+        const playList = await getPlayList(userId, Authorization);
         setPlayList(playList);
 
         setIsLogin(false);
@@ -244,9 +247,10 @@ const Login = ({ navigation }) => {
           <WebView
             containerStyle={styles.webView}
             source={{ uri: loginInfo.uri }}
-            userAgent="Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3714.0 Mobile Safari/537.36"
+            userAgent="Mobile"
             injectedJavaScript={INJECTED_JS}
             onMessage={(e) => {
+              // console.log(e);
               const { url } = e.nativeEvent;
               if (url.startsWith(redirectUri)) {
                 getToken(url);
