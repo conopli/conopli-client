@@ -15,6 +15,7 @@ const errorCodes = {
   14015: 'EXPIRED REFRESH TOKEN',
   14016: 'Music Domain Server Request I/O Error(Bad Request)',
   14017: 'OAuth Server Request I/O Error(Bad Request)',
+  14018: 'Unauthorized(Required Access Token)',
   15001: 'Internal Server Error',
   15002: 'Data Access Error',
   15003: 'NOT IMPLEMENTED',
