@@ -1,5 +1,5 @@
 import SmallButton from '../components/SmallButton';
-import ListItem from '../components/Popular/ListItem';
+import ListItem from '../components/popular/ListItem';
 import styles from './Populer.style.js';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';

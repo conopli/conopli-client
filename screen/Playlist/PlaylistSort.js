@@ -6,7 +6,7 @@ import {
   BackButton,
   ConfirmModifyButton,
   SortMusicItem,
-} from '../../components/Playlist';
+} from '../../components/playlist';
 import { confirmProps, useServer } from '../../util';
 import { useSetRecoilState, useResetRecoilState } from 'recoil';
 import ModalState from '../../recoil/modal.js';
