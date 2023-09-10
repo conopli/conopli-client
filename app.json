@@ -2,7 +2,7 @@
   "expo": {
     "name": "코노플리",
     "slug": "conopli",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -12,7 +12,9 @@
       "resizeMode": "cover",
       "backgroundColor": "#0D0D0D"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false
     },
@@ -23,7 +25,8 @@
         "backgroundImage": "./assets/background-icon.png",
         "backgroundColor": "#0D0D0D"
       },
-      "package": "com.conopli"
+      "package": "com.conopli",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
