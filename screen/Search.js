@@ -4,10 +4,9 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
-  Text,
 } from 'react-native';
 import styles from './Search.style';
-import DropDownPicker from 'react-native-dropdown-picker';
+import SmallButton from '../components/SmallButton';
 import { useState, useRef, useEffect } from 'react';
 import { SearchButton, MusicItem, CustomText } from '../components';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -15,25 +14,35 @@ import { makeToast, useServer } from '../util';
 import { theme } from '../theme.js';
 
 const Search = ({ navigation, route }) => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('KOR');
-  const [items, setItems] = useState([
-    { label: '한국', value: 'KOR' },
-    { label: '영어', value: 'ENG' },
-    { label: '일본', value: 'JPN' },
-  ]);
   const [searchResult, setSearchResult] = useState(null);
   const [textValue, setTextValue] = useState('');
+  //국가
+  const [nation, setNation] = useState('KOR');
   //제목 vs 가수 필터 버튼 값
   const [isClicked, setIsClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isAddLoading, setIsAddLoading] = useState(false);
+  //filter, textValue, nation 값 저장 - 다음 페이지 가지고 올 때 사용
   const [prevConfig, setPrevConfig] = useState(null);
   const [isTooltip, setIsTooltip] = useState(false);
-  const [pageInfo, setPageInfo] = useState({});
+  const [pageInfo, setPageInfo] = useState({ page: 0, totalPages: 0 });
   const server = useServer();
   const inputRef = useRef(null);
 
+  const getData = async ({
+    filter = 1,
+    textValue = '',
+    nation = 'KOR',
+    page = 0,
+  }) => {
+    const { data } = await server.get(
+      `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${nation}&page=${page}`,
+    );
+
+    return data;
+  };
+
+  //검색
   const searchHander = async () => {
     const filter = isClicked ? 2 : 1;
 
@@ -44,12 +53,11 @@ const Search = ({ navigation, route }) => {
 
     try {
       setIsLoading(true);
-      const { data } = await server.get(
-        `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${value}`,
-      );
+      const params = { filter, textValue, nation, page: pageInfo.page };
+      const data = await getData(params);
       setSearchResult(data.data);
       setPageInfo(data.pageInfo);
-      setPrevConfig({ filter, textValue, value });
+      setPrevConfig({ filter, textValue, nation });
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -57,6 +65,7 @@ const Search = ({ navigation, route }) => {
     inputRef.current.blur();
   };
 
+  //무한 스크롤
   const nextPageHandler = async () => {
     if (isAddLoading) return;
 
@@ -65,18 +74,21 @@ const Search = ({ navigation, route }) => {
     if (page === totalPages - 1 || this.onEndReachedCalledDuringMomentum)
       return;
 
-    const { filter, textValue, value } = prevConfig;
+    const { filter, textValue, nation } = prevConfig;
 
     setIsAddLoading(true);
-    const { data } = await server.get(
-      `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${value}&page=${
-        page + 1
-      }`,
-    );
+    const params = { filter, textValue, nation, page: page + 1 };
+    const data = await getData(params);
     setSearchResult((prev) => [...prev, ...data.data]);
     setPageInfo(data.pageInfo);
     this.onEndReachedCalledDuringMomentum = false;
     setIsAddLoading(false);
+  };
+
+  //검색어 & 검색 결과 초기화
+  const initializeInput = () => {
+    setTextValue('');
+    setSearchResult([]);
   };
 
   const Tooltip = () => {
@@ -94,30 +106,39 @@ const Search = ({ navigation, route }) => {
 
   useEffect(() => {
     navigation.addListener('focus', () => {
-      setTextValue('');
-      setSearchResult([]);
+      //필터 및 검색어 초기화
+      initializeInput();
+      setNation('KOR');
+      setIsClicked(false);
     });
   }, [route]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.dropdown}>
-        <DropDownPicker
-          style={styles.picker}
-          dropDownContainerStyle={styles.dropdownContainer}
-          containerStyle={{ width: 80 }} // ! 드롭다운 가로 크기 고정값 필요 시, 100%일 경우 지워도 됨
-          textStyle={{ fontFamily: 'Pretendard-700', fontSize: 16 }}
-          labelStyle={{ fontFamily: 'Pretendard-700', fontSize: 16 }}
-          arrowIconContainerStyle={{ marginLeft: 4 }}
-          tickIconContainerStyle={{ marginLeft: 4 }}
-          placeholder={value}
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
+      <View style={styles.buttonBox}>
+        <SmallButton
+          text="한국"
+          isClicked={nation === 'KOR'}
+          setIsClicked={() => {
+            setNation('KOR');
+          }}
         />
+        <View style={styles.abroad}>
+          <SmallButton
+            text="영미"
+            isClicked={nation === 'ENG'}
+            setIsClicked={() => {
+              setNation('ENG');
+            }}
+          />
+          <SmallButton
+            text="일본"
+            isClicked={nation === 'JPN'}
+            setIsClicked={() => {
+              setNation('JPN');
+            }}
+          />
+        </View>
       </View>
       <View style={styles.search}>
         <SearchButton isClicked={isClicked} setIsClicked={setIsClicked} />
@@ -138,6 +159,14 @@ const Search = ({ navigation, route }) => {
             }}
           />
           <TouchableOpacity style={styles.searchIcon}>
+            {textValue.length ? (
+              <MaterialIcons
+                name="close"
+                size={20}
+                color="gray"
+                onPress={initializeInput}
+              />
+            ) : null}
             <MaterialIcons
               name="search"
               size={28}

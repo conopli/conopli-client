@@ -51,7 +51,7 @@ const Populer = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.buttonBox}>
         <SmallButton
-          text="가요"
+          text="한국"
           isClicked={nation === 1}
           setIsClicked={() => {
             setNation(1);
@@ -59,14 +59,14 @@ const Populer = ({ navigation }) => {
         />
         <View style={styles.abroad}>
           <SmallButton
-            text="POP"
+            text="영미"
             isClicked={nation === 2}
             setIsClicked={() => {
               setNation(2);
             }}
           />
           <SmallButton
-            text="J-POP"
+            text="일본"
             isClicked={nation === 3}
             setIsClicked={() => {
               setNation(3);
