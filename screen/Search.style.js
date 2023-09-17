@@ -5,11 +5,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.background,
-    paddingTop: 24,
+    paddingTop: 16,
     paddingHorizontal: 16,
   },
   buttonBox: {
-    marginVertical: 16,
+    marginBottom: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
