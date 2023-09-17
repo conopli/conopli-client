@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import styles from './Map.style';
-import MapButton from '../components/map/MapButton';
+import { MapButton, Toggle } from '../components/map';
 import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
@@ -17,6 +17,7 @@ const Map = () => {
     latitude: 37.5662952,
     longitude: 126.9779451,
   });
+  const [toggle, setToggle] = useState('코인노래방');
 
   useEffect(() => {
     getLocation();
@@ -44,6 +45,23 @@ const Map = () => {
     setLocation({ latitude, longitude });
   };
 
+  const toggleList = {
+    left: {
+      name: '코인노래방',
+      active: toggle === '코인노래방',
+      handler: () => toggleHandler('코인노래방'),
+    },
+    right: {
+      name: '노래연습장',
+      active: toggle === '노래연습장',
+      handler: () => toggleHandler('노래연습장'),
+    },
+  };
+
+  const toggleHandler = (name) => {
+    setToggle(name);
+  };
+
   return (
     <View style={styles.container}>
       <WebView
@@ -56,6 +74,7 @@ const Map = () => {
             : `Mozilla/5.0 (Linux; Android ${Constants.systemVersion}; ${Constants.deviceName}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3714.0 Mobile Safari/537.36`
         }
       />
+      <Toggle toggleList={toggleList} />
       <MapButton handler={getLocation} />
     </View>
   );
