@@ -11,7 +11,10 @@ const Toggle = ({ value, toggleList }) => {
         style={[styles.toggle, left.active && styles.active]}
         onPress={left.handler}
       >
-        <CustomText fontWeight={700} style={styles.text}>
+        <CustomText
+          fontWeight={700}
+          style={[styles.text, left.active && styles.activeText]}
+        >
           {left.name}
         </CustomText>
       </TouchableOpacity>
@@ -19,7 +22,10 @@ const Toggle = ({ value, toggleList }) => {
         style={[styles.toggle, right.active && styles.active]}
         onPress={right.handler}
       >
-        <CustomText fontWeight={700} style={styles.text}>
+        <CustomText
+          fontWeight={700}
+          style={[styles.text, right.active && styles.activeText]}
+        >
           {right.name}
         </CustomText>
       </TouchableOpacity>

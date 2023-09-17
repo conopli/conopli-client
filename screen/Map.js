@@ -52,9 +52,9 @@ const Map = () => {
       handler: () => toggleHandler('코인노래방'),
     },
     right: {
-      name: '노래연습장',
-      active: toggle === '노래연습장',
-      handler: () => toggleHandler('노래연습장'),
+      name: '전체 노래방',
+      active: toggle === '전체 노래방',
+      handler: () => toggleHandler('전체 노래방'),
     },
   };
 

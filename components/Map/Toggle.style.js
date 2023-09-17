@@ -16,6 +16,15 @@ const styles = StyleSheet.create({
     borderColor: theme.lightBlue,
     borderRadius: 50,
     backgroundColor: theme.lightGray,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
   },
   toggle: {
     width: 106,
