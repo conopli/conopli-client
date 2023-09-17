@@ -24,7 +24,6 @@ const Search = ({ navigation, route }) => {
   const [isAddLoading, setIsAddLoading] = useState(false);
   //filter, textValue, nation 값 저장 - 다음 페이지 가지고 올 때 사용
   const [prevConfig, setPrevConfig] = useState(null);
-  const [isTooltip, setIsTooltip] = useState(false);
   const [pageInfo, setPageInfo] = useState({ page: 0, totalPages: 0 });
   const server = useServer();
   const inputRef = useRef(null);
@@ -91,19 +90,6 @@ const Search = ({ navigation, route }) => {
     setSearchResult([]);
   };
 
-  const Tooltip = () => {
-    return (
-      <View style={styles.tooltipContainer}>
-        <View style={styles.msgBox}>
-          <CustomText style={styles.msgText}>
-            한글은 띄어쓰기 없이 입력하세요
-          </CustomText>
-          <View style={styles.triangle} />
-        </View>
-      </View>
-    );
-  };
-
   useEffect(() => {
     navigation.addListener('focus', () => {
       //필터 및 검색어 초기화
@@ -151,12 +137,6 @@ const Search = ({ navigation, route }) => {
             onChangeText={setTextValue}
             onSubmitEditing={searchHander}
             ref={inputRef}
-            onFocus={() => {
-              setIsTooltip(true);
-            }}
-            onBlur={() => {
-              setIsTooltip(false);
-            }}
           />
           <TouchableOpacity style={styles.searchIcon}>
             {textValue.length ? (
@@ -175,7 +155,6 @@ const Search = ({ navigation, route }) => {
             />
           </TouchableOpacity>
         </View>
-        {isTooltip && <Tooltip />}
       </View>
       <View style={styles.result}>
         {isLoading ? (
