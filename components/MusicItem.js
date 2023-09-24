@@ -35,7 +35,7 @@ const MusicItem = ({ item, isAdd = false }) => {
       disabled={!isAdd}
     >
       <View style={styles.songInfo}>
-        <CustomText fontWeight={700} style={styles.title} numberOfLines={1}>
+        <CustomText fontWeight={600} style={styles.title} numberOfLines={1}>
           {title}
         </CustomText>
         <CustomText style={styles.artist} numberOfLines={1}>
@@ -43,7 +43,7 @@ const MusicItem = ({ item, isAdd = false }) => {
         </CustomText>
       </View>
       <View style={styles.num}>
-        <CustomText fontWeight={900} style={styles.numText}>
+        <CustomText fontWeight={600} style={styles.numText}>
           {num}
         </CustomText>
       </View>

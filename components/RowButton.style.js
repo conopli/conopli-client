@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   red: {
     flex: 1,
     backgroundColor: theme.red,
-    height: 40,
     borderRadius: 4,
     justifyContent: 'center',
     paddingVertical: 8,
@@ -13,7 +12,6 @@ const styles = StyleSheet.create({
   lime: {
     flex: 1,
     backgroundColor: theme.lime,
-    height: 40,
     borderRadius: 4,
     justifyContent: 'center',
     paddingVertical: 8,
@@ -21,7 +19,6 @@ const styles = StyleSheet.create({
   lightGray: {
     flex: 1,
     backgroundColor: theme.lightGray,
-    height: 40,
     borderRadius: 4,
     justifyContent: 'center',
     paddingVertical: 8,
@@ -30,13 +27,11 @@ const styles = StyleSheet.create({
     color: theme.black,
     textAlign: 'center',
     fontSize: 20,
-    fontWeight: 700,
   },
   whiteText: {
     color: theme.white,
     textAlign: 'center',
     fontSize: 20,
-    fontWeight: 700,
   },
 });
 

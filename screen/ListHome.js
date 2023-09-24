@@ -18,7 +18,7 @@ const ListHome = () => {
           backgroundColor: theme.black,
         },
         headerTitleStyle: {
-          fontFamily: 'Pretendard-400',
+          fontFamily: 'Pretendard-600',
           fontSize: 24,
           color: theme.white,
         },

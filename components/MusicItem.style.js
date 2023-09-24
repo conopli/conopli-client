@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: 'bold',
     paddingRight: 12,
   },
   artist: {
@@ -43,8 +42,6 @@ const styles = StyleSheet.create({
   },
   numText: {
     fontSize: 20,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
   },
 });
 

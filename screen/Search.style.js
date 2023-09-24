@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
   descText: {
     color: theme.lightGray,
     fontSize: 20,
-    fontWeight: 'bold',
     textAlign: 'center',
   },
   tooltipContainer: {
@@ -76,7 +75,6 @@ const styles = StyleSheet.create({
   },
   msgText: {
     color: theme.black,
-    fontWeight: 'bold',
   },
   triangle: {
     position: 'absolute',

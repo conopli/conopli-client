@@ -28,6 +28,7 @@ const AuthButton = ({ buttonHandler, type }) => {
         <Naver width={20} />
       )}
       <CustomText
+        fontWeight={700}
         style={{
           ...styles.loginText,
           ...(type === 'naver' && styles.textWhite),

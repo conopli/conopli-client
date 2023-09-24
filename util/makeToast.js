@@ -29,8 +29,8 @@ const makeToast = (msg = '', warning = false, duration = 2500) => {
     opacity: 1,
     textColor: theme.white,
     textStyle: {
+      fontFamily: 'Pretendard-600',
       fontSize: 16,
-      fontWeight: 'bold',
     },
     animation: true,
     containerStyle: {

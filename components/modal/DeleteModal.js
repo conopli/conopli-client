@@ -42,8 +42,10 @@ const DeleteModal = ({ playListId }) => {
         e.stopPropagation();
       }}
     >
-      <CustomText style={styles.title}>삭제하시겠습니까?</CustomText>
-      <CustomText style={styles.subTitle}>
+      <CustomText fontWeight={700} style={styles.title}>
+        삭제하시겠습니까?
+      </CustomText>
+      <CustomText fontWeight={500} style={styles.subTitle}>
         삭제 후에는 되돌릴 수 없습니다.
       </CustomText>
       <View style={styles.buttonBox}>

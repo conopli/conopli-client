@@ -18,8 +18,6 @@ const styles = StyleSheet.create({
   },
   rate: {
     fontSize: 32,
-    fontWeight: '800',
-    fontStyle: 'italic',
   },
   musicbox: {
     flex: 1,
@@ -27,12 +25,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: 700,
     paddingRight: 12,
   },
   singer: {
     fontSize: 16,
-    fontWeight: 500,
     paddingRight: 12,
   },
   numbox: {
@@ -43,7 +39,6 @@ const styles = StyleSheet.create({
   },
   number: {
     fontSize: 20,
-    fontWeight: 800,
   },
 });
 

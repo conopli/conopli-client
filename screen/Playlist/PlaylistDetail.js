@@ -67,7 +67,7 @@ const PlaylistDetail = ({ navigation, route }) => {
     <View style={styles.container}>
       {songList.length === 0 ? (
         <View style={styles.emptySongDesc}>
-          <CustomText style={styles.descText}>
+          <CustomText fontWeight={600} style={styles.descText}>
             플레이리스트에 곡이 없습니다
           </CustomText>
         </View>

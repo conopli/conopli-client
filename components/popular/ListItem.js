@@ -31,12 +31,12 @@ const ListItem = ({ item }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={pressHandler}>
       <View style={styles.leftbox}>
-        <CustomText fontWeight={900} style={styles.rate}>
+        <CustomText fontWeight={700} style={styles.rate}>
           {ranking}
         </CustomText>
       </View>
       <View style={styles.musicbox}>
-        <CustomText fontWeight={700} style={styles.title} numberOfLines={1}>
+        <CustomText fontWeight={600} style={styles.title} numberOfLines={1}>
           {title}
         </CustomText>
         <CustomText style={styles.singer} numberOfLines={1}>
@@ -44,7 +44,7 @@ const ListItem = ({ item }) => {
         </CustomText>
       </View>
       <View style={styles.numbox}>
-        <CustomText fontWeight={900} style={styles.number}>
+        <CustomText fontWeight={600} style={styles.number}>
           {num}
         </CustomText>
       </View>

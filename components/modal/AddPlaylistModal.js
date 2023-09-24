@@ -104,7 +104,7 @@ const AddPlaylistModal = ({
         e.stopPropagation();
       }}
     >
-      <CustomText style={styles.title}>{`플레이리스트 ${
+      <CustomText fontWeight={700} style={styles.title}>{`플레이리스트 ${
         isEdit ? '수정' : '추가'
       }`}</CustomText>
       <View style={styles.inputContainer}>
@@ -132,7 +132,9 @@ const AddPlaylistModal = ({
         />
       </View>
       <View style={styles.colorContainer}>
-        <CustomText style={styles.colorText}>색상</CustomText>
+        <CustomText fontWeight={700} style={styles.colorText}>
+          색상
+        </CustomText>
         <View style={styles.colorSelectBox}>
           {Object.keys(playlistColor).map((color) => {
             return (
@@ -159,7 +161,7 @@ const AddPlaylistModal = ({
                 onPress={() => {
                   setSelected(color);
                 }}
-              ></TouchableOpacity>
+              />
             );
           })}
         </View>

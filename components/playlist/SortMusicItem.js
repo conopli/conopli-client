@@ -12,7 +12,7 @@ const SortMusicItem = gestureHandlerRootHOC(({ item, drag, isActive }) => {
     <ScaleDecorator activeScale={0.9}>
       <View style={styles.container}>
         <View style={styles.songInfo}>
-          <CustomText style={styles.title} numberOfLines={1}>
+          <CustomText fontWeight={700} style={styles.title} numberOfLines={1}>
             {title}
           </CustomText>
           <CustomText style={styles.artist} numberOfLines={1}>

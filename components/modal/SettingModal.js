@@ -62,7 +62,9 @@ const EditPlaylistModal = ({ leaveHandler }) => {
         e.stopPropagation();
       }}
     >
-      <CustomText style={styles.title}>설정 더보기</CustomText>
+      <CustomText fontWeight={700} style={styles.title}>
+        설정 더보기
+      </CustomText>
       <View style={styles.buttonBox}>
         {userId !== 0 && (
           <View style={styles.buttonItem}>
