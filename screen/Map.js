@@ -18,6 +18,9 @@ const Map = () => {
     longitude: 126.9779451,
   });
   const [toggle, setToggle] = useState('코인노래방');
+  const [mapUri, setMapUri] = useState(
+    `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
+  );
 
   useEffect(() => {
     getLocation();
@@ -28,8 +31,6 @@ const Map = () => {
         4000,
       );
   }, [hasPermission]);
-
-  const mapUri = `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`;
 
   const getLocation = async () => {
     const { granted } = await requestForegroundPermissionsAsync();
@@ -61,6 +62,18 @@ const Map = () => {
   const toggleHandler = (name) => {
     setToggle(name);
   };
+
+  useEffect(() => {
+    if (toggle === '코인노래방') {
+      setMapUri(
+        `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
+      );
+    } else {
+      setMapUri(
+        `${BASE_URL}/maps?searchType=노래연습장&lng=${location.longitude}&lat=${location.latitude}`,
+      );
+    }
+  }, [toggle]);
 
   return (
     <View style={styles.container}>
