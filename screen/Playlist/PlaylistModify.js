@@ -6,7 +6,7 @@ import {
   ConfirmModifyButton,
   ModifyListButton,
   ModifyMusicItem,
-} from '../../components/Playlist';
+} from '../../components/playlist';
 import { useServer, makeToast } from '../../util';
 import userInfo from '../../recoil/userInfo.js';
 import { useSetRecoilState, useRecoilValue } from 'recoil';

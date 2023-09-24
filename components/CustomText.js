@@ -9,6 +9,12 @@ const CustomText = (props) => {
   });
 
   const getStyle = (styleProp) => {
+    if (Array.isArray(styleProp)) {
+      for (const item of styleProp) {
+        Object.assign(style, item);
+      }
+      return style;
+    }
     if (styleProp) return { ...style, ...styleProp };
     else return style;
   };

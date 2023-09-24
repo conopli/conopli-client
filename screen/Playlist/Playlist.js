@@ -1,6 +1,6 @@
 import { View, FlatList } from 'react-native';
 import styles from './Playlist.style';
-import { PlaylistItem } from '../../components/Playlist';
+import { PlaylistItem } from '../../components/playlist';
 import { useEffect } from 'react';
 import { PlusButton } from '../../components/index';
 import { useSetRecoilState, useRecoilValue } from 'recoil';

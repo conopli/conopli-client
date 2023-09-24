@@ -3,9 +3,15 @@ import { View } from 'react-native';
 import styles from './AddSongModal.style.js';
 import { RowButton, CustomText } from '../index.js';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  useResetRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+  useRecoilState,
+} from 'recoil';
 import ModalState from '../../recoil/modal.js';
 import userInfo from '../../recoil/userInfo.js';
+import recentInfo from '../../recoil/recentInfo.js';
 import { useNavigation } from '@react-navigation/native';
 import { confirmProps, useServer } from '../../util';
 
@@ -14,6 +20,7 @@ const AddSongModal = ({ selectedSong, playList }) => {
   const setModal = useSetRecoilState(ModalState);
   const reset = useResetRecoilState(ModalState);
   const { userId } = useRecoilValue(userInfo);
+  const [{ playListId }, setRecentInfo] = useRecoilState(recentInfo);
   const navigation = useNavigation();
 
   const { title, singer, num } = selectedSong;
@@ -28,7 +35,11 @@ const AddSongModal = ({ selectedSong, playList }) => {
 
   // value 기본값 설정
   useEffect(() => {
-    setValue(playList[0]?.playListId);
+    if (playListId) {
+      setValue(playListId);
+    } else {
+      setValue(playList[0]?.playListId);
+    }
   }, []);
 
   const postNewSong = async () => {
@@ -44,6 +55,11 @@ const AddSongModal = ({ selectedSong, playList }) => {
       await server.patch(`/api/user-music/duplication/${value}`);
       reset();
       setModal(confirmMove);
+      if (playListId !== value) {
+        setRecentInfo({
+          playListId: value,
+        });
+      }
     } catch (error) {
       console.log(error);
     }

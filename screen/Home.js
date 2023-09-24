@@ -4,7 +4,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { Map, Populer, ListHome, Search, Setting, Login } from './index.js';
 import { useRecoilValue } from 'recoil';
-import GlobalModal from '../components/Modal/GlobalModal';
+import GlobalModal from '../components/modal/GlobalModal';
 import userInfo from '../recoil/userInfo';
 
 const Home = () => {

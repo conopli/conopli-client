@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './Setting.style';
 import RowButton from '../components/RowButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,7 +13,7 @@ import Google from '../assets/google.svg';
 import SymbolLogo from '../assets/symbolLogo.svg';
 import TypoLogo from '../assets/typoLogo.svg';
 import { confirmProps, makeToast, settingProps, useServer } from '../util';
-import { ThreeDotButton } from '../components/Setting';
+import { ThreeDotButton } from '../components/setting';
 import { CustomText } from '../components';
 
 const Setting = ({ navigation }) => {

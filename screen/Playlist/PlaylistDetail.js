@@ -6,7 +6,7 @@ import {
   BackButton,
   ModifyButton,
   SortButton,
-} from '../../components/Playlist';
+} from '../../components/playlist';
 import { useServer } from '../../util';
 
 const PlaylistDetail = ({ navigation, route }) => {

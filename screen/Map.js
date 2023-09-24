@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import styles from './Map.style';
-import MapButton from '../components/Map/MapButton';
+import { MapButton, Toggle } from '../components/map';
 import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from 'react';
 import { BASE_URL } from 'react-native-dotenv';
 import { makeToast } from '../util';
+import Constants from 'expo-constants';
 
 const Map = () => {
   const [hasPermission, setHasPermission] = useState(true);
@@ -16,6 +17,10 @@ const Map = () => {
     latitude: 37.5662952,
     longitude: 126.9779451,
   });
+  const [toggle, setToggle] = useState('코인노래방');
+  const [mapUri, setMapUri] = useState(
+    `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
+  );
 
   useEffect(() => {
     getLocation();
@@ -26,8 +31,6 @@ const Map = () => {
         4000,
       );
   }, [hasPermission]);
-
-  const mapUri = `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`;
 
   const getLocation = async () => {
     const { granted } = await requestForegroundPermissionsAsync();
@@ -43,14 +46,48 @@ const Map = () => {
     setLocation({ latitude, longitude });
   };
 
+  const toggleList = {
+    left: {
+      name: '코인노래방',
+      active: toggle === '코인노래방',
+      handler: () => toggleHandler('코인노래방'),
+    },
+    right: {
+      name: '전체 노래방',
+      active: toggle === '전체 노래방',
+      handler: () => toggleHandler('전체 노래방'),
+    },
+  };
+
+  const toggleHandler = (name) => {
+    setToggle(name);
+  };
+
+  useEffect(() => {
+    if (toggle === '코인노래방') {
+      setMapUri(
+        `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
+      );
+    } else {
+      setMapUri(
+        `${BASE_URL}/maps?searchType=노래연습장&lng=${location.longitude}&lat=${location.latitude}`,
+      );
+    }
+  }, [toggle]);
+
   return (
     <View style={styles.container}>
       <WebView
         source={{
           uri: mapUri,
         }}
-        userAgent="Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3714.0 Mobile Safari/537.36"
+        userAgent={
+          Constants.platform === 'ios'
+            ? `mozilla/5.0 (iphone; CPU IPhone OS ${Constants.systemVersion} like Mac OS X) applewebkit/605.1.15 (khtml, like gecko) version/15.0 mobile/15e148 safari/604.1`
+            : `Mozilla/5.0 (Linux; Android ${Constants.systemVersion}; ${Constants.deviceName}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3714.0 Mobile Safari/537.36`
+        }
       />
+      <Toggle toggleList={toggleList} />
       <MapButton handler={getLocation} />
     </View>
   );
