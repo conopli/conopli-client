@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 700,
     marginBottom: 39,
   },
   inputContainer: {
@@ -30,19 +29,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    padding: 6,
-    fontSize: 24,
+    fontSize: 20,
   },
   nameInput: {
     backgroundColor: theme.lightGray,
-    fontWeight: 'bold',
     color: theme.gray,
     flex: 1,
     borderRadius: 4,
     paddingVertical: 6,
     paddingHorizontal: 12,
     fontSize: 16,
-    fontFamily: 'Pretendard-500',
+    fontFamily: 'Pretendard-600',
     height: 40,
   },
   buttonBox: {
@@ -62,7 +59,6 @@ const styles = StyleSheet.create({
   },
   colorText: {
     fontSize: 20,
-    fontWeight: 'bold',
   },
   colorSelectBox: {
     flexDirection: 'row',

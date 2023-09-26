@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
   descText: {
     fontSize: 20,
     color: theme.lightGray,
-    fontWeight: 'bold',
   },
 });
 

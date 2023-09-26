@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 700,
+
     marginBottom: 16,
   },
   subTitle: {
     fontSize: 16,
-    fontWeight: 500,
+
     marginBottom: 40,
     textAlign: 'center',
   },

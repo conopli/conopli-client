@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 700,
+
     marginBottom: 39,
   },
   songBox: {
@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
   },
   selectedTitle: {
     fontSize: 16,
-    fontWeight: 700,
   },
   picker: {
     borderRadius: 4,
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
   },
   songTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+
     paddingRight: 12,
   },
   artist: {
@@ -86,8 +85,6 @@ const styles = StyleSheet.create({
   },
   numText: {
     fontSize: 20,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
   },
 });
 

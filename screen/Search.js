@@ -164,9 +164,13 @@ const Search = ({ navigation, route }) => {
             color={theme.lime}
           />
         ) : searchResult === null ? (
-          <CustomText style={styles.descText}>검색어를 입력하세요</CustomText>
+          <CustomText fontWeight={600} style={styles.descText}>
+            검색어를 입력하세요
+          </CustomText>
         ) : searchResult.length === 0 ? (
-          <CustomText style={styles.descText}>검색 결과가 없습니다</CustomText>
+          <CustomText fontWeight={600} style={styles.descText}>
+            검색 결과가 없습니다
+          </CustomText>
         ) : (
           <FlatList
             data={searchResult}

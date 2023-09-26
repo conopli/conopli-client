@@ -69,7 +69,6 @@ export const ModifyListButton = ({ onPress, type, disabled }) => {
     },
     text: {
       fontSize: 16,
-      fontWeight: 'bold',
       color:
         type === 'select'
           ? theme.black
@@ -81,7 +80,7 @@ export const ModifyListButton = ({ onPress, type, disabled }) => {
 
   return (
     <TouchableOpacity disabled={disabled} onPress={onPress} style={styles.btn}>
-      <CustomText style={styles.text}>
+      <CustomText fontWeight={600} style={styles.text}>
         {type === 'select'
           ? '전체선택'
           : type === 'move'

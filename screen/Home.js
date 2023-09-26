@@ -33,7 +33,7 @@ const Home = () => {
             shadowColor: 'rgba(0, 0, 0, 0)',
           },
           headerTitleStyle: {
-            fontFamily: 'Pretendard-400',
+            fontFamily: 'Pretendard-600',
             fontSize: 24,
             color: theme.white,
           },

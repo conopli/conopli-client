@@ -213,10 +213,10 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <CustomText style={styles.login_text}>
+      <CustomText fontWeight={700} style={styles.loginText}>
         해당 기능은 로그인 후 이용 가능합니다.
       </CustomText>
-      <View style={styles.button_box}>
+      <View style={styles.buttonBox}>
         <View style={{ flex: 1, flexDirection: 'row', height: 40 }}>
           <AuthButton
             type="kakao"

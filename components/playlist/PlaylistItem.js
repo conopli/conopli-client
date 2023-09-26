@@ -52,7 +52,7 @@ const PlaylistItem = ({ navigation, item }) => {
         </CustomText>
       </View>
       <View style={styles.titleContainer}>
-        <CustomText style={styles.title} numberOfLines={1}>
+        <CustomText fontWeight={700} style={styles.title} numberOfLines={1}>
           {title}
         </CustomText>
       </View>

@@ -8,7 +8,9 @@ const SmallButton = ({ text, isClicked, setIsClicked }) => {
       onPress={setIsClicked}
       style={isClicked ? styles.lime : styles.lightGray}
     >
-      <CustomText style={styles.text}>{text}</CustomText>
+      <CustomText fontWeight={600} style={styles.text}>
+        {text}
+      </CustomText>
     </TouchableOpacity>
   );
 };

@@ -12,15 +12,14 @@ const styles = StyleSheet.create({
     rowGap: 60,
     position: 'relative',
   },
-  login_text: {
+  loginText: {
     flex: 0.05,
     justifyContent: 'center',
     alignItems: 'center',
     color: theme.white,
     fontSize: 20,
-    fontWeight: 700,
   },
-  button_box: {
+  buttonBox: {
     flex: 0.3,
     justifyContent: 'center',
     alignItems: 'center',

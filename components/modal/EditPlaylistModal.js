@@ -17,7 +17,9 @@ const EditPlaylistModal = ({ editHandler, deleteHandler }) => {
         e.stopPropagation();
       }}
     >
-      <CustomText style={styles.title}>플레이리스트 편집</CustomText>
+      <CustomText fontWeight={700} style={styles.title}>
+        플레이리스트 편집
+      </CustomText>
       <View style={styles.buttonBox}>
         <View style={styles.buttonItem}>
           <RowButton
