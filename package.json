@@ -20,7 +20,10 @@
     "expo-auth-session": "^4.0.3",
     "expo-checkbox": "~2.3.1",
     "expo-constants": "^14.2.1",
+    "expo-font": "~11.1.1",
     "expo-location": "~15.1.1",
+    "expo-mail-composer": "~12.1.1",
+    "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
     "expo-web-browser": "^12.1.1",
     "react": "18.2.0",
@@ -29,6 +32,7 @@
     "react-native-checkbox": "^2.0.0",
     "react-native-dotenv": "^3.4.9",
     "react-native-draggable-flatlist": "^4.0.1",
+    "react-native-drawer-layout": "^4.0.0-alpha.1",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-reanimated": "~2.14.4",
@@ -41,10 +45,7 @@
     "react-native-web": "~0.18.10",
     "react-native-webview": "11.26.0",
     "recoil": "^0.7.7",
-    "rn-emoji-keyboard": "^1.5.0",
-    "expo-font": "~11.1.1",
-    "expo-splash-screen": "~0.18.2",
-    "expo-mail-composer": "~12.1.1"
+    "rn-emoji-keyboard": "^1.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
