@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as Font from 'expo-font';
 import * as Splash from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
+import 'react-native-gesture-handler';
 
 Splash.preventAutoHideAsync();
 
