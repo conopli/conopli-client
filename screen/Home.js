@@ -1,8 +1,17 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { theme } from '../theme';
-import { Map, Populer, ListHome, Search, Setting, Login } from './index.js';
+import {
+  Map,
+  Populer,
+  ListHome,
+  Search,
+  Setting,
+  Login,
+  New,
+} from './index.js';
 import { useRecoilValue } from 'recoil';
 import GlobalModal from '../components/modal/GlobalModal';
 import userInfo from '../recoil/userInfo';
@@ -51,15 +60,16 @@ const Home = () => {
           }}
         />
         <Tab.Screen
-          name="Map"
-          component={userId ? Map : Login}
+          name="New"
+          component={New}
           options={{
-            title: '주변',
+            title: '이 달의 신곡',
             tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="map-marked-alt" size={20} color={color} />
+              <MaterialCommunityIcons name="new-box" size={20} color={color} />
             ),
           }}
         />
+
         <Tab.Screen
           name="Search"
           component={Search}
@@ -82,12 +92,12 @@ const Home = () => {
           }}
         />
         <Tab.Screen
-          name="Setting"
-          component={userId ? Setting : Login}
+          name="Map"
+          component={userId ? Map : Login}
           options={{
-            title: '설정',
+            title: '주변',
             tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="cog" size={20} color={color} />
+              <FontAwesome5 name="map-marked-alt" size={20} color={color} />
             ),
           }}
         />
