@@ -53,7 +53,7 @@ const Home = () => {
           name="Populer"
           component={Populer}
           options={{
-            title: '노래방 인기 차트',
+            title: '인기 차트',
             tabBarIcon: ({ color }) => (
               <FontAwesome5 name="hotjar" size={20} color={color} />
             ),
@@ -63,7 +63,7 @@ const Home = () => {
           name="New"
           component={New}
           options={{
-            title: '이 달의 신곡',
+            title: '신곡',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="new-box" size={20} color={color} />
             ),
