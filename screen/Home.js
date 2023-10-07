@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, Entypo } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { Map, Populer, ListHome, Search, Setting, Login } from './index.js';
 import { useRecoilValue } from 'recoil';
@@ -48,6 +48,8 @@ const Home = () => {
             tabBarIcon: ({ color }) => (
               <FontAwesome5 name="hotjar" size={20} color={color} />
             ),
+            // TODO:: 해당 아이콘 나타나지 않는 문제 및 Screen에 매번 작성할 것이 아니라 Tab.Navigator 단에서 일괄 적용 가능할지 여부 확인 필요
+            headerRight: () => <Entypo name="menu" size={20} />,
           }}
         />
         <Tab.Screen
