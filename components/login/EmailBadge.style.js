@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 4,
   },
+  descText: {
+    fontSize: 16,
+    color: theme.white,
+  },
   KAKAO: {
     backgroundColor: theme.kakao,
   },

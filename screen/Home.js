@@ -27,6 +27,7 @@ const Home = () => {
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
         drawerType="front"
+        drawerStyle={{ backgroundColor: theme.background }}
         renderDrawerContent={() => {
           return (
             <View style={{ paddingHorizontal: 32, paddingVertical: 50 }}>
