@@ -42,7 +42,6 @@ const ListHome = () => {
               onPress={() => {
                 setIsOpen((prev) => !prev);
               }}
-              style={{ marginLeft: 16 }}
             >
               <Entypo name="menu" size={24} color={theme.white} />
             </TouchableOpacity>
