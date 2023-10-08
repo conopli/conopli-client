@@ -3,98 +3,131 @@ import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesome5, Entypo } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { Map, Populer, ListHome, Search, Setting, Login } from './index.js';
-import { useRecoilValue } from 'recoil';
 import GlobalModal from '../components/modal/GlobalModal';
+import { Drawer } from 'react-native-drawer-layout';
+import { useState } from 'react';
+import { DrawerContent } from '../components';
+import { TouchableOpacity, View } from 'react-native';
+import { useRecoilValue } from 'recoil';
 import userInfo from '../recoil/userInfo';
 
 const Home = () => {
   const Tab = createBottomTabNavigator();
   const { userId } = useRecoilValue(userInfo);
+  const [open, setOpen] = useState(false);
+
+  const openDrawer = (prev) => {
+    setOpen(!prev);
+  };
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Populer"
-        screenOptions={{
-          tabBarActiveTintColor: theme.lime,
-          tabBarInactiveTintColor: theme.violet,
-          tabBarStyle: {
-            backgroundColor: theme.black,
-            paddingTop: 5,
-          },
-          tabBarLabelStyle: {
-            fontFamily: 'Pretendard-400',
-            fontSize: 10,
-            paddingBottom: 5,
-          },
-          headerStyle: {
-            backgroundColor: theme.black,
-            elevation: 0,
-            shadowColor: 'rgba(0, 0, 0, 0)',
-          },
-          headerTitleStyle: {
-            fontFamily: 'Pretendard-600',
-            fontSize: 24,
-            color: theme.white,
-          },
-          headerTitleAlign: 'center',
+      <Drawer
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        drawerType="front"
+        renderDrawerContent={() => {
+          return (
+            <View style={{ paddingHorizontal: 32, paddingVertical: 50 }}>
+              <View>
+                <DrawerContent />
+              </View>
+            </View>
+          );
         }}
       >
-        <Tab.Screen
-          name="Populer"
-          component={Populer}
-          options={{
-            title: '노래방 인기 차트',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="hotjar" size={20} color={color} />
+        <Tab.Navigator
+          initialRouteName="Populer"
+          screenOptions={({ route, navigation }) => ({
+            tabBarActiveTintColor: theme.lime,
+            tabBarInactiveTintColor: theme.violet,
+            tabBarStyle: {
+              backgroundColor: theme.black,
+              paddingTop: 5,
+            },
+            tabBarLabelStyle: {
+              fontFamily: 'Pretendard-400',
+              fontSize: 10,
+              paddingBottom: 5,
+            },
+            headerStyle: {
+              backgroundColor: theme.black,
+              elevation: 0,
+              shadowColor: 'rgba(0, 0, 0, 0)',
+            },
+            headerTitleStyle: {
+              fontFamily: 'Pretendard-600',
+              fontSize: 24,
+              color: theme.white,
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  openDrawer();
+                }}
+                style={{ marginLeft: 16 }}
+              >
+                <Entypo name="menu" size={24} color={theme.white} />
+              </TouchableOpacity>
             ),
-            // TODO:: 해당 아이콘 나타나지 않는 문제 및 Screen에 매번 작성할 것이 아니라 Tab.Navigator 단에서 일괄 적용 가능할지 여부 확인 필요
-            headerRight: () => <Entypo name="menu" size={20} />,
-          }}
-        />
-        <Tab.Screen
-          name="Map"
-          component={userId ? Map : Login}
-          options={{
-            title: '주변',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="map-marked-alt" size={20} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Search"
-          component={Search}
-          options={{
-            title: '검색',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="search" size={20} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ListHome"
-          component={userId ? ListHome : Login}
-          options={{
-            title: '플레이리스트',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="music" size={20} color={color} />
-            ),
-            headerShown: userId ? false : true,
-          }}
-        />
-        <Tab.Screen
-          name="Setting"
-          component={userId ? Setting : Login}
-          options={{
-            title: '설정',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="cog" size={20} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-      <GlobalModal />
+          })}
+        >
+          <Tab.Screen
+            name="Populer"
+            component={Populer}
+            options={{
+              title: '노래방 인기 차트',
+              tabBarIcon: ({ color }) => (
+                <FontAwesome5 name="hotjar" size={20} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Map"
+            component={userId ? Map : Login}
+            options={{
+              title: '주변',
+              tabBarIcon: ({ color }) => (
+                <FontAwesome5 name="map-marked-alt" size={20} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Search"
+            component={Search}
+            options={{
+              title: '검색',
+              tabBarIcon: ({ color }) => (
+                <FontAwesome5 name="search" size={20} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="ListHome"
+            component={userId ? ListHome : Login}
+            options={{
+              title: '플레이리스트',
+              tabBarIcon: ({ color }) => (
+                <FontAwesome5 name="music" size={20} color={color} />
+              ),
+              headerShown: userId ? false : true,
+            }}
+          />
+          <Tab.Screen
+            name="Setting"
+            component={userId ? Setting : Login}
+            options={{
+              title: '설정',
+              tabBarIcon: ({ color }) => (
+                <FontAwesome5 name="cog" size={20} color={color} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+        <GlobalModal />
+      </Drawer>
     </NavigationContainer>
   );
 };
