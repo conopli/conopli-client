@@ -5,27 +5,24 @@ import { theme } from '../theme';
 import { Map, Populer, ListHome, Search, Setting, Login } from './index.js';
 import GlobalModal from '../components/modal/GlobalModal';
 import { Drawer } from 'react-native-drawer-layout';
-import { useState } from 'react';
 import { DrawerContent } from '../components';
 import { TouchableOpacity, View } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import userInfo from '../recoil/userInfo';
+import DrawerState from '../recoil/drawer';
+import { useRecoilState } from 'recoil';
 
 const Home = () => {
   const Tab = createBottomTabNavigator();
   const { userId } = useRecoilValue(userInfo);
-  const [open, setOpen] = useState(false);
-
-  const openDrawer = (prev) => {
-    setOpen(!prev);
-  };
+  const [isOpen, setIsOpen] = useRecoilState(DrawerState);
 
   return (
     <NavigationContainer>
       <Drawer
-        open={open}
-        onOpen={() => setOpen(true)}
-        onClose={() => setOpen(false)}
+        open={isOpen}
+        onOpen={() => setIsOpen(true)}
+        onClose={() => setIsOpen(false)}
         drawerType="front"
         drawerStyle={{ backgroundColor: theme.background }}
         renderDrawerContent={() => {
@@ -66,7 +63,7 @@ const Home = () => {
             headerLeft: () => (
               <TouchableOpacity
                 onPress={() => {
-                  openDrawer();
+                  setIsOpen((prev) => !prev);
                 }}
                 style={{ marginLeft: 16 }}
               >
