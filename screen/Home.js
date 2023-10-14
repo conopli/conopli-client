@@ -5,7 +5,7 @@ import { theme } from '../theme';
 import { Map, Populer, ListHome, Search, Setting, Login } from './index.js';
 import GlobalModal from '../components/modal/GlobalModal';
 import { Drawer } from 'react-native-drawer-layout';
-import { DrawerContent } from '../components';
+import DrawerContent from '../components/DrawerContent';
 import { TouchableOpacity, View } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import userInfo from '../recoil/userInfo';

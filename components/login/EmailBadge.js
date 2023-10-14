@@ -1,5 +1,5 @@
 import styles from './EmailBadge.style';
-import { CustomText } from '../index';
+import CustomText from '../CustomText';
 import { View } from 'react-native';
 import Kakao from '../../assets/kakao.svg';
 import Naver from '../../assets/naver.svg';

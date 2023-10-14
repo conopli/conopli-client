@@ -1,9 +1,9 @@
 import styles from './DrawerContent.styles';
 import { View } from 'react-native';
-import { EmailBadge } from './login';
+import EmailBadge from './login/EmailBadge';
 import userInfo from '../recoil/userInfo';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
-import { RowButton } from './index';
+import RowButton from './RowButton';
 import { confirmProps, makeToast, settingProps, useServer } from '../util';
 import ModalState from '../recoil/modal';
 import userPlayList from '../recoil/userPlayList';
