@@ -1,0 +1,15 @@
+{
+  "build": {
+    "previewAndroid": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "previewIos": {
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {}
+  }
+}
