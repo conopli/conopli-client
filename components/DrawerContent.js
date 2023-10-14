@@ -1,13 +1,16 @@
 import styles from './DrawerContent.styles';
 import { View } from 'react-native';
 import EmailBadge from './login/EmailBadge';
+import TransparentButton from './TransparentButton';
 import userInfo from '../recoil/userInfo';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
-import RowButton from './RowButton';
-import { confirmProps, makeToast, settingProps, useServer } from '../util';
+import { confirmProps, makeToast, useServer } from '../util';
 import ModalState from '../recoil/modal';
 import userPlayList from '../recoil/userPlayList';
 import * as MailComposer from 'expo-mail-composer';
+import CustomText from './CustomText';
+import SymbolLogo from '../assets/symbolLogo.svg';
+import TypoLogo from '../assets/typoLogo.svg';
 
 const DrawerContent = () => {
   const { userId, email, loginType } = useRecoilValue(userInfo);
@@ -104,39 +107,53 @@ const DrawerContent = () => {
 
   return (
     <View style={styles.container}>
-      <EmailBadge email={email} loginType={loginType} />
-      <View style={styles.buttonBox}>
-        <View style={styles.buttonItem}>
-          <RowButton
-            text="로그아웃"
-            color="red"
-            buttonHandler={() => {
-              setModal(confirm);
-            }}
-          />
+      <View style={styles.topContent}>
+        <View style={styles.logo}>
+          <SymbolLogo width={40} height={40.67} />
+          <TypoLogo width={128} height={21.55} />
         </View>
-        {userId !== 0 && (
+        {userId !== 0 && <EmailBadge email={email} loginType={loginType} />}
+        <CustomText fontWeight={500} style={styles.greeting}>
+          가수님, 오늘도 흥겨운 하루 되세요!
+        </CustomText>
+        <View style={styles.buttonBox}>
+          {userId !== 0 && (
+            <View style={styles.buttonItem}>
+              <TransparentButton
+                text="로그아웃"
+                color="white"
+                fontSize={24}
+                buttonHandler={() => {
+                  setModal(confirm);
+                }}
+              />
+            </View>
+          )}
           <View style={styles.buttonItem}>
-            <RowButton
-              text="탈퇴하기"
-              color="lightGray"
+            <TransparentButton
+              text="문의하기"
+              color="white"
+              fontSize={24}
               buttonHandler={() => {
-                setModal(confirmLeave);
+                resetModal();
+                sendEmail();
               }}
             />
           </View>
-        )}
+        </View>
+      </View>
+      {userId !== 0 && (
         <View style={styles.buttonItem}>
-          <RowButton
-            text="문의하기"
-            color="lime"
+          <TransparentButton
+            text="회원탈퇴"
+            fontSize={16}
+            color="white"
             buttonHandler={() => {
-              resetModal();
-              sendEmail();
+              setModal(confirmLeave);
             }}
           />
         </View>
-      </View>
+      )}
     </View>
   );
 };

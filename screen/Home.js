@@ -27,7 +27,13 @@ const Home = () => {
         drawerStyle={{ backgroundColor: theme.background }}
         renderDrawerContent={() => {
           return (
-            <View style={{ paddingHorizontal: 32, paddingVertical: 50 }}>
+            <View
+              style={{
+                paddingHorizontal: 16,
+                paddingTop: 79,
+                paddingBottom: 40,
+              }}
+            >
               <View>
                 <DrawerContent />
               </View>
