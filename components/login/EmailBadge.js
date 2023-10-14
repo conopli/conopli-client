@@ -7,22 +7,17 @@ import Google from '../../assets/google.svg';
 
 const EmailBadge = ({ email, loginType }) => {
   return (
-    <View style={styles.emailInfo}>
-      <CustomText fontWeight={600} style={styles.descText}>
-        로그인 정보
+    <View style={[styles.email, styles[loginType]]}>
+      <CustomText fontWeight={600} style={styles.emailText}>
+        {email}
       </CustomText>
-      <View style={[styles.email, styles[loginType]]}>
-        <CustomText fontWeight={600} style={styles.emailText}>
-          {email}
-        </CustomText>
-        {loginType === 'KAKAO' ? (
-          <Kakao width={16} />
-        ) : loginType === 'GOOGLE' ? (
-          <Google width={16} />
-        ) : (
-          <Naver width={16} />
-        )}
-      </View>
+      {loginType === 'KAKAO' ? (
+        <Kakao width={16} />
+      ) : loginType === 'GOOGLE' ? (
+        <Google width={16} />
+      ) : (
+        <Naver width={16} />
+      )}
     </View>
   );
 };

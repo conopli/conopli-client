@@ -2,21 +2,13 @@ import { StyleSheet } from 'react-native';
 import { theme } from '../../theme';
 
 const styles = StyleSheet.create({
-  emailInfo: {
-    alignItems: 'center',
-    marginBottom: 48,
-    rowGap: 8,
-  },
   email: {
     flexDirection: 'row',
-    padding: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
-  },
-  descText: {
-    fontSize: 16,
-    color: theme.white,
   },
   KAKAO: {
     backgroundColor: theme.kakao,
