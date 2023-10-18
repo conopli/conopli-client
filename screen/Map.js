@@ -18,9 +18,8 @@ const Map = () => {
     longitude: 126.9779451,
   });
   const [toggle, setToggle] = useState('코인노래방');
-  const [mapUri, setMapUri] = useState(
-    `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
-  );
+  const [mapUriKey, setMapUriKey] = useState('코인노래');
+  const mapUri = `${BASE_URL}/maps?searchType=${mapUriKey}&lng=${location.longitude}&lat=${location.latitude}`;
 
   useEffect(() => {
     getLocation();
@@ -65,13 +64,9 @@ const Map = () => {
 
   useEffect(() => {
     if (toggle === '코인노래방') {
-      setMapUri(
-        `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
-      );
+      setMapUriKey('코인노래');
     } else {
-      setMapUri(
-        `${BASE_URL}/maps?searchType=노래연습장&lng=${location.longitude}&lat=${location.latitude}`,
-      );
+      setMapUriKey('노래연습장');
     }
   }, [toggle]);
 
