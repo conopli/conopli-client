@@ -1,16 +1,12 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { FontAwesome5, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
-import { theme } from '../theme';
 import {
-  Map,
-  Populer,
-  ListHome,
-  Search,
-  Setting,
-  Login,
-  New,
-} from './index.js';
+  FontAwesome5,
+  Entypo,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
+import { theme } from '../theme';
+import { Map, Populer, ListHome, Search, Login, New } from './index.js';
 import GlobalModal from '../components/modal/GlobalModal';
 import { Drawer } from 'react-native-drawer-layout';
 import DrawerContent from '../components/DrawerContent';
@@ -85,55 +81,61 @@ const Home = () => {
             ),
           })}
         >
-        <Tab.Screen
-          name="Populer"
-          component={Populer}
-          options={{
-            title: '인기 차트',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="hotjar" size={20} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="New"
-          component={New}
-          options={{
-            title: '신곡',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="new-box" size={20} color={color} />
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name="Search"
-          component={Search}
-          options={{
-            title: '검색',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="search" size={20} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ListHome"
-          component={userId ? ListHome : Login}
-          options={{
-            title: '플레이리스트',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="music" size={20} color={color} />
-            ),
-            headerShown: userId ? false : true,
-          }}
-        />
-        <Tab.Screen
-          name="Map"
-          component={userId ? Map : Login}
-          options={{
-            title: '주변',
-            tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="map-marked-alt" size={20} color={color} />
+          <Tab.Screen
+            name="Populer"
+            component={Populer}
+            options={{
+              title: '인기 차트',
+              tabBarIcon: ({ color }) => (
+                <FontAwesome5 name="hotjar" size={20} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="New"
+            component={New}
+            options={{
+              title: '신곡',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons
+                  name="new-box"
+                  size={20}
+                  color={color}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Search"
+            component={Search}
+            options={{
+              title: '검색',
+              tabBarIcon: ({ color }) => (
+                <FontAwesome5 name="search" size={20} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="ListHome"
+            component={userId ? ListHome : Login}
+            options={{
+              title: '플레이리스트',
+              tabBarIcon: ({ color }) => (
+                <FontAwesome5 name="music" size={20} color={color} />
+              ),
+              headerShown: userId ? false : true,
+            }}
+          />
+          <Tab.Screen
+            name="Map"
+            component={userId ? Map : Login}
+            options={{
+              title: '주변',
+              tabBarIcon: ({ color }) => (
+                <FontAwesome5 name="map-marked-alt" size={20} color={color} />
+              ),
+            }}
+          />
         </Tab.Navigator>
         <GlobalModal />
       </Drawer>
