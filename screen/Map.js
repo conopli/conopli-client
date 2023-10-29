@@ -7,7 +7,6 @@ import {
   getCurrentPositionAsync,
 } from 'expo-location';
 import { useEffect, useState } from 'react';
-import { BASE_URL } from 'react-native-dotenv';
 import { makeToast } from '../util';
 import Constants from 'expo-constants';
 
@@ -18,8 +17,9 @@ const Map = () => {
     longitude: 126.9779451,
   });
   const [toggle, setToggle] = useState('코인노래방');
+  const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
   const [mapUri, setMapUri] = useState(
-    `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
+    `${baseUrl}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
   );
 
   useEffect(() => {
@@ -66,11 +66,11 @@ const Map = () => {
   useEffect(() => {
     if (toggle === '코인노래방') {
       setMapUri(
-        `${BASE_URL}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
+        `${baseUrl}/maps?searchType=코인노래&lng=${location.longitude}&lat=${location.latitude}`,
       );
     } else {
       setMapUri(
-        `${BASE_URL}/maps?searchType=노래연습장&lng=${location.longitude}&lat=${location.latitude}`,
+        `${baseUrl}/maps?searchType=노래연습장&lng=${location.longitude}&lat=${location.latitude}`,
       );
     }
   }, [toggle]);
