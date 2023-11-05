@@ -31,13 +31,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingRight: 12,
   },
-  numbox: {
+  num: {
     flexDirection: 'row',
-    width: 80,
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    columnGap: 4,
+  },
+  nums: {
     paddingRight: 16,
   },
-  number: {
+  numText: {
     fontSize: 20,
   },
 });

@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import styles from './Search.style';
-import SmallButton from '../components/SmallButton';
 import { useState, useRef, useEffect } from 'react';
 import { SearchButton, MusicItem, CustomText } from '../components';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -16,8 +15,6 @@ import { theme } from '../theme.js';
 const Search = ({ navigation, route }) => {
   const [searchResult, setSearchResult] = useState(null);
   const [textValue, setTextValue] = useState('');
-  //국가
-  const [nation, setNation] = useState('KOR');
   //제목 vs 가수 필터 버튼 값
   const [isClicked, setIsClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,14 +25,9 @@ const Search = ({ navigation, route }) => {
   const server = useServer();
   const inputRef = useRef(null);
 
-  const getData = async ({
-    filter = 1,
-    textValue = '',
-    nation = 'KOR',
-    page = 0,
-  }) => {
+  const getData = async ({ filter = 1, textValue = '', page = 0 }) => {
     const { data } = await server.get(
-      `/api/search?searchType=${filter}&searchKeyWord=${textValue}&searchNation=${nation}&page=${page}`,
+      `/api/search?searchType=${filter}&searchKeyWord=${textValue}&page=${page}`,
     );
 
     return data;
@@ -52,11 +44,11 @@ const Search = ({ navigation, route }) => {
 
     try {
       setIsLoading(true);
-      const params = { filter, textValue, nation, page: pageInfo.page };
+      const params = { filter, textValue, page: pageInfo.page };
       const data = await getData(params);
       setSearchResult(data.data);
       setPageInfo(data.pageInfo);
-      setPrevConfig({ filter, textValue, nation });
+      setPrevConfig({ filter, textValue });
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -73,10 +65,10 @@ const Search = ({ navigation, route }) => {
     if (page === totalPages - 1 || this.onEndReachedCalledDuringMomentum)
       return;
 
-    const { filter, textValue, nation } = prevConfig;
+    const { filter, textValue } = prevConfig;
 
     setIsAddLoading(true);
-    const params = { filter, textValue, nation, page: page + 1 };
+    const params = { filter, textValue, page: page + 1 };
     const data = await getData(params);
     setSearchResult((prev) => [...prev, ...data.data]);
     setPageInfo(data.pageInfo);
@@ -94,38 +86,12 @@ const Search = ({ navigation, route }) => {
     navigation.addListener('focus', () => {
       //필터 및 검색어 초기화
       initializeInput();
-      setNation('KOR');
       setIsClicked(false);
     });
   }, [route]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttonBox}>
-        <SmallButton
-          text="한국"
-          isClicked={nation === 'KOR'}
-          setIsClicked={() => {
-            setNation('KOR');
-          }}
-        />
-        <View style={styles.abroad}>
-          <SmallButton
-            text="영미"
-            isClicked={nation === 'ENG'}
-            setIsClicked={() => {
-              setNation('ENG');
-            }}
-          />
-          <SmallButton
-            text="일본"
-            isClicked={nation === 'JPN'}
-            setIsClicked={() => {
-              setNation('JPN');
-            }}
-          />
-        </View>
-      </View>
       <View style={styles.search}>
         <SearchButton isClicked={isClicked} setIsClicked={setIsClicked} />
         <View style={styles.inputContainer}>

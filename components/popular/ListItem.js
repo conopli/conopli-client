@@ -7,9 +7,11 @@ import { addSongProps, alertProps } from '../../util/modalProps.js';
 import userPlayList from '../../recoil/userPlayList';
 import userInfo from '../../recoil/userInfo.js';
 import { CustomText } from '../index';
+import TJ from '../../assets/tjIcon.svg';
+import KY from '../../assets/kyIcon.svg';
 
 const ListItem = ({ item }) => {
-  const { ranking, title, singer, num } = item;
+  const { ranking, title, singer, num, kyNum } = item;
   const setModal = useSetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
   const { userId } = useRecoilValue(userInfo);
@@ -43,10 +45,19 @@ const ListItem = ({ item }) => {
           {singer}
         </CustomText>
       </View>
-      <View style={styles.numbox}>
-        <CustomText fontWeight={600} style={styles.number}>
-          {num}
-        </CustomText>
+      <View style={styles.nums}>
+        <View style={styles.num}>
+          <TJ />
+          <CustomText fontWeight={600} style={styles.numText}>
+            {num}
+          </CustomText>
+        </View>
+        <View style={styles.num}>
+          <KY />
+          <CustomText fontWeight={600} style={styles.numText}>
+            {kyNum ? kyNum : '-'}
+          </CustomText>
+        </View>
       </View>
     </TouchableOpacity>
   );
