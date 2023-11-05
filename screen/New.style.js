@@ -8,8 +8,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingLeft: 16,
     paddingRight: 16,
-    paddingTop: 16,
   },
+  pickerContainer: {
+    flexDirection: 'row',
+    width: '65%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    columnGap: 4,
+    paddingVertical: 16,
+  },
+  picker: {
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    borderWidth: 0,
+    minHeight: 'auto',
+  },
+  dropdownContainer: {
+    borderWidth: 0,
+    backgroundColor: theme.background,
+    shadowColor: theme.black,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+
+    elevation: 12,
+  },
+  dropdownTextStyle: {
+    fontFamily: 'Pretendard-600',
+    fontSize: 20,
+    color: theme.white,
+    textAlign: 'left',
+  },
+  dropdownLabelStyle: {
+    fontFamily: 'Pretendard-600',
+    fontSize: 20,
+    color: theme.white,
+  },
+
   buttonBox: {
     marginVertical: 16,
     flexDirection: 'row',
