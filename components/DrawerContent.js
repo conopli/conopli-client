@@ -11,14 +11,19 @@ import * as MailComposer from 'expo-mail-composer';
 import CustomText from './CustomText';
 import SymbolLogo from '../assets/symbolLogo.svg';
 import TypoLogo from '../assets/typoLogo.svg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import DrawerState from '../recoil/drawer';
 
 const DrawerContent = () => {
   const { userId, email, loginType } = useRecoilValue(userInfo);
   const resetUserInfo = useResetRecoilState(userInfo);
   const resetPlayList = useResetRecoilState(userPlayList);
   const resetModal = useResetRecoilState(ModalState);
+  const resetDrawer = useResetRecoilState(DrawerState);
   const setModal = useSetRecoilState(ModalState);
   const server = useServer();
+  const navigation = useNavigation();
 
   //로그아웃
   const confirm = confirmProps(
@@ -35,7 +40,9 @@ const DrawerContent = () => {
     resetUserInfo();
     resetPlayList();
     resetModal();
+    resetDrawer();
     navigation.navigate('Populer');
+
     makeToast('로그아웃이 완료되었습니다.');
   };
 
