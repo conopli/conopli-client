@@ -7,7 +7,6 @@ import {
   getCurrentPositionAsync,
 } from 'expo-location';
 import { useEffect, useState } from 'react';
-import { BASE_URL } from 'react-native-dotenv';
 import { makeToast } from '../util';
 import Constants from 'expo-constants';
 

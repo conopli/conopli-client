@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { BASE_URL } from 'react-native-dotenv';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
@@ -12,8 +11,9 @@ const useServer = () => {
   const [{ Authorization, userId }, setUserInfo] = useRecoilState(userInfo);
   const resetUserInfo = useResetRecoilState(userInfo);
   const navigation = useNavigation();
+  const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
 
-  server.defaults.baseURL = BASE_URL;
+  server.defaults.baseURL = baseUrl;
 
   server.interceptors.request.use(
     async (config) => {
