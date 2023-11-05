@@ -18,11 +18,16 @@ const Populer = ({ navigation }) => {
   const month = m <= 9 ? '0' + m : m;
 
   const getData = async () => {
-    const { data } = await server.get(
-      `/api/search/popular?searchType=${nation}&yy=${year}&mm=${month}&page=${curPage.page}`,
-    );
-    return data;
+    try {
+      const { data } = await server.get(
+        `/api/search/popular?searchType=${nation}&yy=${year}&mm=${month}&page=${curPage.page}`,
+      );
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
   };
+
   const getPopulerList = async () => {
     // * 최초로 인기곡 리스트 받아오는 함수
     try {

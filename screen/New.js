@@ -6,21 +6,38 @@ import { useServer } from '../util';
 import { MusicItem } from '../components';
 
 const New = ({ navigation }) => {
-  const [visibleList, setVisibleList] = useState([]);
-  const [stockList, setStockList] = useState([]);
+  const [songList, setSongList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAddLoading, setIsAddLoading] = useState(false);
+  const [curPage, setCurPage] = useState({ page: 0, totalPages: null });
+  const year = new Date().getFullYear();
+  const m = new Date().getMonth() + 1;
+  const month = m <= 9 ? '0' + m : m;
+  const [date, setDate] = useState({ year, month });
   const server = useServer();
 
+  const getData = async () => {
+    try {
+      const { data } = await server.get(
+        `/api/search/new-music?yy=${date.year}&mm=${date.month}&page=${curPage.page}`,
+      );
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const getNewList = async () => {
+    // * 최초로 신곡 리스트 받아오는 함수
     try {
       setIsLoading(true);
 
-      const {
-        data: { data },
-      } = await server.get(`/api/search/new-music`);
+      const { data, pageInfo } = await getData();
+      setSongList(data);
 
-      setVisibleList(data.slice(0, 20));
-      setStockList(data.slice(20));
+      const { page, totalPages } = pageInfo;
+      // * 페이지 증가 시키고 저장
+      setCurPage({ page: page + 1, totalPages });
 
       setIsLoading(false);
     } catch (e) {
@@ -28,16 +45,29 @@ const New = ({ navigation }) => {
     }
   };
 
-  const addNewList = () => {
-    if (stockList.length !== 0) {
-      setVisibleList((prev) => [...prev, ...stockList.slice(0, 20)]);
-      setStockList((prev) => prev.slice(20));
+  const addNewList = async () => {
+    if (curPage.page < curPage.totalPages && !isAddLoading) {
+      if (curPage.page < curPage.totalPages && !isAddLoading) {
+        try {
+          setIsAddLoading(true);
+
+          const { data, pageInfo } = await getData();
+          setSongList((prev) => [...prev, ...data]);
+
+          const { page, totalPages } = pageInfo;
+          // * 페이지 증가 시키고 저장
+          setCurPage({ page: page + 1, totalPages });
+          setIsAddLoading(false);
+        } catch (e) {
+          console.error(e);
+        }
+      } else return;
     }
   };
 
   useEffect(() => {
     getNewList();
-  }, []);
+  }, [date]);
 
   return (
     <View style={styles.container}>
@@ -52,10 +82,20 @@ const New = ({ navigation }) => {
           keyExtractor={(item) => item.num}
           style={styles.listContainer}
           contentContainerStyle={{ rowGap: 8, paddingBottom: 16 }}
-          data={visibleList}
+          data={songList}
           renderItem={({ item }) => <MusicItem isAdd={true} item={item} />}
           onEndReached={addNewList}
           onEndReachedThreshold={0}
+          ListFooterComponent={(props) =>
+            isAddLoading && (
+              <ActivityIndicator
+                style={{ flex: 1 }}
+                size="large"
+                color={theme.lime}
+                {...props}
+              />
+            )
+          }
         />
       )}
     </View>
