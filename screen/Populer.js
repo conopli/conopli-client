@@ -5,6 +5,7 @@ import { View, FlatList, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import { theme } from '../theme';
 import { useServer } from '../util';
+import { year, month } from '../util';
 
 const Populer = ({ navigation }) => {
   const [nation, setNation] = useState(1);
@@ -13,9 +14,6 @@ const Populer = ({ navigation }) => {
   const [isAddLoading, setIsAddLoading] = useState(false);
   const [curPage, setCurPage] = useState({ page: 0, totalPages: null });
   const server = useServer();
-  const year = new Date().getFullYear();
-  const m = new Date().getMonth() + 1;
-  const month = m <= 9 ? '0' + m : m;
 
   const getData = async () => {
     try {
