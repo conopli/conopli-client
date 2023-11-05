@@ -8,39 +8,55 @@ import { useServer } from '../util';
 
 const Populer = ({ navigation }) => {
   const [nation, setNation] = useState(1);
-  const [visibleList, setVisibleList] = useState([]);
-  const [stockList, setStockList] = useState([]);
+  const [songList, setSongList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAddLoading, setIsAddLoading] = useState(false);
+  const [curPage, setCurPage] = useState({ page: 0, totalPages: null });
   const server = useServer();
+  const year = new Date().getFullYear();
+  const m = new Date().getMonth() + 1;
+  const month = m <= 9 ? '0' + m : m;
 
+  const getData = async () => {
+    const { data } = await server.get(
+      `/api/search/popular?searchType=${nation}&yy=${year}&mm=${month}&page=${curPage.page}`,
+    );
+    return data;
+  };
   const getPopulerList = async () => {
-    const year = new Date().getFullYear();
-    const m = new Date().getMonth() + 1;
-    const month = m <= 9 ? '0' + m : m;
-
+    // * 최초로 인기곡 리스트 받아오는 함수
     try {
       setIsLoading(true);
 
-      const {
-        data: { data },
-      } = await server.get(
-        `/api/search/popular?searchType=${nation}&syy=${year}&smm=${month}&eyy=${year}&emm=${month}`,
-      );
+      const { data, pageInfo } = await getData();
+      setSongList(data);
 
-      setVisibleList(data.slice(0, 20));
-      setStockList(data.slice(20));
-
+      const { page, totalPages } = pageInfo;
+      // * 페이지 증가 시키고 저장
+      setCurPage({ page: page + 1, totalPages });
       setIsLoading(false);
     } catch (e) {
       console.error(e);
     }
   };
 
-  const addPopulerList = () => {
-    if (stockList.length !== 0) {
-      setVisibleList((prev) => [...prev, ...stockList.slice(0, 20)]);
-      setStockList((prev) => prev.slice(20));
-    }
+  const addPopulerList = async () => {
+    // * 페이지네이션을 위해 추가로 리스트 받아오는 함수
+    if (curPage.page < curPage.totalPages && !isAddLoading) {
+      try {
+        setIsAddLoading(true);
+
+        const { data, pageInfo } = await getData();
+        setSongList((prev) => [...prev, ...data]);
+
+        const { page, totalPages } = pageInfo;
+        // * 페이지 증가 시키고 저장
+        setCurPage({ page: page + 1, totalPages });
+        setIsAddLoading(false);
+      } catch (e) {
+        console.error(e);
+      }
+    } else return;
   };
 
   useEffect(() => {
@@ -55,6 +71,7 @@ const Populer = ({ navigation }) => {
           isClicked={nation === 1}
           setIsClicked={() => {
             setNation(1);
+            setCurPage((prev) => ({ ...prev, page: 0 }));
           }}
         />
         <View style={styles.abroad}>
@@ -63,6 +80,7 @@ const Populer = ({ navigation }) => {
             isClicked={nation === 2}
             setIsClicked={() => {
               setNation(2);
+              setCurPage((prev) => ({ ...prev, page: 0 }));
             }}
           />
           <SmallButton
@@ -70,6 +88,7 @@ const Populer = ({ navigation }) => {
             isClicked={nation === 3}
             setIsClicked={() => {
               setNation(3);
+              setCurPage((prev) => ({ ...prev, page: 0 }));
             }}
           />
         </View>
@@ -85,10 +104,20 @@ const Populer = ({ navigation }) => {
           keyExtractor={(item) => item.num}
           style={styles.listContainer}
           contentContainerStyle={{ rowGap: 8, paddingBottom: 16 }}
-          data={visibleList}
+          data={songList}
           renderItem={({ item }) => <ListItem item={item} />}
           onEndReached={addPopulerList}
           onEndReachedThreshold={0}
+          ListFooterComponent={(props) =>
+            isAddLoading && (
+              <ActivityIndicator
+                style={{ flex: 1 }}
+                size="large"
+                color={theme.lime}
+                {...props}
+              />
+            )
+          }
         />
       )}
     </View>
