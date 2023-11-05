@@ -18,7 +18,8 @@ const Map = () => {
   });
   const [toggle, setToggle] = useState('코인노래방');
   const [mapUriKey, setMapUriKey] = useState('코인노래');
-  const mapUri = `${BASE_URL}/maps?searchType=${mapUriKey}&lng=${location.longitude}&lat=${location.latitude}`;
+  const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
+  const mapUri = `${baseUrl}/maps?searchType=${mapUriKey}&lng=${location.longitude}&lat=${location.latitude}`;
 
   useEffect(() => {
     getLocation();
