@@ -160,7 +160,9 @@ const Login = ({ navigation }) => {
     }
 
     //* 발급받은 accessToken으로 서버에게 유저 정보 받아옴
+    console.log('before');
     const userInfo = await getUserInfo(type, accessToken);
+    console.log('after');
 
     //* userInfo를 올바르게 받아올 때만 이후 로직 실행
     if (typeof userInfo === 'object') {
@@ -251,9 +253,8 @@ const Login = ({ navigation }) => {
             }
             injectedJavaScript={INJECTED_JS}
             onMessage={(e) => {
-              // console.log(e);
               const { url } = e.nativeEvent;
-              if (url.startsWith(redirectUri)) {
+              if (url.startsWith(baseUrl)) {
                 getToken(url);
               }
             }}
