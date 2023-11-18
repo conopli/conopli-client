@@ -251,7 +251,6 @@ const Login = ({ navigation }) => {
             }
             injectedJavaScript={INJECTED_JS}
             onMessage={(e) => {
-              // console.log(e);
               const { url } = e.nativeEvent;
               if (url.startsWith(redirectUri)) {
                 getToken(url);

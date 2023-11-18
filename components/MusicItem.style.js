@@ -29,18 +29,26 @@ const styles = StyleSheet.create({
     rowGap: 4,
   },
   title: {
+    flexDirection: 'row',
+    columnGap: 4,
+  },
+  titleText: {
     fontSize: 16,
     paddingRight: 12,
   },
   artist: {
-    fontSize: 16,
+    fontSize: 14,
     paddingRight: 12,
   },
+  nums: {},
   num: {
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    columnGap: 4,
   },
   numText: {
+    textAlign: 'center',
     fontSize: 20,
   },
 });
