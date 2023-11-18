@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
     flexDirection: 'row',
-    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
@@ -26,7 +25,6 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 20,
-    fontWeight: 700,
     color: theme.black,
     marginLeft: 8,
     top: -1,

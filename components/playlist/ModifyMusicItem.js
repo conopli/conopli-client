@@ -28,7 +28,7 @@ const ModifyMusicItem = ({ item, select, setSelect }) => {
       onPress={selectHandler}
     >
       <View style={styles.songInfo}>
-        <CustomText style={styles.title} numberOfLines={1}>
+        <CustomText fontWeight={600} style={styles.title} numberOfLines={1}>
           {title}
         </CustomText>
         <CustomText style={styles.artist} numberOfLines={1}>
@@ -36,7 +36,9 @@ const ModifyMusicItem = ({ item, select, setSelect }) => {
         </CustomText>
       </View>
       <View style={styles.numberBox}>
-        <CustomText style={styles.number}>{num}</CustomText>
+        <CustomText fontWeight={600} style={styles.number}>
+          {num}
+        </CustomText>
       </View>
     </TouchableOpacity>
   );

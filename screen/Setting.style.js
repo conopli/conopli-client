@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
   },
   descText: {
     fontSize: 16,
-    fontWeight: 'bold',
     color: theme.white,
   },
   emailInfo: {

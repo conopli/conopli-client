@@ -6,9 +6,14 @@ import {
   PlaylistDetail,
   PlaylistSort,
 } from './Playlist';
+import { TouchableOpacity } from 'react-native';
+import DrawerState from '../recoil/drawer';
+import { useSetRecoilState } from 'recoil';
+import { Entypo } from '@expo/vector-icons';
 
 const ListHome = () => {
   const Stack = createNativeStackNavigator();
+  const setIsOpen = useSetRecoilState(DrawerState);
 
   return (
     <Stack.Navigator
@@ -18,7 +23,7 @@ const ListHome = () => {
           backgroundColor: theme.black,
         },
         headerTitleStyle: {
-          fontFamily: 'Pretendard-400',
+          fontFamily: 'Pretendard-600',
           fontSize: 24,
           color: theme.white,
         },
@@ -30,7 +35,18 @@ const ListHome = () => {
       <Stack.Screen
         name="Playlist"
         component={Playlist}
-        options={{ title: '내 플레이리스트' }}
+        options={{
+          title: '내 플레이리스트',
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                setIsOpen((prev) => !prev);
+              }}
+            >
+              <Entypo name="menu" size={24} color={theme.white} />
+            </TouchableOpacity>
+          ),
+        }}
       />
       <Stack.Screen name="Detail" component={PlaylistDetail} />
       <Stack.Screen

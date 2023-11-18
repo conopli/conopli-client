@@ -16,7 +16,10 @@ const RowButton = ({ text, buttonHandler, color }) => {
       }
       onPress={buttonHandler}
     >
-      <CustomText style={color === 'red' ? styles.whiteText : styles.blackText}>
+      <CustomText
+        fontWeight={700}
+        style={color === 'red' ? styles.whiteText : styles.blackText}
+      >
         {text}
       </CustomText>
     </TouchableOpacity>

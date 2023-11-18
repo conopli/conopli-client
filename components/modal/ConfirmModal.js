@@ -17,8 +17,12 @@ const ConfirmModal = ({ title, subTitle, buttonText, handler }) => {
         e.stopPropagation();
       }}
     >
-      <CustomText style={styles.title}>{title}</CustomText>
-      <CustomText style={styles.subTitle}>{subTitle}</CustomText>
+      <CustomText fontWeight={700} style={styles.title}>
+        {title}
+      </CustomText>
+      <CustomText fontWeight={500} style={styles.subTitle}>
+        {subTitle}
+      </CustomText>
       <View style={styles.buttonBox}>
         <View style={{ flex: 1, marginRight: 8, height: 40 }}>
           <RowButton

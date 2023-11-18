@@ -15,6 +15,8 @@ import {
   settingProps,
 } from './modalProps';
 
+import { year, month, yearMaker, monthMaker } from './date';
+
 import useServer from './useServer';
 import makeToast from './makeToast';
 import errorCodes from './error';
@@ -34,4 +36,8 @@ export {
   useServer,
   makeToast,
   errorCodes,
+  year,
+  month,
+  yearMaker,
+  monthMaker,
 };

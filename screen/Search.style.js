@@ -5,32 +5,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.background,
-    paddingTop: 24,
+    paddingTop: 16,
     paddingHorizontal: 16,
   },
-  dropdown: {
-    alignSelf: 'flex-end',
-    zIndex: 1,
+  buttonBox: {
+    marginBottom: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  picker: {
-    borderRadius: 4,
-    marginBottom: 12,
-    paddingVertical: 8,
-    minHeight: 'auto',
-    justifyContent: 'center',
-    borderWidth: 0,
-  },
-  dropdownContainer: {
-    borderWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-
-    elevation: 3,
+  abroad: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    columnGap: 8,
   },
   search: {
     flexDirection: 'row',
@@ -53,6 +41,10 @@ const styles = StyleSheet.create({
     paddingRight: 44,
   },
   searchIcon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    columnGap: 9,
     position: 'absolute',
     right: 0,
     paddingVertical: 6,
@@ -68,7 +60,6 @@ const styles = StyleSheet.create({
   descText: {
     color: theme.lightGray,
     fontSize: 20,
-    fontWeight: 'bold',
     textAlign: 'center',
   },
   tooltipContainer: {
@@ -84,7 +75,6 @@ const styles = StyleSheet.create({
   },
   msgText: {
     color: theme.black,
-    fontWeight: 'bold',
   },
   triangle: {
     position: 'absolute',

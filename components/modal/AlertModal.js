@@ -17,8 +17,10 @@ const AlertModal = ({ title, subTitle }) => {
         e.stopPropagation();
       }}
     >
-      <CustomText style={styles.title}>{title}</CustomText>
-      <CustomText style={styles.subTitle} align>
+      <CustomText fontWeight={700} style={styles.title}>
+        {title}
+      </CustomText>
+      <CustomText fontWeight={500} style={styles.subTitle} align>
         {subTitle}
       </CustomText>
       <View style={styles.buttonBox}>

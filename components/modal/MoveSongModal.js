@@ -68,18 +68,22 @@ const MoveSongModal = ({
         e.stopPropagation();
       }}
     >
-      <CustomText style={styles.title}>플레이리스트 이동</CustomText>
-      <CustomText style={styles.subTitle}>
+      <CustomText fontWeight={700} style={styles.title}>
+        플레이리스트 이동
+      </CustomText>
+      <CustomText fontWeight={500} style={styles.subTitle}>
         아래 플레이리스트로 이동하시겠습니까?
       </CustomText>
       <View style={styles.selectedContainer}>
-        <CustomText style={styles.selectedTitle}>플레이리스트 선택</CustomText>
+        <CustomText fontWeight={700} style={styles.selectedTitle}>
+          플레이리스트 선택
+        </CustomText>
         <View style={styles.pickerContainer}>
           <DropDownPicker
             style={styles.picker}
             dropDownContainerStyle={styles.dropdownContainer}
-            textStyle={{ fontFamily: 'Pretendard-500', fontSize: 16 }}
-            labelStyle={{ fontFamily: 'Pretendard-500', fontSize: 16 }}
+            textStyle={{ fontFamily: 'Pretendard-600', fontSize: 16 }}
+            labelStyle={{ fontFamily: 'Pretendard-600', fontSize: 16 }}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}
             placeholder={'플레이리스트 선택'}

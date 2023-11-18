@@ -18,8 +18,6 @@ const styles = StyleSheet.create({
   },
   rate: {
     fontSize: 32,
-    fontWeight: '800',
-    fontStyle: 'italic',
   },
   musicbox: {
     flex: 1,
@@ -27,23 +25,23 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: 700,
     paddingRight: 12,
   },
   singer: {
     fontSize: 16,
-    fontWeight: 500,
     paddingRight: 12,
   },
-  numbox: {
+  num: {
     flexDirection: 'row',
-    width: 80,
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    columnGap: 4,
+  },
+  nums: {
     paddingRight: 16,
   },
-  number: {
+  numText: {
     fontSize: 20,
-    fontWeight: 800,
   },
 });
 

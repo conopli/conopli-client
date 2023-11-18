@@ -7,9 +7,12 @@ import { addSongProps, alertProps } from '../util';
 import { memo } from 'react';
 import userInfo from '../recoil/userInfo.js';
 import CustomText from './CustomText';
+import TJ from '../assets/tjIcon.svg';
+import KY from '../assets/kyIcon.svg';
+import MR from '../assets/mrIcon.svg';
 
 const MusicItem = ({ item, isAdd = false }) => {
-  const { num, singer, title } = item;
+  const { num, singer, title, kyNum, mrSound } = item;
   const setModal = useSetRecoilState(ModalState);
   const playList = useRecoilValue(userPlayList);
   const { userId } = useRecoilValue(userInfo);
@@ -35,17 +38,33 @@ const MusicItem = ({ item, isAdd = false }) => {
       disabled={!isAdd}
     >
       <View style={styles.songInfo}>
-        <CustomText fontWeight={700} style={styles.title} numberOfLines={1}>
-          {title}
-        </CustomText>
+        <View style={styles.title}>
+          <CustomText
+            fontWeight={600}
+            style={styles.titleText}
+            numberOfLines={1}
+          >
+            {title}
+          </CustomText>
+          {mrSound && <MR />}
+        </View>
         <CustomText style={styles.artist} numberOfLines={1}>
           {singer}
         </CustomText>
       </View>
-      <View style={styles.num}>
-        <CustomText fontWeight={900} style={styles.numText}>
-          {num}
-        </CustomText>
+      <View style={styles.nums}>
+        <View style={styles.num}>
+          <TJ />
+          <CustomText fontWeight={600} style={styles.numText}>
+            {num}
+          </CustomText>
+        </View>
+        <View style={styles.num}>
+          <KY />
+          <CustomText fontWeight={600} style={styles.numText}>
+            {kyNum ? kyNum : '-'}
+          </CustomText>
+        </View>
       </View>
     </TouchableOpacity>
   );

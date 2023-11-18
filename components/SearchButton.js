@@ -10,7 +10,9 @@ const SearchButton = ({ isClicked, setIsClicked }) => {
       }}
       style={styles.button}
     >
-      <CustomText style={styles.text}>{isClicked ? '가수' : '제목'}</CustomText>
+      <CustomText fontWeight={700} style={styles.text}>
+        {isClicked ? '가수' : '제목'}
+      </CustomText>
     </TouchableOpacity>
   );
 };

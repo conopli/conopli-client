@@ -1,13 +1,6 @@
 import { View } from 'react-native';
 import styles from './Login.style.js';
 import { AuthButton, CloseButton } from '../components/login';
-import {
-  KAKAO_ID,
-  NAVER_ID,
-  NAVER_KEY,
-  GOOGLE_ID,
-  BASE_URL,
-} from 'react-native-dotenv';
 import { useSetRecoilState, useResetRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import ModalState from '../recoil/modal.js';
@@ -28,8 +21,12 @@ const Login = ({ navigation }) => {
   const reset = useResetRecoilState(ModalState);
   const [loginInfo, setLoginInfo] = useState({ type: '', uri: '' });
   const [isLogin, setIsLogin] = useState(false);
-
-  const redirectUri = BASE_URL + '/redirect';
+  const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
+  const kakaoId = process.env.EXPO_PUBLIC_KAKAO_ID;
+  const naverId = process.env.EXPO_PUBLIC_NAVER_ID;
+  const naverKey = process.env.EXPO_PUBLIC_NAVER_KEY;
+  const googleId = process.env.EXPO_PUBLIC_GOOGLE_ID;
+  const redirectUri = baseUrl + '/redirect';
 
   const getUserInfo = async (type, accessToken) => {
     try {
@@ -108,17 +105,17 @@ const Login = ({ navigation }) => {
     if (type === 'KAKAO') {
       setLoginInfo({
         type: 'KAKAO',
-        uri: `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_ID}&redirect_uri=${redirectUri}&response_type=code`,
+        uri: `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoId}&redirect_uri=${redirectUri}&response_type=code`,
       });
     } else if (type === 'NAVER') {
       setLoginInfo({
         type: 'NAVER',
-        uri: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_ID}&redirect_uri=${redirectUri}`,
+        uri: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naverId}&redirect_uri=${redirectUri}`,
       });
     } else if (type === 'GOOGLE') {
       setLoginInfo({
         type: 'GOOGLE',
-        uri: `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_ID}&redirect_uri=${redirectUri}&response_type=token&scope=https://www.googleapis.com/auth/userinfo.email`,
+        uri: `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleId}&redirect_uri=${redirectUri}&response_type=token&scope=https://www.googleapis.com/auth/userinfo.email`,
       });
     }
     // * 웹 뷰 오픈
@@ -144,9 +141,9 @@ const Login = ({ navigation }) => {
       //* url 부여
       let tokenUrl = '';
       if (type === 'KAKAO') {
-        tokenUrl = `https://kauth.kakao.com/oauth/token?client_id=${KAKAO_ID}&code=${code}&redirect_uri=${redirectUri}&grant_type=authorization_code`;
+        tokenUrl = `https://kauth.kakao.com/oauth/token?client_id=${kakaoId}&code=${code}&redirect_uri=${redirectUri}&grant_type=authorization_code`;
       } else if (type === 'NAVER') {
-        tokenUrl = `https://nid.naver.com/oauth2.0/token?client_id=${NAVER_ID}&code=${code}&redirect_uri=${redirectUri}&grant_type=authorization_code&state=9kgsGTfH4j7IyAkg&client_secret=${NAVER_KEY}`;
+        tokenUrl = `https://nid.naver.com/oauth2.0/token?client_id=${naverId}&code=${code}&redirect_uri=${redirectUri}&grant_type=authorization_code&state=9kgsGTfH4j7IyAkg&client_secret=${naverKey}`;
       }
 
       //* API 통신
@@ -213,10 +210,10 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <CustomText style={styles.login_text}>
+      <CustomText fontWeight={700} style={styles.loginText}>
         해당 기능은 로그인 후 이용 가능합니다.
       </CustomText>
-      <View style={styles.button_box}>
+      <View style={styles.buttonBox}>
         <View style={{ flex: 1, flexDirection: 'row', height: 40 }}>
           <AuthButton
             type="kakao"
@@ -254,7 +251,6 @@ const Login = ({ navigation }) => {
             }
             injectedJavaScript={INJECTED_JS}
             onMessage={(e) => {
-              // console.log(e);
               const { url } = e.nativeEvent;
               if (url.startsWith(redirectUri)) {
                 getToken(url);

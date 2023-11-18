@@ -89,12 +89,14 @@ const Setting = ({ navigation }) => {
           <TypoLogo width={160} height={26.94} />
         </View>
         <View style={styles.desc}>
-          <CustomText style={styles.descText}>
+          <CustomText fontWeight={400} style={styles.descText}>
             가수님, 오늘도 흥겨운 하루 되세요!
           </CustomText>
         </View>
         <View style={styles.emailInfo}>
-          <CustomText style={styles.descText}>이메일 정보</CustomText>
+          <CustomText fontWeight={600} style={styles.descText}>
+            이메일 정보
+          </CustomText>
           <View style={[styles.email, styles[loginType]]}>
             <CustomText fontWeight={600} style={styles.emailText}>
               {email}
