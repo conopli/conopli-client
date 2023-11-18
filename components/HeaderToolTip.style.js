@@ -2,21 +2,23 @@ import { StyleSheet } from 'react-native';
 import { theme } from '../theme';
 
 const styles = StyleSheet.create({
-  wrap: {
-    padding: 16,
-    backgroundColor: theme.violet,
+  tooltip: {
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 9,
     },
-    shadowOpacity: 0.48,
     shadowRadius: 11.95,
+    shadowOpacity: 0.48,
     elevation: 18,
+  },
+  content: {
+    padding: 16,
+    backgroundColor: theme.violet,
   },
   text: {
     color: theme.black,
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 14,
   },
 });
