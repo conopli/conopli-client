@@ -14,11 +14,14 @@ import { TouchableOpacity, View } from 'react-native';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import DrawerState from '../recoil/drawer';
+import TooltipState from '../recoil/tooltip';
+import BasicToolTip from '../components/BasicToolTip';
 
 const Home = () => {
   const Tab = createBottomTabNavigator();
   const { userId } = useRecoilValue(userInfo);
   const [isOpen, setIsOpen] = useRecoilState(DrawerState);
+  const [toolTip, setToolTip] = useRecoilState(TooltipState);
 
   return (
     <NavigationContainer>
@@ -45,7 +48,7 @@ const Home = () => {
         }}
       >
         <Tab.Navigator
-          initialRouteName="Populer"
+          initialRouteName="Search"
           screenOptions={({ route, navigation }) => ({
             tabBarActiveTintColor: theme.lime,
             tabBarInactiveTintColor: theme.violet,
@@ -79,6 +82,29 @@ const Home = () => {
                 <Entypo name="menu" size={24} color={theme.white} />
               </TouchableOpacity>
             ),
+            headerRight: () => {
+              if (route.name !== 'ListHome') {
+                return (
+                  <TouchableOpacity
+                    style={{ marginRight: 16 }}
+                    onPress={() => {
+                      const props = {
+                        show: !toolTip.show,
+                        routeType: route.name,
+                      };
+                      //route.name으로 상태 구분하기
+                      setToolTip(props);
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="information-outline"
+                      size={24}
+                      color={theme.white}
+                    />
+                  </TouchableOpacity>
+                );
+              }
+            },
           })}
         >
           <Tab.Screen
@@ -137,6 +163,7 @@ const Home = () => {
             }}
           />
         </Tab.Navigator>
+        <BasicToolTip />
         <GlobalModal />
       </Drawer>
     </NavigationContainer>
