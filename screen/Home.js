@@ -14,12 +14,15 @@ import { TouchableOpacity, View } from 'react-native';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import DrawerState from '../recoil/drawer';
-import HeaderToolTip from '../components/HeaderToolTip';
+import TooltipState from '../recoil/tooltip';
+import { tooltipWord } from '../static/word';
+import GlobalToolTip from '../components/tooltip/GlobalToolTip';
 
 const Home = () => {
   const Tab = createBottomTabNavigator();
   const { userId } = useRecoilValue(userInfo);
   const [isOpen, setIsOpen] = useRecoilState(DrawerState);
+  const [toolTip, setToolTip] = useRecoilState(TooltipState);
 
   return (
     <NavigationContainer>
@@ -82,7 +85,24 @@ const Home = () => {
             ),
             headerRight: () => {
               if (route.name !== 'ListHome') {
-                return <HeaderToolTip routeName={route.name} />;
+                return (
+                  <TouchableOpacity
+                    style={{ marginRight: 16 }}
+                    onPress={() => {
+                      const props = {
+                        show: !toolTip.show,
+                        text: tooltipWord[route.name],
+                      };
+                      setToolTip(props);
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="information-outline"
+                      size={24}
+                      color={theme.white}
+                    />
+                  </TouchableOpacity>
+                );
               }
             },
           })}
@@ -144,6 +164,7 @@ const Home = () => {
           />
         </Tab.Navigator>
         <GlobalModal />
+        <GlobalToolTip />
       </Drawer>
     </NavigationContainer>
   );
