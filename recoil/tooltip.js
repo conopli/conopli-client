@@ -4,7 +4,7 @@ const TooltipState = atom({
   key: 'TooltipState',
   default: {
     show: false,
-    routeType: '',
+    text: '',
   },
 });
 

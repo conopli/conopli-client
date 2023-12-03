@@ -15,7 +15,8 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import userInfo from '../recoil/userInfo';
 import DrawerState from '../recoil/drawer';
 import TooltipState from '../recoil/tooltip';
-import BasicToolTip from '../components/BasicToolTip';
+import { tooltipWord } from '../static/word';
+import GlobalToolTip from '../components/tooltip/GlobalToolTip';
 
 const Home = () => {
   const Tab = createBottomTabNavigator();
@@ -90,9 +91,8 @@ const Home = () => {
                     onPress={() => {
                       const props = {
                         show: !toolTip.show,
-                        routeType: route.name,
+                        text: tooltipWord[route.name],
                       };
-                      //route.name으로 상태 구분하기
                       setToolTip(props);
                     }}
                   >
@@ -163,8 +163,8 @@ const Home = () => {
             }}
           />
         </Tab.Navigator>
-        <BasicToolTip />
         <GlobalModal />
+        <GlobalToolTip />
       </Drawer>
     </NavigationContainer>
   );

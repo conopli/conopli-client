@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
   },
-  pickerContainer: {
+  pickersContainer: {
     flexDirection: 'row',
     width: '65%',
     justifyContent: 'center',

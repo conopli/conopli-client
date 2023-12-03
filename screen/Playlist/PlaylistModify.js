@@ -94,8 +94,15 @@ const PlaylistModify = ({ navigation, route }) => {
 
   //플레이리스트 내부에서 이동 (API 요청 전 현재 modify페이지 내부에서 삭제)
   const moveItemHandler = () => {
+    //현재 위치한 플레이리스트가 아닌 플레이리스트 리스트
+    const otherPlayList = playList.filter(
+      (playList) => playList.playListId !== playListId,
+    );
+
     if (!Object.keys(select).length) {
       makeToast('선택된 노래가 없습니다');
+    } else if (otherPlayList.length === 0) {
+      makeToast('곡을 이동할 플레이리스트가 존재하지 않습니다');
     } else {
       //모달 내에서 select를 선택된 플리와 합쳐 stack으로 만드는 작업 > moveItems에 저장해줌
       setModal(moveProps);

@@ -1,5 +1,5 @@
 import styles from './New.style.js';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList, ActivityIndicator, Platform } from 'react-native';
 import { useState, useEffect } from 'react';
 import { theme } from '../theme';
 import { useServer } from '../util';
@@ -82,8 +82,10 @@ const New = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <View style={styles.pickerContainer}>
+      <View
+        style={{ flexDirection: 'row', justifyContent: 'center', zIndex: 2 }}
+      >
+        <View style={styles.pickersContainer}>
           <DropDownPicker
             theme="DARK"
             style={[styles.picker]}
@@ -93,7 +95,6 @@ const New = () => {
             labelStyle={styles.dropdownLabelStyle}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}
-            // placeholder={'플레이리스트 선택'}
             open={yearOpen}
             value={curYear}
             items={yearItems}
@@ -103,7 +104,11 @@ const New = () => {
             onSelectItem={() => {
               setCurPage({ page: 0, totalPages: null });
             }}
+            autoScroll={true}
+            zIndex={1}
+            flatListProps={{ nestedScrollEnabled: true }}
           />
+
           <DropDownPicker
             theme="DARK"
             style={[styles.picker]}
@@ -113,7 +118,6 @@ const New = () => {
             labelStyle={styles.dropdownTextStyle}
             arrowIconContainerStyle={{ marginLeft: 4 }}
             tickIconContainerStyle={{ marginLeft: 4 }}
-            // placeholder={'플레이리스트 선택'}
             open={monthOpen}
             value={curMonth}
             items={monthItems}
@@ -123,6 +127,7 @@ const New = () => {
             onSelectItem={() => {
               setCurPage({ page: 0, totalPages: null });
             }}
+            autoScroll={true}
           />
         </View>
       </View>
