@@ -7,10 +7,7 @@ const isAndroid = Platform.OS === 'android';
 const styles = StyleSheet.create({
   backdrop: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'transparent',
-    paddingHorizontal: 14,
   },
   tooltip: {
     position: 'absolute',
