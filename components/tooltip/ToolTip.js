@@ -1,7 +1,6 @@
 import styles from './ToolTip.style';
 import { View } from 'react-native';
 import CustomText from '../CustomText';
-import { tooltipWord } from '../../static/word';
 
 const ToolTip = ({ text }) => {
   return (
