@@ -12,7 +12,6 @@ import {
   SettingModal,
 } from './index.js';
 import styles from './GlobalModal.style';
-import Tooltip from 'react-native-walkthrough-tooltip';
 
 const GlobalModal = () => {
   const { isOpen, modalType, props } = useRecoilValue(ModalState);
@@ -29,7 +28,6 @@ const GlobalModal = () => {
     addPlaylist: <AddPlaylistModal {...props} />,
     moveSong: <MoveSongModal {...props} />,
     setting: <SettingModal {...props} />,
-    tooltip: <Tooltip {...props} />,
   };
 
   return (
