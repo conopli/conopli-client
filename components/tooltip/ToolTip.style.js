@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { theme } from '../../theme';
+import { Platform } from 'react-native';
+
+const isAndroid = Platform.OS === 'android';
 
 const styles = StyleSheet.create({
   backdrop: {
@@ -11,8 +14,8 @@ const styles = StyleSheet.create({
   },
   tooltip: {
     position: 'absolute',
-    top: 95,
-    right: 13,
+    top: isAndroid ? 56 : 95,
+    right: isAndroid ? 12 : 13,
   },
   content: {
     padding: 16,
