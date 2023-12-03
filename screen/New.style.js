@@ -9,13 +9,19 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
   },
-  pickerContainer: {
+  pickersContainer: {
     flexDirection: 'row',
     width: '65%',
     justifyContent: 'center',
     alignItems: 'center',
     columnGap: 4,
     paddingVertical: 16,
+    zIndex: 1,
+  },
+  pickerContainer: {
+    flex: 1,
+    height: 40,
+    zIndex: 10,
   },
   picker: {
     backgroundColor: 'rgba(0, 0, 0, 0)',
