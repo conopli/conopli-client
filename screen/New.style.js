@@ -16,12 +16,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     columnGap: 4,
     paddingVertical: 16,
-    zIndex: 1,
-  },
-  pickerContainer: {
-    flex: 1,
-    height: 40,
-    zIndex: 10,
   },
   picker: {
     backgroundColor: 'rgba(0, 0, 0, 0)',

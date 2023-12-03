@@ -86,50 +86,49 @@ const New = () => {
         style={{ flexDirection: 'row', justifyContent: 'center', zIndex: 2 }}
       >
         <View style={styles.pickersContainer}>
-          <View style={styles.pickerContainer}>
-            <DropDownPicker
-              theme="DARK"
-              style={[styles.picker]}
-              containerStyle={{ width: 'auto', flex: 1 }}
-              dropDownContainerStyle={styles.dropdownContainer}
-              textStyle={styles.dropdownTextStyle}
-              labelStyle={styles.dropdownLabelStyle}
-              arrowIconContainerStyle={{ marginLeft: 4 }}
-              tickIconContainerStyle={{ marginLeft: 4 }}
-              open={yearOpen}
-              value={curYear}
-              items={yearItems}
-              setOpen={setYearOpen}
-              setValue={setCurYear}
-              setItems={setYearItems}
-              onSelectItem={() => {
-                setCurPage({ page: 0, totalPages: null });
-              }}
-              autoScroll={true}
-            />
-          </View>
-          <View style={styles.pickerContainer}>
-            <DropDownPicker
-              theme="DARK"
-              style={[styles.picker]}
-              dropDownContainerStyle={styles.dropdownContainer}
-              containerStyle={{ width: 'auto', flex: 1 }}
-              textStyle={styles.dropdownTextStyle}
-              labelStyle={styles.dropdownTextStyle}
-              arrowIconContainerStyle={{ marginLeft: 4 }}
-              tickIconContainerStyle={{ marginLeft: 4 }}
-              open={monthOpen}
-              value={curMonth}
-              items={monthItems}
-              setOpen={setMonthOpen}
-              setValue={setCurMonth}
-              setItems={setMonthItems}
-              onSelectItem={() => {
-                setCurPage({ page: 0, totalPages: null });
-              }}
-              autoScroll={true}
-            />
-          </View>
+          <DropDownPicker
+            theme="DARK"
+            style={[styles.picker]}
+            containerStyle={{ width: 'auto', flex: 1 }}
+            dropDownContainerStyle={styles.dropdownContainer}
+            textStyle={styles.dropdownTextStyle}
+            labelStyle={styles.dropdownLabelStyle}
+            arrowIconContainerStyle={{ marginLeft: 4 }}
+            tickIconContainerStyle={{ marginLeft: 4 }}
+            open={yearOpen}
+            value={curYear}
+            items={yearItems}
+            setOpen={setYearOpen}
+            setValue={setCurYear}
+            setItems={setYearItems}
+            onSelectItem={() => {
+              setCurPage({ page: 0, totalPages: null });
+            }}
+            autoScroll={true}
+            zIndex={1}
+            flatListProps={{ nestedScrollEnabled: true }}
+          />
+
+          <DropDownPicker
+            theme="DARK"
+            style={[styles.picker]}
+            dropDownContainerStyle={styles.dropdownContainer}
+            containerStyle={{ width: 'auto', flex: 1 }}
+            textStyle={styles.dropdownTextStyle}
+            labelStyle={styles.dropdownTextStyle}
+            arrowIconContainerStyle={{ marginLeft: 4 }}
+            tickIconContainerStyle={{ marginLeft: 4 }}
+            open={monthOpen}
+            value={curMonth}
+            items={monthItems}
+            setOpen={setMonthOpen}
+            setValue={setCurMonth}
+            setItems={setMonthItems}
+            onSelectItem={() => {
+              setCurPage({ page: 0, totalPages: null });
+            }}
+            autoScroll={true}
+          />
         </View>
       </View>
       {isLoading ? (
