@@ -7,12 +7,17 @@ import * as Font from 'expo-font';
 import * as Splash from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
+import axios from 'axios';
 
 Splash.preventAutoHideAsync();
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
+  const appVersion = '0.2';
+  const [isServerReady, setIsServerReady] = useState(true);
+  const [isFontLoading, setIsFontLoading] = useState(false);
   const [isHideSplash, setIsHideSplash] = useState(false);
+  const [isAllReady, setIsAllReady] = useState(false);
+
   const fetchFonts = async () => {
     await Font.loadAsync({
       Pretendard: require('./assets/fonts/PretendardJPVariable.ttf'),
@@ -26,19 +31,30 @@ export default function App() {
       'Pretendard-800': require('./assets/fonts/PretendardJP-ExtraBold.otf'),
       'Pretendard-900': require('./assets/fonts/PretendardJP-Black.otf'),
     });
-    setIsLoading(true);
+    setIsFontLoading(true);
+    console.log('폰트 로딩 완료');
   };
 
-  fetchFonts();
+  useEffect(() => {
+    const getServerStatus = async () => {
+      try {
+        const {
+          data: { data },
+        } = axios.get(`${process.env.EXPO_PUBLIC_BASE_URL}/`);
+      } catch (err) {}
+    };
+  });
 
   useEffect(() => {
-    if (isLoading) {
+    fetchFonts();
+
+    if (isFontLoading && isServerReady) {
       setIsHideSplash(true);
       setTimeout(() => {
         Splash.hideAsync();
       }, 200);
     }
-  }, [isLoading]);
+  }, [isFontLoading]);
 
   return (
     <RootSiblingParent>

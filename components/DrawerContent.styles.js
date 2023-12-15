@@ -11,20 +11,20 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   logo: {
-    marginBottom: 16.45,
-    rowGap: 16.88,
+    marginBottom: 20,
+    rowGap: 16,
   },
   greeting: {
     fontSize: 12,
     color: theme.white,
     marginBottom: 40,
-    marginTop: 16,
+    marginTop: 12,
   },
   buttonBox: {
     width: '100%',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    rowGap: 20,
+    rowGap: 12,
   },
   buttonItem: {
     height: 40,
