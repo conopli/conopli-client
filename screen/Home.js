@@ -49,7 +49,7 @@ const Home = () => {
         }}
       >
         <Tab.Navigator
-          initialRouteName="Search"
+          initialRouteName="Populer"
           screenOptions={({ route, navigation }) => ({
             tabBarActiveTintColor: theme.lime,
             tabBarInactiveTintColor: theme.violet,
