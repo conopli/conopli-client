@@ -8,15 +8,15 @@ import * as Splash from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
 import axios from 'axios';
+import { Alert, BackHandler, Linking } from 'react-native';
 
 Splash.preventAutoHideAsync();
 
 export default function App() {
   const appVersion = '0.2';
-  const [isServerReady, setIsServerReady] = useState(true);
+  const [isServerReady, setIsServerReady] = useState(false);
   const [isFontLoading, setIsFontLoading] = useState(false);
   const [isHideSplash, setIsHideSplash] = useState(false);
-  const [isAllReady, setIsAllReady] = useState(false);
 
   const fetchFonts = async () => {
     await Font.loadAsync({
@@ -32,29 +32,56 @@ export default function App() {
       'Pretendard-900': require('./assets/fonts/PretendardJP-Black.otf'),
     });
     setIsFontLoading(true);
-    console.log('폰트 로딩 완료');
+  };
+
+  const getServerStatus = async () => {
+    // TODO : API 업데이트 이후 주소 및 데이터 다루는거 수정
+    try {
+      const {
+        data: {
+          data: { version: serverVersion },
+        },
+      } = await axios.get(`${process.env.EXPO_PUBLIC_BASE_URL}/`);
+      setIsServerReady(serverVersion === appVersion);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
-    const getServerStatus = async () => {
-      try {
-        const {
-          data: { data },
-        } = axios.get(`${process.env.EXPO_PUBLIC_BASE_URL}/`);
-      } catch (err) {}
-    };
-  });
+    if (!isServerReady) {
+      Alert.alert(
+        '필수 업데이트 안내',
+        `새로운 버전이 업데이트 되었습니다.\n확인을 누르시면 스토어로 이동합니다.\n(업데이트를 하지 않으면 앱을 이용할 수 없습니다.)`,
+        [
+          {
+            text: '확인',
+            onPress: () => {
+              Linking.openURL('market://details?id=com.conopli');
+              BackHandler.exitApp();
+            },
+          },
+          {
+            text: '취소',
+            onPress: () => {
+              BackHandler.exitApp();
+            },
+            style: 'cancle',
+          },
+        ],
+      );
+      return;
+    }
 
-  useEffect(() => {
     fetchFonts();
 
-    if (isFontLoading && isServerReady) {
+    if (isFontLoading) {
       setIsHideSplash(true);
       setTimeout(() => {
         Splash.hideAsync();
       }, 200);
     }
-  }, [isFontLoading]);
+  }, []);
 
   return (
     <RootSiblingParent>
