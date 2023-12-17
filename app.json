@@ -2,7 +2,7 @@
   "expo": {
     "name": "코노플리",
     "slug": "conopli",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -12,7 +12,9 @@
       "resizeMode": "cover",
       "backgroundColor": "#0D0D0D"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false
     },
@@ -33,6 +35,7 @@
       "eas": {
         "projectId": "7df002a5-9860-4450-a3c9-70288bc363d4"
       }
-    }
+    },
+    "owner": "dev_gang"
   }
 }
